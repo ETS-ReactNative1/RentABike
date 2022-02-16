@@ -1,10 +1,8 @@
 import React from 'react'
-import { View, Text } from 'react-native-web'
+import { LoginForm } from './LoginForm'
 
 export const Login = () => {
   return (
-    <View>
-        <Text>Esto es un login</Text>
-    </View>
+    <LoginForm/>
   )
 }

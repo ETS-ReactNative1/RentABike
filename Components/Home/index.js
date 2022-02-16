@@ -1,5 +1,13 @@
 import React from 'react'
-import { View, Text } from 'react-native-web'
+import {
+    SafeAreaView,
+    StyleSheet,
+    ScrollView,
+    View,
+    Text,
+    StatusBar,
+    TextInput,
+  } from 'react-native'
 
 export const Home = () => {
   return (
