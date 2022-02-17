@@ -1,18 +1,20 @@
-import React from 'react'
+import React from 'react';
 import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
-    StatusBar,
-    TextInput,
-  } from 'react-native'
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+  StatusBar,
+  TextInput,
+} from 'react-native';
+import { Button } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-export const TypeOfUser = () => {
+export const TypeOfUser = ({navigation}) => {
   return (
-    <View>
-        <Text>Esto es type of users</Text>
-    </View>
-  )
-}
+    <SafeAreaView>
+      <Button onPress={()=>navigation.navigate('RentTabNavigation')}>I want a bike</Button>
+      <Button onPress={()=>navigation.navigate('RentTabNavigation')}>I have a bike</Button>
+    </SafeAreaView>
+  );
+};

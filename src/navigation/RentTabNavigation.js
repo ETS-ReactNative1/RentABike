@@ -1,9 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { LoginScreen } from '../Screens/LoginScreen';
-import { SingupScreen } from '../Screens/SingupScreen';
+import { MessageScreen } from '../Screens/MessageScreen';
 import { RenterHomeScreen } from '../Screens/RenterHomeScreen';
-import { TypeOfUser } from '../Screens/TypeOfUserScreen';
+import { ProfileScreen } from '../Screens/ProfileScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Tab = createBottomTabNavigator();
@@ -12,8 +11,8 @@ const RentTabNavigation = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name='LoginScreen'
-        component={LoginScreen}
+        name='RenterHomeScreen'
+        component={RenterHomeScreen}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
@@ -22,8 +21,8 @@ const RentTabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name='SingupScreen'
-        component={SingupScreen}
+        name='MessageScreen'
+        component={MessageScreen}
         options={{
           tabBarLabel: 'Messages',
           tabBarIcon: ({ color, size }) => (
@@ -32,8 +31,8 @@ const RentTabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name='TypeOfUserScreen'
-        component={RenterHomeScreen}
+        name='ProfileScreen'
+        component={ProfileScreen}
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (

@@ -9,8 +9,7 @@ import RentTabNavigation from './src/navigation/RentTabNavigation';
 export default function App() {
   return (
     <NavigationContainer>
-      {/* <NavigationStack /> */}
-      <RentTabNavigation />
+      <NavigationStack />
     </NavigationContainer>
   );
 }
