@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export const SingupForm = () => {
   const navigation = useNavigation();
-  const goToHome = () => navigation.navigate('HomeScreen');
+  const goToHome = () => navigation.navigate('TypeOfUser');
   const singupValidationSchema = useSingUpVal();
   return (
     <View style={styles.singupContainer}>

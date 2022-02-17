@@ -5,7 +5,7 @@ import React from 'react';
 import { LoginScreen } from './Screens/LoginScreen';
 import { SingupScreen } from './Screens/SingupScreen';
 import { StyleSheet, Text, View } from 'react-native';
-import { HomeScreen } from './Screens/HomeScreen';
+import { RenterHomeScreen } from './Screens/RenterHomeScreen';
 import { TypeOfUser } from './Components/TypeOfUser';
 
 const Stack = createNativeStackNavigator()
@@ -14,7 +14,7 @@ const MyStack = () => (
   <Stack.Navigator>
     <Stack.Screen name='LoginScreen' component={LoginScreen}/>
     <Stack.Screen name='SingupScreen' component={SingupScreen}/>
-    <Stack.Screen name='HomeScreen' component={HomeScreen}/>
+    <Stack.Screen name='RenterHomeScreen' component={RenterHomeScreen}/>
     <Stack.Screen name='TypeOfUser' component={TypeOfUser}/>
   </Stack.Navigator>
 )

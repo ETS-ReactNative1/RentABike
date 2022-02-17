@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export const LoginForm = () => {
   const navigation = useNavigation();
-  const goToHome = ()=> navigation.navigate('HomeScreen');
+  const goToHome = ()=> navigation.navigate('TypeOfUser');
   const loginValidationSchema = useSingUpVal();
   return (
     <View style={styles.loginContainer}>
