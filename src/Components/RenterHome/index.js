@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { List } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {
-  SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
@@ -18,7 +18,7 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import { firebaseConfig } from '../../config/database/firebase';
+import { firebaseConfig } from '../../../config/database/firebase';
 
 export const RenterHome = () => {
   const app = initializeApp(firebaseConfig);
@@ -38,19 +38,20 @@ export const RenterHome = () => {
       setBikes(item);
     });
   }, []);
-  console.log(bikes);
   return (
-    <View>
-      <Text>Esto es un Home</Text>
-      {bikes &&
-        bikes.map((e) => (
-          <List.Item
-            key={e.id}
-            title={e.model}
-            description={e.type}
-            left={(props) => <List.Icon {...props} icon='folder' />}
-          />
-        ))}
-    </View>
+    <>
+      <SafeAreaView>
+        <Text>Esto es un Home</Text>
+        {bikes &&
+          bikes.map((e) => (
+            <List.Item
+              key={e.id}
+              title={e.model}
+              description={e.type}
+              left={(props) => <List.Icon {...props} icon='folder' />}
+            />
+          ))}
+      </SafeAreaView>
+    </>
   );
 };

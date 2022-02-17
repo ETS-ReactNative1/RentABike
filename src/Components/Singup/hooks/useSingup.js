@@ -5,7 +5,7 @@ import {
   updateProfile,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { firebaseConfig } from '../../../config/database/firebase';
+import { firebaseConfig } from '../../../../config/database/firebase';
 import {
   getFirestore,
   collection,
@@ -23,11 +23,10 @@ export const useSingup = async (
   password,
   phoneNumber,
   displayName,
-  navigateHome,
+  navigation,
 ) => {
   await createUserWithEmailAndPassword(auth, email, password)
     .then((result) => {
-      //Add name
       const user = result.user;
       console.log('usuario registrado', user);
       console.log(displayName, phoneNumber);
@@ -36,9 +35,7 @@ export const useSingup = async (
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
-      // ..
     });
-  /*  const user = await auth.currentUser; */
   await updateProfile(auth.currentUser, {
     displayName: displayName,
   }).catch((error) => {
@@ -46,8 +43,6 @@ export const useSingup = async (
   });
   await onAuthStateChanged(auth, async (user) => {
     if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
       const uid = user.uid;
       try {
         await setDoc(doc(db, 'User', uid), {
@@ -59,11 +54,8 @@ export const useSingup = async (
         console.error('Error adding document: ', e);
       }
       console.log('sesión iniciado :', uid);
-      navigateHome();
-      // ...
+      navigation.navigate('TypeOfUserScreen');
     } else {
-      // User is signed out
-      // ...
     }
   });
 };

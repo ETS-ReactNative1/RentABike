@@ -4,19 +4,17 @@ import { styles } from './styles';
 import { View, Text, TextInput, Button } from 'react-native';
 import { useSingUpVal } from './hooks/useLoginVal';
 import { useLogin } from './hooks/useLogin';
-import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-export const LoginForm = () => {
-  const navigation = useNavigation();
-  const goToHome = ()=> navigation.navigate('TypeOfUser');
+export const LoginForm = ({ navigation }) => {
   const loginValidationSchema = useSingUpVal();
   return (
-    <View style={styles.loginContainer}>
+    <SafeAreaView style={styles.loginContainer}>
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
         onSubmit={(values) => {
-          useLogin(values.email, values.password, goToHome);
+          useLogin(values.email, values.password, navigation);
         }}
       >
         {({
@@ -57,6 +55,6 @@ export const LoginForm = () => {
           </>
         )}
       </Formik>
-    </View>
+    </SafeAreaView>
   );
 };

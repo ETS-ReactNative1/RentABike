@@ -4,14 +4,13 @@ import { styles } from './styles';
 import { View, Text, TextInput, Button } from 'react-native';
 import { useSingUpVal } from './hooks/useSingUpVal';
 import { useSingup } from './hooks/useSingup';
-import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-export const SingupForm = () => {
-  const navigation = useNavigation();
-  const goToHome = () => navigation.navigate('TypeOfUser');
+export const SingupForm = ({ navigation }) => {
+  /*   const goToHome = () => navigation.navigate('TypeOfUserScreen'); */
   const singupValidationSchema = useSingUpVal();
   return (
-    <View style={styles.singupContainer}>
+    <SafeAreaView style={styles.singupContainer}>
       <Formik
         validationSchema={singupValidationSchema}
         initialValues={{
@@ -27,7 +26,7 @@ export const SingupForm = () => {
             values.password,
             values.phone,
             values.name,
-            goToHome,
+            navigation,
           )
         }
       >
@@ -105,6 +104,6 @@ export const SingupForm = () => {
           </>
         )}
       </Formik>
-    </View>
+    </SafeAreaView>
   );
 };

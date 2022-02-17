@@ -1,28 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { LoginScreen } from './Screens/LoginScreen';
-import { SingupScreen } from './Screens/SingupScreen';
 import { StyleSheet, Text, View } from 'react-native';
-import { RenterHomeScreen } from './Screens/RenterHomeScreen';
-import { TypeOfUser } from './Components/TypeOfUser';
 
-const Stack = createNativeStackNavigator()
-
-const MyStack = () => (
-  <Stack.Navigator>
-    <Stack.Screen name='LoginScreen' component={LoginScreen}/>
-    <Stack.Screen name='SingupScreen' component={SingupScreen}/>
-    <Stack.Screen name='RenterHomeScreen' component={RenterHomeScreen}/>
-    <Stack.Screen name='TypeOfUser' component={TypeOfUser}/>
-  </Stack.Navigator>
-)
+import NavigationStack from './src/navigation/NavigationStack';
+import RentTabNavigation from './src/navigation/RentTabNavigation';
 
 export default function App() {
   return (
     <NavigationContainer>
-      <MyStack/>
+      {/* <NavigationStack /> */}
+      <RentTabNavigation />
     </NavigationContainer>
   );
 }
