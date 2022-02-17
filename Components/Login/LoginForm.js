@@ -1,22 +1,23 @@
 import React from 'react';
 import { Formik } from 'formik';
 import { styles } from './styles';
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-} from 'react-native';
-import { useSingUpVal } from './hooks/useSingUpVal';
+import { View, Text, TextInput, Button } from 'react-native';
+import { useSingUpVal } from './hooks/useLoginVal';
+import { useLogin } from './hooks/useLogin';
+import { useNavigation } from '@react-navigation/native';
 
 export const LoginForm = () => {
+  const navigation = useNavigation();
+  const goToHome = ()=> navigation.navigate('HomeScreen');
   const loginValidationSchema = useSingUpVal();
   return (
     <View style={styles.loginContainer}>
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => {
+          useLogin(values.email, values.password, goToHome);
+        }}
       >
         {({
           handleChange,

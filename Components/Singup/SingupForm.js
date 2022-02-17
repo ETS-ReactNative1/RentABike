@@ -1,22 +1,35 @@
 import React from 'react';
 import { Formik } from 'formik';
 import { styles } from './styles';
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-} from 'react-native';
+import { View, Text, TextInput, Button } from 'react-native';
 import { useSingUpVal } from './hooks/useSingUpVal';
+import { useSingup } from './hooks/useSingup';
+import { useNavigation } from '@react-navigation/native';
 
 export const SingupForm = () => {
+  const navigation = useNavigation();
+  const goToHome = () => navigation.navigate('HomeScreen');
   const singupValidationSchema = useSingUpVal();
   return (
     <View style={styles.singupContainer}>
       <Formik
         validationSchema={singupValidationSchema}
-        initialValues={{ name:"", email: '', phone:"", password: '', confirmPassword:"" }}
-        onSubmit={(values) => console.log(values)}
+        initialValues={{
+          name: '',
+          email: '',
+          phone: '',
+          password: '',
+          confirmPassword: '',
+        }}
+        onSubmit={(values) =>
+          useSingup(
+            values.email,
+            values.password,
+            values.phone,
+            values.name,
+            goToHome,
+          )
+        }
       >
         {({
           handleChange,
