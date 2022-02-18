@@ -10,6 +10,7 @@ import {
   StatusBar,
   TextInput,
   Button,
+  FlatList,
 } from 'react-native';
 import {
   getFirestore,
@@ -19,6 +20,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { firebaseConfig } from '../../../config/database/firebase';
+import { BikeCard } from './BikeCard';
 
 export const RenterHome = () => {
   const app = initializeApp(firebaseConfig);
@@ -42,16 +44,31 @@ export const RenterHome = () => {
     <>
       <SafeAreaView>
         <Text>Esto es un Home</Text>
-        {bikes &&
+        {/* {bikes &&
           bikes.map((e) => (
             <List.Item
               key={e.id}
-              title={e.model}
+              title={e.type}
               description={e.type}
               left={(props) => <List.Icon {...props} icon='folder' />}
             />
-          ))}
+          ))} */}
+
+        <FlatList
+          data={bikes}
+          numColumns={1}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(e) => String(e.id)}
+          renderItem={({ item }) => <BikeCard bike={item}/>}
+          contentContainerStyle={styles.flatListContainer}
+        />
       </SafeAreaView>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  flatListContainer: {
+    paddingHorizontal: 5,
+  },
+});
