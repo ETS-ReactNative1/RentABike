@@ -2,6 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MessageScreen } from '../Screens/MessageScreen';
 import { RenterHomeScreen } from '../Screens/RenterHomeScreen';
+import { OwnerHomeScreen } from '../Screens/OwnerHomeScreen';
 import { ProfileScreen } from '../Screens/ProfileScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -12,7 +13,7 @@ const RentTabNavigation = () => {
     <Tab.Navigator>
       <Tab.Screen
         name='RenterHomeScreen'
-        component={RenterHomeScreen}
+        component={/* RenterHomeScreen */  OwnerHomeScreen}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
