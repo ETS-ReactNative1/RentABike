@@ -8,13 +8,19 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Tab = createBottomTabNavigator();
 
-const RentTabNavigation = () => {
+const RentTabNavigation = (props) => {
+  const {
+    navigation,
+    route: { params },
+  } = props;
+  console.log('params.id :', params.type);
   return (
     <Tab.Navigator>
       <Tab.Screen
         name='RenterHomeScreen'
-        component={/* RenterHomeScreen */  OwnerHomeScreen}
+        component={params.type === 'owner' ? OwnerHomeScreen : RenterHomeScreen}
         options={{
+          headerShown: false,
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
             <Icon name='home' color={color} size={size} />

@@ -43,7 +43,7 @@ export const RenterHome = () => {
   return (
     <>
       <SafeAreaView>
-        <Text>Esto es un Home</Text>
+        <Text>Esto es Renter Home</Text>
         {/* {bikes &&
           bikes.map((e) => (
             <List.Item
