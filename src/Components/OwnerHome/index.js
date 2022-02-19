@@ -3,6 +3,8 @@ import { initializeApp } from 'firebase/app';
 import { List } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
+import { useNavigation } from '@react-navigation/native';
+import { Button } from 'react-native-paper';
 import {
   StyleSheet,
   ScrollView,
@@ -10,8 +12,8 @@ import {
   Text,
   StatusBar,
   TextInput,
-  Button,
   FlatList,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {
   getFirestore,
@@ -26,6 +28,7 @@ import { BikeCard } from '../RenterHome/BikeCard';
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 export const OwnerHome = () => {
+  const navigation = useNavigation();
   const app = initializeApp(firebaseConfig);
   const db = getFirestore();
   const usersRef = collection(db, 'Bike');
@@ -44,19 +47,24 @@ export const OwnerHome = () => {
   }, []);
 
   return (
-    <>
-      <SafeAreaView>
-        <Text>Esto es OwnerHome</Text>
-        <FlatList
-          data={bikes}
-          numColumns={1}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(e) => String(e.id)}
-          renderItem={({ item }) => <BikeCard bike={item} />}
-          contentContainerStyle={styles.flatListContainer}
-        />
-      </SafeAreaView>
-    </>
+    <SafeAreaView>
+      <Text>Esto es OwnerHome</Text>
+      <FlatList
+        data={bikes}
+        numColumns={1}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(e) => String(e.id)}
+        renderItem={({ item }) => <BikeCard bike={item} />}
+        contentContainerStyle={styles.flatListContainer}
+      />
+      <Button
+        icon='plus-circle'
+        mode='contained'
+        onPress={() => navigation.navigate('CreateBikeScreen')}
+      >
+        Add a Bike!
+      </Button>
+    </SafeAreaView>
   );
 };
 
