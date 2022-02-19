@@ -2,16 +2,35 @@ import React, { useState } from 'react';
 import { StepOne } from './steps/StepOne';
 import { StepTwo } from './steps/StepTwo';
 import { View } from 'react-native';
+import { initializeApp } from 'firebase/app';
+import {
+  getAuth,
+  onAuthStateChanged,
+  updateProfile,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
+import { firebaseConfig } from '../../../config/database/firebase';
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  setDoc,
+  doc,
+} from 'firebase/firestore';
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore();
 
 export function CreateForm() {
   const [data, setData] = useState({
     model: '',
     type: '',
     img: '',
-    year: "",
+    year: '',
     city: '',
-    dailyPrice: "",
-    weeklyPrice: "",
+    dailyPrice: '',
+    weeklyPrice: '',
     includes: {},
     pickup: '',
     dropoff: '',
@@ -27,26 +46,32 @@ export function CreateForm() {
   };
   const submitHandler = async (newData) => {
     console.log('newData :', newData);
-    // console.log('sesion :', Auth.getSession());
-    // console.log('newData :', newData);
-    // try {
-    //   const session = await Auth.getSession();
-    //   await axios.post(`${URL_BASE}/campaigns`, newData, {
-    //     headers: {
-    //       Accept: 'application/json',
-    //       'Content-Type': 'application/json',
-    //       Authorization: `Bearer ${session?.token}`,
-    //     },
-    //   });
-    //   setModal(true);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    await onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        console.log('qué es user :', user);
+        const uid = user.uid;
+        try {
+          await addDoc(collection(db, 'Bike'), {
+            ...newData,
+            available: true,
+            ownerid: uid,
+          });
+        } catch (e) {
+          console.error('Error adding document: ', e);
+        }
+      } else {
+      }
+    });
   };
   const steps = [
-    <StepOne key="StepOne" next={handleNextStep} data={data} setData={setData}/>,
+    <StepOne
+      key='StepOne'
+      next={handleNextStep}
+      data={data}
+      setData={setData}
+    />,
     <StepTwo
-      key="StepTwo"
+      key='StepTwo'
       next={submitHandler}
       prev={handlePrevStep}
       data={data}

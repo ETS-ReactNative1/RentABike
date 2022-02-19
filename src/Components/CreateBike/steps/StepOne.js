@@ -4,11 +4,16 @@ import { useValidateOne } from '../hooks/useValidateOne';
 import { View, Text, TextInput, Button, Platform, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Formik } from 'formik';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { styles } from '../../Login/styles';
+import uuid from 'uuid';
 
 export function StepOne(props) {
+  const storage = getStorage();
+  const imgRef = ref(storage, uuid.v4());
   const [image, setImage] = useState('');
-  const [imgUri, setimgUri] = useState('nope');
+  const [imgUri, setimgUri] = useState('');
+
   useEffect(async () => {
     if (Platform.OS !== 'web') {
       const { status } =
@@ -18,6 +23,25 @@ export function StepOne(props) {
       }
     }
   }, []);
+  async function uploadImageAsync(uri) {
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError('Network request failed'));
+      };
+      xhr.responseType = 'blob';
+      xhr.open('GET', uri, true);
+      xhr.send(null);
+    });
+    await uploadBytes(imgRef, blob);
+    console.log('Uploaded');
+    return await getDownloadURL(imgRef);
+  }
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -28,7 +52,9 @@ export function StepOne(props) {
     console.log('result :', result);
     if (!result.cancelled) {
       setImage(result.uri);
-      setimgUri(result.uri); // cambiar por uri de cloundinary o firestore
+      const uploadUrl = await uploadImageAsync(result.uri);
+      console.log(uploadUrl);
+      setimgUri(uploadUrl);
     }
   };
 

@@ -6,6 +6,7 @@ import { Picker } from 'react-native-picker-picker-fix';
 import { Formik } from 'formik';
 import { useState } from 'react';
 
+
 export function StepTwo(props) {
   const [city, setCity] = useState('Trujillo');
   const [includes, setIncludes] = useState({
