@@ -7,6 +7,7 @@ import { TypeOfUserScreen } from '../Screens/TypeOfUserScreen';
 import RentTabNavigation from './RentTabNavigation';
 import { BikeScreen } from '../Screens/BikeScreen';
 import { CreateBikeScreen } from '../Screens/CreateBikeScreen';
+import CreditCardScreen from '../Screens/CreditCardScreen';
 
 const Stack = createNativeStackNavigator();
 const NavigationStack = () => {
@@ -18,6 +19,7 @@ const NavigationStack = () => {
       <Stack.Screen name='RentTabNavigation' component={RentTabNavigation} />
       <Stack.Screen name='BikeScreen' component={BikeScreen} />
       <Stack.Screen name='CreateBikeScreen' component={CreateBikeScreen} />
+      <Stack.Screen name='CreditCardScreen' component={CreditCardScreen} />
     </Stack.Navigator>
   );
 };

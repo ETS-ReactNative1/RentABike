@@ -1,6 +1,6 @@
 import React from 'react';
 import { useValidateTwo } from '../hooks/useValidateTwo';
-import { View, Text, TextInput, Button, Platform } from 'react-native';
+import { View, Text, TextInput, Button } from 'react-native';
 import { styles } from '../../Login/styles';
 import { Picker } from 'react-native-picker-picker-fix';
 import { Formik } from 'formik';

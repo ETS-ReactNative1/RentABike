@@ -6,16 +6,12 @@ import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   onAuthStateChanged,
-  updateProfile,
-  createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { firebaseConfig } from '../../../config/database/firebase';
 import {
   getFirestore,
   collection,
   addDoc,
-  setDoc,
-  doc,
 } from 'firebase/firestore';
 
 const app = initializeApp(firebaseConfig);

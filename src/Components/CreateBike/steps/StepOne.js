@@ -103,12 +103,12 @@ export function StepOne(props) {
               <Text style={styles.errorText}>{errors.type}</Text>
             )}
             <Button onPress={pickImage} title='Upload Photo' />
-            {image && (
+            {image ? (
               <Image
                 source={{ uri: image }}
                 style={{ width: 200, height: 200 }}
               />
-            )}
+            ) : null}
             <Button
               onPress={handleSubmit}
               title='Submit'
