@@ -6,7 +6,6 @@ import { Picker } from 'react-native-picker-picker-fix';
 import { Formik } from 'formik';
 import { useState } from 'react';
 
-
 export function StepTwo(props) {
   const [city, setCity] = useState('Trujillo');
   const [includes, setIncludes] = useState({
@@ -49,6 +48,7 @@ export function StepTwo(props) {
               <Text style={styles.errorText}>{errors.year}</Text>
             )}
             <Picker
+              style={{ width: 100 }}
               name='city'
               id='city'
               onBlur={handleBlur('city')}
@@ -87,6 +87,7 @@ export function StepTwo(props) {
               <Text style={styles.errorText}>{errors.weeklyPrice}</Text>
             )}
             <Picker
+              style={{ width: 100 }}
               name='helmet'
               id='helmet'
               onBlur={handleBlur('helmet')}
@@ -100,6 +101,7 @@ export function StepTwo(props) {
               <Picker.Item label='02' value={2} />
             </Picker>
             <Picker
+              style={{ width: 100 }}
               name='elbowPads'
               id='elbowPads'
               onBlur={handleBlur('elbowPads')}
@@ -113,6 +115,7 @@ export function StepTwo(props) {
               <Picker.Item label='02' value={2} />
             </Picker>
             <Picker
+              style={{ width: 100 }}
               name='kneePads'
               id='kneePads'
               onBlur={handleBlur('kneePads')}
@@ -127,6 +130,7 @@ export function StepTwo(props) {
             </Picker>
             <Picker
               name='lock'
+              style={{ width: 100 }}
               id='lock'
               onBlur={handleBlur('lock')}
               selectedValue={includes.lock}
