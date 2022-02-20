@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import { List } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
-import { Button } from 'react-native-paper';
+import { Button, FAB } from 'react-native-paper';
+import { styles } from './styles';
 import {
   StyleSheet,
   ScrollView,
@@ -56,19 +56,11 @@ export const OwnerHome = () => {
         renderItem={({ item }) => <BikeCard bike={item} />}
         contentContainerStyle={styles.flatListContainer}
       />
-      <Button
-        icon='plus-circle'
-        mode='contained'
+      <FAB
+        style={styles.fab}
+        icon='plus'
         onPress={() => navigation.navigate('CreateBikeScreen')}
-      >
-        Add a Bike!
-      </Button>
+      />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  flatListContainer: {
-    paddingHorizontal: 5,
-  },
-});

@@ -10,6 +10,10 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     borderColor: "black",
   },
+  card:{
+    marginBottom: 20,
+  }
+  ,
   cardCover:{
     height: 160,
   },
