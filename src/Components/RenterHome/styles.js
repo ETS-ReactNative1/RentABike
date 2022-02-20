@@ -1,0 +1,44 @@
+import { StyleSheet } from 'react-native';
+export const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#e6e6e6',
+  },
+  card: {
+    marginHorizontal: 10,
+    marginBottom: 20,
+    borderColor: "black",
+  },
+  cardCover:{
+    height: 160,
+  },
+  cardContent : {
+    backgroundColor: '#ffffff',
+  }
+  ,
+  loginContainer: {
+    width: '100%',
+    minHeight: 400,
+    alignItems: 'center',
+    backgroundColor: 'white',
+    padding: 26,
+    paddingTop: 10,
+    backgroundColor: '#e6e6e6',
+    paddingBottom: 40,
+  },
+  title: {
+    color: '#7C8C03',
+    fontSize: 42,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    /* marginBottom: 20, */
+  },
+  type: {
+    /* color: '#7C8C03', */
+    fontSize: 24,
+    marginTop: 10,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+});

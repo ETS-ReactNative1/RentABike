@@ -43,17 +43,6 @@ export const RenterHome = () => {
   return (
     <>
       <SafeAreaView>
-        <Text>Esto es Renter Home</Text>
-        {/* {bikes &&
-          bikes.map((e) => (
-            <List.Item
-              key={e.id}
-              title={e.type}
-              description={e.type}
-              left={(props) => <List.Icon {...props} icon='folder' />}
-            />
-          ))} */}
-
         <FlatList
           data={bikes}
           numColumns={1}

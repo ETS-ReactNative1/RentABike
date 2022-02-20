@@ -48,7 +48,6 @@ export const OwnerHome = () => {
 
   return (
     <SafeAreaView>
-      <Text>Esto es OwnerHome</Text>
       <FlatList
         data={bikes}
         numColumns={1}
