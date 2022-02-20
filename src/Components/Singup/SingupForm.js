@@ -1,16 +1,19 @@
 import React from 'react';
 import { Formik } from 'formik';
-import { styles } from './styles';
-import { View, Text, TextInput, Button } from 'react-native';
+import { Link } from '@react-navigation/native';
+import { styles } from '../Login/styles';
+import { View, Text } from 'react-native';
 import { useSingUpVal } from './hooks/useSingUpVal';
 import { useSingup } from './hooks/useSingup';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { TextInput, HelperText, Button } from 'react-native-paper';
 
 export const SingupForm = ({ navigation }) => {
   /*   const goToHome = () => navigation.navigate('TypeOfUserScreen'); */
   const singupValidationSchema = useSingUpVal();
   return (
-    <SafeAreaView style={styles.singupContainer}>
+    <SafeAreaView style={styles.loginContainer}>
+      <Text style={styles.title}>Welcome to RentABike</Text>
       <Formik
         validationSchema={singupValidationSchema}
         initialValues={{
@@ -41,6 +44,7 @@ export const SingupForm = ({ navigation }) => {
         }) => (
           <>
             <TextInput
+              activeUnderlineColor='#7C8C03'
               name='name'
               placeholder='Name'
               style={styles.textInput}
@@ -50,9 +54,12 @@ export const SingupForm = ({ navigation }) => {
               keyboardType='default'
             />
             {errors.name && touched.name && (
-              <Text style={styles.errorText}>{errors.name}</Text>
+              <HelperText type='error' visible={(errors.name, touched.name)}>
+                {errors.name}
+              </HelperText>
             )}
             <TextInput
+              activeUnderlineColor='#7C8C03'
               name='email'
               placeholder='Email Address'
               style={styles.textInput}
@@ -62,9 +69,12 @@ export const SingupForm = ({ navigation }) => {
               keyboardType='email-address'
             />
             {errors.email && touched.email && (
-              <Text style={styles.errorText}>{errors.email}</Text>
+              <HelperText type='error' visible={(errors.email, touched.email)}>
+                {errors.email}
+              </HelperText>
             )}
             <TextInput
+              activeUnderlineColor='#7C8C03'
               name='phone'
               placeholder='Phone number'
               style={styles.textInput}
@@ -74,9 +84,12 @@ export const SingupForm = ({ navigation }) => {
               keyboardType='number-pad'
             />
             {errors.phone && touched.phone && (
-              <Text style={styles.errorText}>{errors.phone}</Text>
+              <HelperText type='error' visible={(errors.phone, touched.phone)}>
+                {errors.phone}
+              </HelperText>
             )}
             <TextInput
+              activeUnderlineColor='#7C8C03'
               name='password'
               placeholder='Password'
               style={styles.textInput}
@@ -86,9 +99,15 @@ export const SingupForm = ({ navigation }) => {
               secureTextEntry
             />
             {errors.password && touched.password && (
-              <Text style={styles.errorText}>{errors.password}</Text>
+              <HelperText
+                type='error'
+                visible={(errors.password, touched.password)}
+              >
+                {errors.password}
+              </HelperText>
             )}
             <TextInput
+              activeUnderlineColor='#7C8C03'
               name='confirmPassword'
               placeholder='Repeat your password'
               style={styles.textInput}
@@ -98,12 +117,28 @@ export const SingupForm = ({ navigation }) => {
               secureTextEntry
             />
             {errors.confirmPassword && touched.confirmPassword && (
-              <Text style={styles.errorText}>{errors.confirmPassword}</Text>
+              <HelperText
+                type='error'
+                visible={(errors.confirmPassword, touched.confirmPassword)}
+              >
+                {errors.confirmPassword}
+              </HelperText>
             )}
-            <Button onPress={handleSubmit} title='Submit' disabled={!isValid} />
+            <Button
+              onPress={handleSubmit}
+              disabled={!isValid}
+              mode='contained'
+              color='#7C8C03'
+              style={styles.submitButton}
+            >
+              Login
+            </Button>
           </>
         )}
       </Formik>
+      <Link to={{ screen: 'LoginScreen' }} style={styles.link}>
+        Do you have an account? Log in!
+      </Link>
     </SafeAreaView>
   );
 };
