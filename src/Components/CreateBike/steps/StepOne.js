@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useValidateOne } from '../hooks/useValidateOne';
 import { HelperText, Button, TextInput } from 'react-native-paper';
 import { View, Text, Platform, Image, ScrollView, Alert } from 'react-native';

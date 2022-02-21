@@ -18,13 +18,6 @@ const NavigationStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name='TypeOfUserScreen'
-        component={TypeOfUserScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
         name='LoginScreen'
         component={LoginScreen}
         options={{
@@ -34,6 +27,13 @@ const NavigationStack = () => {
       <Stack.Screen
         name='SingupScreen'
         component={SingupScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name='TypeOfUserScreen'
+        component={TypeOfUserScreen}
         options={{
           headerShown: false,
         }}

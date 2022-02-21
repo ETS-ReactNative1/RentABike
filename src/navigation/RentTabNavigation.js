@@ -32,6 +32,7 @@ const RentTabNavigation = (props) => {
         name='MessageScreen'
         component={MessageScreen}
         options={{
+          headerShown: false,
           tabBarActiveTintColor: '#7C8C03',
           tabBarLabel: 'Messages',
           tabBarIcon: ({ color, size }) => (
@@ -43,6 +44,7 @@ const RentTabNavigation = (props) => {
         name='ProfileScreen'
         component={ProfileScreen}
         options={{
+          headerShown: false,
           tabBarActiveTintColor: '#7C8C03',
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
