@@ -7,13 +7,13 @@ export const styles = StyleSheet.create({
   },
   loginContainer: {
     width: '100%',
-    minHeight:400,
+    minHeight: 400,
     alignItems: 'center',
     backgroundColor: 'white',
     padding: 26,
-    paddingTop:10,
+    paddingTop: 10,
     backgroundColor: '#e6e6e6',
-    paddingBottom:40
+    paddingBottom: 40,
   },
   textInput: {
     paddingHorizontal: 10,
@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     borderColor: 'gray',
     marginVertical: 10,
     /* backgroundColor: 'white', */
-/*     borderWidth: StyleSheet.hairlineWidth, */
+    /*     borderWidth: StyleSheet.hairlineWidth, */
     borderRadius: 10,
   },
   errorText: {
@@ -34,20 +34,20 @@ export const styles = StyleSheet.create({
     height: 120,
   },
   title: {
-    color:"#7C8C03",
+    color: '#7C8C03',
     fontSize: 42,
     fontWeight: 'bold',
-    textAlign:'center',
+    textAlign: 'center',
   },
-  submitButton:{
+  submitButton: {
     marginVertical: 10,
-    marginBottom:20,
+    marginBottom: 20,
     /* backgroundColor:"#465902", */
   },
-  link:{
-    alignSelf:"flex-start",
-    color:"#7C8C03",
-    textAlign:"left",
-    marginBottom:4,
-  }
+  link: {
+    alignSelf: 'flex-start',
+    color: '#7C8C03',
+    textAlign: 'left',
+    marginBottom: 4,
+  },
 });

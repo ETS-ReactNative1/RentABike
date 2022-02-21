@@ -5,7 +5,7 @@ import { CreateForm } from './CreateForm';
 
 export function CreateBike() {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: '#e6e6e6' }}>
       <CreateForm />
     </SafeAreaView>
   );
