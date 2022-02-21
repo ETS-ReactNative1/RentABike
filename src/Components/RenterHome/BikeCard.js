@@ -21,7 +21,7 @@ export const BikeCard = ({ bike }) => {
         <Card.Cover source={{ uri: img }} />
         <Card.Content>
           <Title>{model}</Title>
-          <Paragraph>{`$${dailyPrice} - ${type} - 5'9''`}</Paragraph>
+          <Paragraph>{`$${dailyPrice} - ${type}'`}</Paragraph>
         </Card.Content>
       </Card>
     </TouchableWithoutFeedback>

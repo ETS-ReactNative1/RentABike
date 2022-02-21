@@ -29,7 +29,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 export const OwnerHome = () => {
   const navigation = useNavigation();
-  const app = initializeApp(firebaseConfig);
   const db = getFirestore();
   const usersRef = collection(db, 'Bike');
   const q = query(usersRef, where('ownerid', '==', auth.currentUser.uid));

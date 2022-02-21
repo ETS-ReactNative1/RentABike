@@ -1,3 +1,5 @@
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Setting a timer for a long period of time']);
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
