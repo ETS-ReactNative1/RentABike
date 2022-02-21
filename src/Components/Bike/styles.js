@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   submitButton: {
-      width:'100%',
+    width: '100%',
     height: 40,
     marginVertical: 10,
     marginBottom: 20,
@@ -30,9 +30,33 @@ export const styles = StyleSheet.create({
   },
   item: {
     width: '100%',
-    height: 20,
-    fontSize: 16,
+    minHeight: 30,
+    fontSize: 20,
     fontWeight: 'bold',
+    borderColor: 'grey',
+    borderBottomWidth: 1,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+  },
+  label: {
+    width: '100%',
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
+  info: {
+    width: '100%',
+    fontSize: 20,
+    /* fontWeight: 'bold', */
+  },
+  last: {
+    display: 'flex',
+    width: '100%',
+    minHeight: 60,
+    fontSize: 20,
+    fontWeight: 'bold',
+    borderColor: 'grey',
+    borderWidth: 1,
+    paddingHorizontal: 8,
   },
   itemFlex: {
     width: '45%',
@@ -40,10 +64,16 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  itemCheckoutLabel: {
+    width: '60%',
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
   itemCheckout: {
     width: '60%',
-    height: 20,
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 18,
+    /* fontWeight: 'bold', */
+    textAlign: 'center',
   },
 });

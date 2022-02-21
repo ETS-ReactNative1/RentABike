@@ -1,6 +1,6 @@
 import { View, Text, Image, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Divider, Button } from 'react-native-paper';
+import { Button, List } from 'react-native-paper';
 
 import {
   getFirestore,
@@ -56,7 +56,7 @@ export function Bike(props) {
     }
   }, []);
   return (
-    <ScrollView>
+    <ScrollView style={{ marginBottom: 10, paddingBottom: 10 }}>
       <SafeAreaView
         style={{
           minHeight: '100%',
@@ -76,61 +76,92 @@ export function Bike(props) {
         <View
           style={{
             width: '100%',
-            flex: 1,
+            minHeight: 200,
+            display: 'flex',
             alignItems: 'flex-start',
             marginTop: 12,
           }}
         >
-          <Text style={styles.item}>Model: {bike.model}</Text>
-          <Text style={styles.item}>Type: {bike.type}</Text>
-
-          <Text style={styles.item}>Height: {bike.height}</Text>
-          <Text style={styles.item}>Year: {bike.year}</Text>
-
-          <Text style={styles.item}>Owner: {owner.name}</Text>
-
+          <View style={styles.item}>
+            <Text style={styles.label}>Model:</Text>
+            <Text style={styles.info}>{bike.model}</Text>
+          </View>
+          <View style={styles.item}>
+            <Text style={styles.label}>Type:</Text>
+            <Text style={styles.info}>{bike.type}</Text>
+          </View>
+          <View style={styles.item}>
+            <Text style={styles.label}>Height:</Text>
+            <Text style={styles.info}>{bike.height}</Text>
+          </View>
+          <View style={styles.item}>
+            <Text style={styles.label}>Year:</Text>
+            <Text style={styles.info}>{bike.year}</Text>
+          </View>
+          <View style={styles.item}>
+            <Text style={styles.label}>Owner:</Text>
+            <Text style={styles.info}>{owner.name}</Text>
+          </View>
           {owner.description ? (
-            <Text style={styles.item}>
-              Owner Description: {owner.description}
-            </Text>
+            <View style={styles.item}>
+              <Text style={styles.label}>Owner Description:</Text>
+              <Text style={styles.info}>{owner.description}</Text>
+            </View>
           ) : null}
-          <Divider />
-          <Text style={styles.item}>Description: {bike.description}</Text>
-          <Divider />
-          {(bike.helmets > 0 ||
-            bike.elbowPads > 0 ||
-            bike.kneePads > 0 ||
-            bike.lock) && <Text style={styles.item}>Includes:</Text>}
-          {(bike.helmets > 0 || bike.elbowPads > 0) && (
-            <View
-              style={{ width: '100%', display: 'flex', flexDirection: 'row' }}
-            >
-              {bike.helmets > 0 && (
-                <Text style={styles.itemFlex}>Helmets: {bike.helmets}</Text>
-              )}
-              {bike.elbowPads > 0 && (
-                <Text style={styles.itemFlex}>
-                  Elbow pads: {bike.elbowPads}
-                </Text>
-              )}
-            </View>
-          )}
-          {(bike.kneePads > 0 || bike.lock) && (
-            <View
-              style={{ width: '100%', display: 'flex', flexDirection: 'row' }}
-            >
-              {bike.kneePads > 0 && (
-                <Text style={styles.itemFlex}>Knee pads: {bike.kneePads}</Text>
-              )}
-              {bike.lock && <Text style={styles.itemFlex}>Lock :D</Text>}
-            </View>
-          )}
+          <View style={styles.item}>
+            <Text style={styles.label}>Description:</Text>
+            <Text style={styles.info}>{bike.description}</Text>
+          </View>
         </View>
-        <Divider />
+        {(bike.helmets > 0 ||
+          bike.elbowPads > 0 ||
+          bike.kneePads > 0 ||
+          bike.lock) && (
+          <List.Section style={{ width: '100%' }}>
+            <List.Accordion
+              title='Includes:'
+              titleStyle={{ color: '#7C8C03', fontWeight: 'bold' }}
+              left={(props) => (
+                <List.Icon {...props} icon='bike' color='#7C8C03' />
+              )}
+            >
+              <List.Item
+                title={
+                  bike.helmets > 0 && (
+                    <Text style={styles.itemFlex}>Helmets: {bike.helmets}</Text>
+                  )
+                }
+              />
+              <List.Item
+                title={
+                  bike.elbowPads > 0 && (
+                    <Text style={styles.itemFlex}>
+                      Elbow Pads: {bike.elbowPads}
+                    </Text>
+                  )
+                }
+              />
+              <List.Item
+                title={
+                  bike.kneePads > 0 && (
+                    <Text style={styles.itemFlex}>
+                      Knee Pads: {bike.kneePads}
+                    </Text>
+                  )
+                }
+              />
+              <List.Item
+                title={
+                  bike.lock && <Text style={styles.itemFlex}>Lock: yeah!</Text>
+                }
+              />
+            </List.Accordion>
+          </List.Section>
+        )}
         <View
           style={{
             width: '100%',
-            flex: 1,
+            display: 'flex',
             alignContent: 'center',
             alignItems: 'center',
           }}
@@ -138,37 +169,41 @@ export function Bike(props) {
           <View
             style={{
               width: '100%',
+              minHeight: 120,
               flex: 1,
               flexDirection: 'row',
-              alignItems: 'center',
+              alignItems: 'flex-start',
               alignContent: 'center',
               justifyContent: 'center',
+              paddingBottom: 16,
+              padding: 4,
+              borderWidth: 3,
+              borderColor: '#7C8C03',
             }}
           >
             <View
               style={{
                 width: '50%',
-                height: 40,
+                minHeight: 120,
                 flex: 1,
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
             >
-              <Text
-                style={styles.itemCheckout}
-              >{`$${bike.dailyPrice}/ day`}</Text>
-              <Text
-                style={styles.itemCheckout}
-              >{`$${bike.weeklyPrice}/ week`}</Text>
+              <Text style={styles.itemCheckoutLabel}>{`Daily`}</Text>
+              <Text style={styles.itemCheckout}>{`$${bike.dailyPrice}`}</Text>
+              <Text style={styles.itemCheckoutLabel}>{`Weekly`}</Text>
+              <Text style={styles.itemCheckout}>{`$${bike.weeklyPrice}`}</Text>
             </View>
             <View
               style={{
                 width: '50%',
-                height: 80,
+                height: 120,
                 flex: 1,
                 justifyContent: 'center',
                 alignItems: 'center',
+                marginRight: 16,
               }}
             >
               <Button

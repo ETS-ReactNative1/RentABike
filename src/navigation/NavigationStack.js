@@ -61,8 +61,52 @@ const NavigationStack = () => {
           ),
         }}
       />
-      <Stack.Screen name='BikeScreen' component={BikeScreen} />
-      <Stack.Screen name='CreateBikeScreen' component={CreateBikeScreen} />
+      <Stack.Screen
+        name='BikeScreen'
+        component={BikeScreen}
+        options={{
+          title: 'RentaBike',
+          headerStyle: {
+            backgroundColor: '#465902',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerLeft: () => (
+            <Icon
+              name='arrow-left'
+              color='#fff'
+              size={24}
+              style={{ marginLeft: 16, marginRight: 12 }}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name='CreateBikeScreen'
+        component={CreateBikeScreen}
+        options={{
+          title: 'RentaBike',
+          headerStyle: {
+            backgroundColor: '#465902',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerLeft: () => (
+            <Icon
+              name='arrow-left'
+              color='#fff'
+              size={24}
+              style={{ marginLeft: 16, marginRight: 12 }}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        }}
+      />
       <Stack.Screen name='CreditCardScreen' component={CreditCardScreen} />
     </Stack.Navigator>
   );
