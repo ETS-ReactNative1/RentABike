@@ -20,6 +20,7 @@ const RentTabNavigation = (props) => {
         name='RenterHomeScreen'
         component={params.type === 'owner' ? OwnerHomeScreen : RenterHomeScreen}
         options={{
+          tabBarActiveTintColor: '#7C8C03',
           headerShown: false,
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
@@ -31,6 +32,7 @@ const RentTabNavigation = (props) => {
         name='MessageScreen'
         component={MessageScreen}
         options={{
+          tabBarActiveTintColor: '#7C8C03',
           tabBarLabel: 'Messages',
           tabBarIcon: ({ color, size }) => (
             <Icon name='comments' color={color} size={size} />
@@ -41,6 +43,7 @@ const RentTabNavigation = (props) => {
         name='ProfileScreen'
         component={ProfileScreen}
         options={{
+          tabBarActiveTintColor: '#7C8C03',
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
             <Icon name='user' color={color} size={size} />
