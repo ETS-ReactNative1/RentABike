@@ -14,8 +14,8 @@ export function StepOne(props) {
   const [updatingPhoto, setUpdatingPhoto] = useState(false);
   const storage = getStorage();
   const imgRef = ref(storage, uuid.v4());
-  const [image, setImage] = useState('');
-  const [imgUri, setimgUri] = useState('');
+  const [image, setImage] = useState(props.data.img);
+  const [imgUri, setimgUri] = useState(props.data.img);
 
   useEffect(async () => {
     if (Platform.OS !== 'web') {
@@ -58,7 +58,6 @@ export function StepOne(props) {
       if (!result.cancelled) {
         setImage(result.uri);
         const uploadUrl = await uploadImageAsync(result.uri);
-        console.log(uploadUrl);
         setimgUri(uploadUrl);
         setUpdatingPhoto(false);
       }
@@ -117,6 +116,11 @@ export function StepOne(props) {
               {errors.type && touched.type && (
                 <Text style={styles.errorText}>{errors.type}</Text>
               )}
+              {image ? (
+                <View style={stylesForm.imageContainer}>
+                  <Image source={{ uri: image }} style={stylesForm.image} />
+                </View>
+              ) : null}
               <Button
                 onPress={pickImage}
                 mode='contained'
@@ -125,14 +129,9 @@ export function StepOne(props) {
               >
                 Upload a Photo
               </Button>
-              {image ? (
-                <View style={stylesForm.imageContainer}>
-                  <Image source={{ uri: image }} style={stylesForm.image} />
-                </View>
-              ) : null}
               <Button
                 onPress={handleSubmit}
-                disabled={(!isValid, updatingPhoto)}
+                disabled={(!isValid, !updatingPhoto, !props.data.img)}
                 mode='contained'
                 color='#7C8C03'
                 style={styles.submitButton}

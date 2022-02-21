@@ -8,19 +8,17 @@ export const styles = StyleSheet.create({
   card: {
     marginHorizontal: 10,
     marginBottom: 20,
-    borderColor: "black",
+    borderColor: 'black',
   },
-  card:{
+  card: {
     marginBottom: 20,
-  }
-  ,
-  cardCover:{
+  },
+  cardCover: {
     height: 160,
   },
-  cardContent : {
+  cardContent: {
     backgroundColor: '#ffffff',
-  }
-  ,
+  },
   loginContainer: {
     width: '100%',
     minHeight: 400,
@@ -44,5 +42,31 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  edit: {
+    backgroundColor: 'white',
+    borderRadius: 22,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 42,
+    height: 42,
+    position: 'absolute',
+    margin: 16,
+    right: 52,
+    top: 0,
+  },
+  delete: {
+    backgroundColor: 'white',
+    borderRadius: 22,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 42,
+    height: 42,
+    position: 'absolute',
+    margin: 16,
+    right: 4,
+    top: 0,
   },
 });

@@ -48,7 +48,7 @@ export const RenterHome = () => {
           numColumns={1}
           showsVerticalScrollIndicator={false}
           keyExtractor={(e) => String(e.id)}
-          renderItem={({ item }) => <BikeCard bike={item}/>}
+          renderItem={({ item }) => <BikeCard bike={item} userType={'renter'} />}
           contentContainerStyle={styles.flatListContainer}
         />
       </SafeAreaView>

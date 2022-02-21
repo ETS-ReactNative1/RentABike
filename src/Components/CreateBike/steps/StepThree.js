@@ -9,16 +9,17 @@ import { useState } from 'react';
 import { stylesForm } from './stylesForm';
 
 export function StepThree(props) {
-  const [city, setCity] = useState('Trujillo');
-  const [includes, setIncludes] = useState({
-    helmet: 0,
-    elbowPads: 0,
-    kneePads: 0,
-    lock: false,
-  });
+  const [helmets, setHelmets] = useState(Number(props.data.helmets) || 'None');
+  const [elbowPads, setElbowPads] = useState(
+    Number(props.data.elbowPads) || 'None',
+  );
+  const [kneePads, setKneePads] = useState(
+    Number(props.data.kneePads) || 'None',
+  );
+  const [lock, setLock] = useState(props.data.lock === 'true' ? true : false);
   const bikeValidationSchema = useValidateTwo();
   const handleSubmit = (values) => {
-    props.next({ ...values, city });
+    props.next({ ...values, helmets, elbowPads, kneePads, lock });
   };
   return (
     <View style={stylesForm.container}>
@@ -45,10 +46,8 @@ export function StepThree(props) {
                 name='helmet'
                 id='helmet'
                 onBlur={handleBlur('helmet')}
-                selectedValue={includes.helmet}
-                onValueChange={(itemValue, itemIndex) =>
-                  setIncludes((prev) => ({ ...prev, helmet: itemValue }))
-                }
+                selectedValue={helmets}
+                onValueChange={(itemValue, itemIndex) => setHelmets(itemValue)}
               >
                 <Picker.Item label='None' value={0} />
                 <Picker.Item label='01' value={1} />
@@ -60,9 +59,9 @@ export function StepThree(props) {
                 name='elbowPads'
                 id='elbowPads'
                 onBlur={handleBlur('elbowPads')}
-                selectedValue={includes.elbowPads}
+                selectedValue={elbowPads}
                 onValueChange={(itemValue, itemIndex) =>
-                  setIncludes((prev) => ({ ...prev, elbowPads: itemValue }))
+                  setElbowPads(itemValue)
                 }
               >
                 <Picker.Item label='None' value={0} />
@@ -75,10 +74,8 @@ export function StepThree(props) {
                 name='kneePads'
                 id='kneePads'
                 onBlur={handleBlur('kneePads')}
-                selectedValue={includes.kneePads}
-                onValueChange={(itemValue, itemIndex) =>
-                  setIncludes((prev) => ({ ...prev, kneePads: itemValue }))
-                }
+                selectedValue={kneePads}
+                onValueChange={(itemValue, itemIndex) => setKneePads(itemValue)}
               >
                 <Picker.Item label='None' value={0} />
                 <Picker.Item label='01' value={1} />
@@ -90,10 +87,8 @@ export function StepThree(props) {
                 style={stylesForm.picker}
                 id='lock'
                 onBlur={handleBlur('lock')}
-                selectedValue={includes.lock}
-                onValueChange={(itemValue, itemIndex) =>
-                  setIncludes((prev) => ({ ...prev, lock: itemValue }))
-                }
+                selectedValue={lock}
+                onValueChange={(itemValue, itemIndex) => setLock(itemValue)}
               >
                 <Picker.Item label='No' value={false} />
                 <Picker.Item label='Yes' value={true} />

@@ -9,13 +9,7 @@ import { useState } from 'react';
 import { stylesForm } from './stylesForm';
 
 export function StepTwo(props) {
-  const [city, setCity] = useState('Trujillo');
-  const [includes, setIncludes] = useState({
-    helmet: 0,
-    elbowPads: 0,
-    kneePads: 0,
-    lock: false,
-  });
+  const [city, setCity] = useState(props.data.city || 'Trujillo');
   const bikeValidationSchema = useValidateTwo();
   const handleSubmit = (values) => {
     props.next({ ...values, city });
