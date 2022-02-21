@@ -1,13 +1,34 @@
 import React from 'react';
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
-import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { doc, deleteDoc, getFirestore } from 'firebase/firestore';
+import { Avatar, Card, Title, Paragraph } from 'react-native-paper';
+import {
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+  Button,
+  Alert,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { styles } from './styles';
 
 export const BikeCard = ({ bike, userType }) => {
+  const db = getFirestore();
   const { model, dailyPrice, type, img } = bike;
   const navigation = useNavigation();
+  const deleteHandler = async () => {
+    Alert.alert('Are you sure?', 'This action cannot be reversed', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'OK',
+        onPress: async () => await deleteDoc(doc(db, 'Bike', bike.id)),
+      },
+    ]);
+  };
   return (
     <TouchableWithoutFeedback
       style={styles.container}
@@ -40,9 +61,7 @@ export const BikeCard = ({ bike, userType }) => {
                 name='trash'
                 color='red'
                 size={32}
-                onPress={() =>
-                  console.log('esto debe eliminar (primero un alert)')
-                }
+                onPress={deleteHandler}
               />
             </View>
           </>
