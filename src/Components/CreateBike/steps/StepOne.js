@@ -1,14 +1,17 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useValidateOne } from '../hooks/useValidateOne';
-import { View, Text, TextInput, Button, Platform, Image } from 'react-native';
+import { HelperText, Button, TextInput } from 'react-native-paper';
+import { View, Text, Platform, Image, ScrollView, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Formik } from 'formik';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { styles } from '../../Login/styles';
 import uuid from 'uuid';
+import { stylesForm } from './stylesForm';
 
 export function StepOne(props) {
+  const [updatingPhoto, setUpdatingPhoto] = useState(false);
   const storage = getStorage();
   const imgRef = ref(storage, uuid.v4());
   const [image, setImage] = useState('');
@@ -43,18 +46,24 @@ export function StepOne(props) {
   }
 
   const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    console.log('result :', result);
-    if (!result.cancelled) {
-      setImage(result.uri);
-      const uploadUrl = await uploadImageAsync(result.uri);
-      console.log(uploadUrl);
-      setimgUri(uploadUrl);
+    try {
+      setUpdatingPhoto(true);
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      console.log('result :', result);
+      if (!result.cancelled) {
+        setImage(result.uri);
+        const uploadUrl = await uploadImageAsync(result.uri);
+        console.log(uploadUrl);
+        setimgUri(uploadUrl);
+        setUpdatingPhoto(false);
+      }
+    } catch (error) {
+      Alert.alert('Something went wrong', 'Try again later');
     }
   };
 
@@ -64,59 +73,76 @@ export function StepOne(props) {
     console.log({ ...values, img: imgUri });
   };
   return (
-    <View style={styles.loginContainer}>
-      <Formik
-        validationSchema={bikeValidationSchema}
-        initialValues={props.data}
-        onSubmit={handleSubmit}
-      >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          touched,
-          isValid,
-        }) => (
-          <>
-            <TextInput
-              name='model'
-              placeholder='Montra Helicon Disc'
-              style={styles.textInput}
-              onChangeText={handleChange('model')}
-              onBlur={handleBlur('model')}
-              value={values.model}
-            />
-            {errors.model && touched.model && (
-              <Text style={styles.errorText}>{errors.model}</Text>
-            )}
-            <TextInput
-              name='type'
-              placeholder='Muntain'
-              style={styles.textInput}
-              onChangeText={handleChange('type')}
-              onBlur={handleBlur('type')}
-              value={values.type}
-            />
-            {errors.type && touched.type && (
-              <Text style={styles.errorText}>{errors.type}</Text>
-            )}
-            <Button onPress={pickImage} title='Upload Photo' />
-            {image ? (
-              <Image
-                source={{ uri: image }}
-                style={{ width: 200, height: 200 }}
+    <View style={stylesForm.container}>
+      <View style={stylesForm.loginContainer}>
+        <Formik
+          validationSchema={bikeValidationSchema}
+          initialValues={props.data}
+          onSubmit={handleSubmit}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+            isValid,
+          }) => (
+            <>
+              <Text style={stylesForm.title}>Time to Rent your Bike</Text>
+              <Text style={stylesForm.label}>What is your bike model?</Text>
+              <TextInput
+                activeUnderlineColor='#7C8C03'
+                name='model'
+                placeholder='Montra Helicon Disc'
+                style={stylesForm.textInput}
+                onChangeText={handleChange('model')}
+                onBlur={handleBlur('model')}
+                value={values.model}
               />
-            ) : null}
-            <Button
-              onPress={handleSubmit}
-              title='Submit'
-              disabled={(!isValid, !Boolean(image) === true)}
-            />
-          </>
-        )}
-      </Formik>
+              {errors.model && touched.model && (
+                <Text style={styles.errorText}>{errors.model}</Text>
+              )}
+              <Text style={stylesForm.label}>What kind of bike is it?</Text>
+              <TextInput
+                activeUnderlineColor='#7C8C03'
+                name='type'
+                placeholder='Muntain'
+                style={stylesForm.textInput}
+                onChangeText={handleChange('type')}
+                onBlur={handleBlur('type')}
+                value={values.type}
+              />
+              {errors.type && touched.type && (
+                <Text style={styles.errorText}>{errors.type}</Text>
+              )}
+              <Button
+                onPress={pickImage}
+                mode='contained'
+                color='#B9BF04'
+                loading={updatingPhoto}
+              >
+                Upload a Photo
+              </Button>
+              {image ? (
+                <View style={stylesForm.imageContainer}>
+                  <Image source={{ uri: image }} style={stylesForm.image} />
+                </View>
+              ) : null}
+              <Button
+                onPress={handleSubmit}
+                disabled={(!isValid, updatingPhoto)}
+                mode='contained'
+                color='#7C8C03'
+                style={styles.submitButton}
+              >
+                Siguiente
+              </Button>
+            </>
+          )}
+        </Formik>
+      </View>
     </View>
   );
 }

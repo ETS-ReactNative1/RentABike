@@ -2,18 +2,11 @@ import React, { useState } from 'react';
 import { StepOne } from './steps/StepOne';
 import { StepTwo } from './steps/StepTwo';
 import { StepThree } from './steps/StepThree';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { initializeApp } from 'firebase/app';
-import {
-  getAuth,
-  onAuthStateChanged,
-} from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { firebaseConfig } from '../../../config/database/firebase';
-import {
-  getFirestore,
-  collection,
-  addDoc,
-} from 'firebase/firestore';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -61,7 +54,12 @@ export function CreateForm() {
     });
   };
   const steps = [
-   
+    <StepOne
+      key='StepOne'
+      next={handleNextStep}
+      data={data}
+      setData={setData}
+    />,
     <StepTwo
       key='StepTwo'
       next={handleNextStep}
@@ -74,12 +72,6 @@ export function CreateForm() {
       prev={handlePrevStep}
       data={data}
     />,
-    <StepOne
-    key='StepOne'
-    next={handleNextStep}
-    data={data}
-    setData={setData}
-  />,
   ];
-  return <View>{steps[currentStep]}</View>;
+  return <ScrollView>{steps[currentStep]}</ScrollView>;
 }
