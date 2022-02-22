@@ -9,7 +9,11 @@ import { Formik } from 'formik';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { styles } from './styles';
 import { initializeApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
+import {
+  getAuth,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+} from 'firebase/auth';
 import { firebaseConfig } from '../../../config/database/firebase';
 import { useNavigation } from '@react-navigation/native';
 import Loading from '../Loading';
@@ -119,7 +123,26 @@ export default function Profile() {
           },
           {
             text: 'OK',
-            onPress: async () => await console.log('Enviar correoxd'),
+            onPress: async () => {
+              try {
+                await sendPasswordResetEmail(auth, data.email);
+                Alert.alert(
+                  'Email sended',
+                  'Check your email to change your password',
+                  [
+                    {
+                      text: 'Ok',
+                      onPress: () => navigation.navigate('LoginScreen'),
+                    },
+                  ],
+                );
+              } catch (error) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                Alert.alert('Upps', error);
+                console.log(errorCode, errorMessage);
+              }
+            },
           },
         ],
       );
