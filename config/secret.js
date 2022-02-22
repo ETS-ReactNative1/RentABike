@@ -1,2 +1,3 @@
-export const publishableKey =
-  'pk_test_51KUtz5Jj35AzNdqTN3fcOmQG8GimrAGjBqrQhxvdVgnPHGTf8R1RmUlJUu752bsDcPvc7veiSfxFkboAAOUTm4MF00j03RAmiY';
+import Constants from 'expo-constants';
+
+export const publishableKey = Constants.manifest.extra.publishableKey;
