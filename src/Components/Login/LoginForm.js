@@ -8,7 +8,7 @@ import { useSingUpVal } from './hooks/useLoginVal';
 import { useLogin } from './hooks/useLogin';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export const LoginForm = ({ navigation }) => {
+export const LoginForm = ({ navigation, setLoading }) => {
   const loginValidationSchema = useSingUpVal();
   return (
     <SafeAreaView style={styles.loginContainer}>
@@ -17,7 +17,7 @@ export const LoginForm = ({ navigation }) => {
         validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
         onSubmit={(values) => {
-          useLogin(values.email, values.password, navigation);
+          useLogin(values.email, values.password, navigation, setLoading);
         }}
       >
         {({
@@ -75,8 +75,12 @@ export const LoginForm = ({ navigation }) => {
           </>
         )}
       </Formik>
-      <Link to={{ screen: 'SingupScreen' }} style={styles.link}>New on RentABike? Sing up!</Link>
-      <Link to={{ screen: 'SingupScreen' }} style={styles.link}>Forgot your password?</Link>
+      <Link to={{ screen: 'SingupScreen' }} style={styles.link}>
+        New on RentABike? Sing up!
+      </Link>
+      <Link to={{ screen: 'SingupScreen' }} style={styles.link}>
+        Forgot your password?
+      </Link>
     </SafeAreaView>
   );
 };

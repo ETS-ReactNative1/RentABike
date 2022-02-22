@@ -8,7 +8,7 @@ import { useSingup } from './hooks/useSingup';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput, HelperText, Button } from 'react-native-paper';
 
-export const SingupForm = ({ navigation }) => {
+export const SingupForm = ({ navigation, setLoading }) => {
   /*   const goToHome = () => navigation.navigate('TypeOfUserScreen'); */
   const singupValidationSchema = useSingUpVal();
   return (
@@ -30,6 +30,7 @@ export const SingupForm = ({ navigation }) => {
             values.phone,
             values.name,
             navigation,
+            setLoading,
           )
         }
       >

@@ -24,7 +24,9 @@ export const useSingup = async (
   phoneNumber,
   displayName,
   navigation,
+  setLoading,
 ) => {
+  setLoading(true);
   await createUserWithEmailAndPassword(auth, email, password)
     .then((result) => {
       const user = result.user;
@@ -50,12 +52,16 @@ export const useSingup = async (
           email,
           phoneNumber,
         });
-      } catch (e) {
-        console.error('Error adding document: ', e);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        Alert.alert('Upps', error);
+        console.error('Error adding document: ', error);
       }
       console.log('sesión iniciado :', uid);
       navigation.navigate('TypeOfUserScreen');
     } else {
+      return;
     }
   });
 };
