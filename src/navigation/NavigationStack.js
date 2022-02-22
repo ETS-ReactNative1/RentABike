@@ -12,6 +12,7 @@ import { Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { ReserveScreen } from '../Screens/ReserveScreen';
+import { HistoryScreen } from '../Screens/HistoryScreen';
 
 const Stack = createNativeStackNavigator();
 const NavigationStack = () => {
@@ -111,6 +112,29 @@ const NavigationStack = () => {
       <Stack.Screen
         name='CreateBikeScreen'
         component={CreateBikeScreen}
+        options={{
+          title: 'RentaBike',
+          headerStyle: {
+            backgroundColor: '#465902',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerLeft: () => (
+            <Icon
+              name='arrow-left'
+              color='#fff'
+              size={24}
+              style={{ marginLeft: 16, marginRight: 12 }}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name='HistoryScreen'
+        component={HistoryScreen}
         options={{
           title: 'RentaBike',
           headerStyle: {

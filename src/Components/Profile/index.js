@@ -11,6 +11,7 @@ import { styles } from './styles';
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { firebaseConfig } from '../../../config/database/firebase';
+import { useNavigation } from '@react-navigation/native';
 import Loading from '../Loading';
 import {
   getFirestore,
@@ -25,6 +26,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore();
 export default function Profile() {
+  const navigation = useNavigation();
   const [updatingPhoto, setUpdatingPhoto] = useState(false);
   const storage = getStorage();
   const imgRef = ref(storage, uuid.v4());
@@ -214,7 +216,11 @@ export default function Profile() {
                     Update profile
                   </Button>
                   <Button
-                    onPress={() => console.log('Enviar a historyScreen')}
+                    onPress={() =>
+                      navigation.navigate('HistoryScreen', {
+                        userId: data.uid,
+                      })
+                    }
                     mode='contained'
                     color='#7C8C03'
                     style={styles.submitButton}

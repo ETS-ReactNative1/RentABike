@@ -38,7 +38,7 @@ export function CreditCard(props) {
         userId: params.user,
         pickUp: JSON.stringify(new Date(params.date)),
         amount: params.price,
-        days: params.price,
+        days: params.days,
       });
 
       const data = await response.json();
