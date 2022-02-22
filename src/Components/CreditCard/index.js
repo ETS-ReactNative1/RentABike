@@ -3,6 +3,7 @@ import { Button } from 'react-native-paper';
 import React, { useState } from 'react';
 import { collection, addDoc, getFirestore } from 'firebase/firestore';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Loading from '../Loading';
 import {
   CardField,
   CardForm,
@@ -20,8 +21,10 @@ export function CreditCard(props) {
   } = props;
 
   const [card, setCard] = useState(); // para luego guardar las tarjetas
+  const [loading2, setLoading2] = useState(false);
   const { confirmPayment, loading } = useConfirmPayment();
   const handlePayPress = async () => {
+    setLoading2(true);
     try {
       const response = await fetch(testUri, {
         method: 'POST',
@@ -60,49 +63,54 @@ export function CreditCard(props) {
           },
         ]);
       }
+      setLoading2(false);
     } catch (error) {
+      setLoading2(false);
       console.log('error en el catch :', error);
     }
   };
   return (
-    <SafeAreaView style={{ padding: 26 }}>
-      <Text
-        style={{
-          width: '100%',
-          fontSize: 62,
-          textAlign: 'center',
-          color: '#7C8C03',
-          fontWeight: 'bold',
-        }}
-      >
-        Renting a Bike!
-      </Text>
+    <>
+      <Loading loading={loading || loading2} />
+      <SafeAreaView style={{ padding: 26 }}>
+        <Text
+          style={{
+            width: '100%',
+            fontSize: 62,
+            textAlign: 'center',
+            color: '#7C8C03',
+            fontWeight: 'bold',
+          }}
+        >
+          Renting a Bike!
+        </Text>
 
-      <Text
-        style={{
-          width: '100%',
-          fontSize: 16,
-          fontSize: 24,
-          textAlign: 'center',
-        }}
-      >{`${params.bikeModel} for $${params.price}`}</Text>
+        <Text
+          style={{
+            width: '100%',
+            fontSize: 16,
+            fontSize: 24,
+            textAlign: 'center',
+          }}
+        >{`${params.bikeModel} for $${params.price}`}</Text>
 
-      <CardForm
-        onFormComplete={(cardDetails) => {
-          console.log('card details', cardDetails);
-          setCard(cardDetails);
-        }}
-        style={{ height: 270 }}
-      />
-      <Button
-        title='Pay'
-        onPress={handlePayPress}
-        disabled={loading}
-        color={'#7C8C03'}
-        mode='contained'
-      >
-        Pay
-      </Button>
-    </SafeAreaView>
+        <CardForm
+          onFormComplete={(cardDetails) => {
+            console.log('card details', cardDetails);
+            setCard(cardDetails);
+          }}
+          style={{ height: 270 }}
+        />
+        <Button
+          title='Pay'
+          onPress={handlePayPress}
+          disabled={loading}
+          color={'#7C8C03'}
+          mode='contained'
+        >
+          Pay
+        </Button>
+      </SafeAreaView>
+    </>
   );
 }
