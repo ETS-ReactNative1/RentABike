@@ -11,6 +11,7 @@ import CreditCardScreen from '../Screens/CreditCardScreen';
 import { Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import { ReserveScreen } from '../Screens/ReserveScreen';
 
 const Stack = createNativeStackNavigator();
 const NavigationStack = () => {
@@ -85,6 +86,29 @@ const NavigationStack = () => {
         }}
       />
       <Stack.Screen
+        name='ReserveScreen'
+        component={ReserveScreen}
+        options={{
+          title: 'RentaBike',
+          headerStyle: {
+            backgroundColor: '#465902',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerLeft: () => (
+            <Icon
+              name='arrow-left'
+              color='#fff'
+              size={24}
+              style={{ marginLeft: 16, marginRight: 12 }}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
         name='CreateBikeScreen'
         component={CreateBikeScreen}
         options={{
@@ -107,7 +131,29 @@ const NavigationStack = () => {
           ),
         }}
       />
-      <Stack.Screen name='CreditCardScreen' component={CreditCardScreen} />
+      <Stack.Screen
+        name='CreditCardScreen'
+        component={CreditCardScreen}
+        options={{
+          title: 'RentaBike',
+          headerStyle: {
+            backgroundColor: '#465902',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerLeft: () => (
+            <Icon
+              name='arrow-left'
+              color='#fff'
+              size={24}
+              style={{ marginLeft: 16, marginRight: 12 }}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        }}
+      />
     </Stack.Navigator>
   );
 };

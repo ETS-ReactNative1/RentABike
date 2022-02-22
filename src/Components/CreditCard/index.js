@@ -1,22 +1,25 @@
-import { View, Text, Alert, Button } from 'react-native';
+import { View, Text, Alert } from 'react-native';
+import { Button } from 'react-native-paper';
 import React, { useState } from 'react';
+import { collection, addDoc, getFirestore } from 'firebase/firestore';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
 import {
   CardField,
   CardForm,
   useStripe,
   useConfirmPayment,
 } from '@stripe/stripe-react-native';
-/* import { Button } from 'react-native-paper'; */
 
-const price = 5000; // cambiar por uuid y que la cloud function calcule el precio
+const db = getFirestore();
 const testUri =
   'https://us-central1-rent-abike.cloudfunctions.net/createPaymentIntent';
-export function CreditCard() {
-  const navigation = useNavigation();
-  const [card, setCard] = useState();
-  /*   const { confirmPayment } = useStripe(); */
+export function CreditCard(props) {
+  const {
+    navigation,
+    route: { params },
+  } = props;
+
+  const [card, setCard] = useState(); // para luego guardar las tarjetas
   const { confirmPayment, loading } = useConfirmPayment();
   const handlePayPress = async () => {
     try {
@@ -26,9 +29,18 @@ export function CreditCard() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          price,
+          price: params.price,
         }),
       });
+      await addDoc(collection(db, 'Rent'), {
+        bikeId: params.bike,
+        ownerId: params.owner,
+        userId: params.user,
+        pickUp: JSON.stringify(new Date(params.date)),
+        amount: params.price,
+        days: params.price,
+      });
+
       const data = await response.json();
       console.log('data :', data);
       const clientSecret = await data.paymentIntent;
@@ -40,13 +52,13 @@ export function CreditCard() {
         console.log('error :', error);
         Alert.alert(`Error code ${error.code}`, error.message);
       } else if (paymentIntent) {
-        Alert.alert(
-            "Success",
-            `Payment successful: ${paymentIntent.id}`,
-            [
-              { text: "OK", onPress: () => navigation.navigate('RentTabNavigation') }
-            ]
-          );
+        Alert.alert('Success', `Payment successful: ${paymentIntent.id}`, [
+          {
+            text: 'OK',
+            onPress: () =>
+              navigation.navigate('RentTabNavigation', { type: 'renter' }),
+          },
+        ]);
       }
     } catch (error) {
       console.log('error en el catch :', error);
@@ -54,6 +66,27 @@ export function CreditCard() {
   };
   return (
     <SafeAreaView>
+      <Text
+        style={{
+          width: '100%',
+          fontSize: 62,
+          textAlign: 'center',
+          color: '#7C8C03',
+          fontWeight: 'bold',
+        }}
+      >
+        Renting a Bike!
+      </Text>
+
+      <Text
+        style={{
+          width: '100%',
+          fontSize: 16,
+          fontSize: 24,
+          textAlign: 'center',
+        }}
+      >{`${params.bikeModel} for $${params.price}`}</Text>
+
       <CardForm
         onFormComplete={(cardDetails) => {
           console.log('card details', cardDetails);
@@ -61,31 +94,15 @@ export function CreditCard() {
         }}
         style={{ height: 270 }}
       />
-      {/* <CardField
-        postalCodeEnabled={false}
-        placeholder={{
-          number: '4242 4242 4242 4242',
-        }}
-        cardStyle={{
-          backgroundColor: '#FFFFFF',
-          textColor: '#000000',
-          borderColor: '#000000',
-          borderWith: 1,
-          borderRadius: 8,
-        }}
-        style={{
-          width: '100%',
-          height: 50,
-          marginVertical: 30,
-        }}
-        onCardChange={(cardDetails) => {
-          console.log('cardDetails', cardDetails); }
-      } onFocus=
-      {(focusedField) => {
-        console.log('focusField', focusedField);
-      }}
-      /> */}
-      <Button title='Pay' onPress={handlePayPress} disabled={loading} />
+      <Button
+        title='Pay'
+        onPress={handlePayPress}
+        disabled={loading}
+        color={'#7C8C03'}
+        mode='contained'
+      >
+        Pay
+      </Button>
     </SafeAreaView>
   );
 }

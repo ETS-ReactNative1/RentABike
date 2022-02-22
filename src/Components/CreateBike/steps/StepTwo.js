@@ -65,6 +65,19 @@ export function StepTwo(props) {
                 <Picker.Item label='Arequipa' value='Arequipa' />
                 <Picker.Item label='Lima' value='Lima' />
               </Picker>
+              <Text style={stylesForm.label}>Wheel Size</Text>
+              <TextInput
+                activeUnderlineColor='#7C8C03'
+                name='height'
+                placeholder='180'
+                style={stylesForm.textInput}
+                onChangeText={handleChange('height')}
+                onBlur={handleBlur('height')}
+                value={values.height}
+              />
+              {errors.height && touched.height && (
+                <Text style={styles.errorText}>{errors.height}</Text>
+              )}
               <Text style={stylesForm.label}>How much for a day?</Text>
               <TextInput
                 activeUnderlineColor='#7C8C03'
@@ -78,20 +91,6 @@ export function StepTwo(props) {
               />
               {errors.dailyPrice && touched.dailyPrice && (
                 <Text style={styles.errorText}>{errors.dailyPrice}</Text>
-              )}
-              <Text style={stylesForm.label}>What about a week?</Text>
-              <TextInput
-                activeUnderlineColor='#7C8C03'
-                name='weeklyPrice'
-                placeholder='180'
-                style={stylesForm.textInput}
-                onChangeText={handleChange('weeklyPrice')}
-                onBlur={handleBlur('weeklyPrice')}
-                value={values.weeklyPrice}
-                keyboardType='number-pad'
-              />
-              {errors.weeklyPrice && touched.weeklyPrice && (
-                <Text style={styles.errorText}>{errors.weeklyPrice}</Text>
               )}
               <Button
                 onPress={handleSubmit}

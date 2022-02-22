@@ -25,7 +25,10 @@ export function Bike(props) {
   const [bike, setBike] = useState({});
   const [owner, setOwner] = useState({});
   const handleSubmit = () => {
-    console.log('esto debería llevarte a un checkout');
+    navigation.navigate('ReserveScreen', {
+      owner: owner.uid,
+      bike: params.id,
+    });
   };
   useEffect(async () => {
     try {
@@ -191,10 +194,10 @@ export function Bike(props) {
                 justifyContent: 'center',
               }}
             >
-              <Text style={styles.itemCheckoutLabel}>{`Daily`}</Text>
-              <Text style={styles.itemCheckout}>{`$${bike.dailyPrice}`}</Text>
-              <Text style={styles.itemCheckoutLabel}>{`Weekly`}</Text>
-              <Text style={styles.itemCheckout}>{`$${bike.weeklyPrice}`}</Text>
+              <Text
+                style={styles.itemCheckoutLabel}
+              >{`$${bike.dailyPrice}`}</Text>
+              <Text style={styles.itemCheckout}>{`Daily`}</Text>
             </View>
             <View
               style={{

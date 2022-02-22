@@ -11,7 +11,7 @@ export const useValidateTwo = () => {
           .max(2023, `You can't rent a bike from the future!`)
           .required('Year is Required'),
         dailyPrice: yup.number().required('Both prices are Required'),
-        weeklyPrice: yup.number().required('Both prices are Required'),
+        height: yup.string().required('Wheel Size Matters!'),
       }),
     );
   }, []);

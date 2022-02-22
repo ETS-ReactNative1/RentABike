@@ -42,7 +42,6 @@ export function CreateForm(props) {
           height: bikeData.height || "6'9''",
           city: bikeData.city,
           dailyPrice: bikeData.dailyPrice,
-          weeklyPrice: bikeData.weeklyPrice,
           img: bikeData.img,
           elbowPads: bikeData.elbowPads || 1,
           kneePads: bikeData.kneePads || 1,
