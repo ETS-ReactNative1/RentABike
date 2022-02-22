@@ -24,10 +24,13 @@ import {
 } from 'firebase/firestore';
 import { firebaseConfig } from '../../../config/database/firebase';
 import { BikeCard } from '../RenterHome/BikeCard';
+import Loading from '../Loading';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
 export const OwnerHome = () => {
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const db = getFirestore();
   const usersRef = collection(db, 'Bike');
@@ -35,31 +38,35 @@ export const OwnerHome = () => {
   const [bikes, setBikes] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     const item = [];
     getDocs(q).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         item.push({ id: doc.id, ...doc.data() });
       });
-
       setBikes(item);
+      setLoading(false);
     });
   }, []);
 
   return (
-    <SafeAreaView>
-      <FlatList
-        data={bikes}
-        numColumns={1}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(e) => String(e.id)}
-        renderItem={({ item }) => <BikeCard bike={item} userType={'owner'} />}
-        contentContainerStyle={styles.flatListContainer}
-      />
-      <FAB
-        style={styles.fab}
-        icon='plus'
-        onPress={() => navigation.navigate('CreateBikeScreen')}
-      />
-    </SafeAreaView>
+    <>
+      <Loading loading={loading} />
+      <SafeAreaView>
+        <FlatList
+          data={bikes}
+          numColumns={1}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(e) => String(e.id)}
+          renderItem={({ item }) => <BikeCard bike={item} userType={'owner'} />}
+          contentContainerStyle={styles.flatListContainer}
+        />
+        <FAB
+          style={styles.fab}
+          icon='plus'
+          onPress={() => navigation.navigate('CreateBikeScreen')}
+        />
+      </SafeAreaView>
+    </>
   );
 };

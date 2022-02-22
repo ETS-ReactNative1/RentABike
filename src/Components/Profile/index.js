@@ -11,6 +11,7 @@ import { styles } from './styles';
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { firebaseConfig } from '../../../config/database/firebase';
+import Loading from '../Loading';
 import {
   getFirestore,
   collection,
@@ -146,97 +147,100 @@ export default function Profile() {
     }
   };
   return (
-    <ScrollView style={styles.scrollContainer}>
-      <SafeAreaView style={styles.container}>
-        {!loading && (
-          <Formik initialValues={data} onSubmit={handleSubmit}>
-            {({
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              values,
-              errors,
-              touched,
-              isValid,
-            }) => (
-              <>
-                {image ? (
-                  <View style={styles.imageContainer}>
-                    <Image source={{ uri: image }} style={styles.image} />
-                  </View>
-                ) : (
-                  <View style={styles.imageContainer}>
-                    <Icon
-                      name='user'
-                      color='grey'
-                      style={styles.image}
-                      size={72}
-                    />
-                  </View>
-                )}
-                <Button
-                  onPress={pickImage}
-                  color='#7C8C03'
-                  loading={updatingPhoto}
-                  style={{ fontSize: 16, fontWeight: 'bold' }}
-                >
-                  Upload a Photo
-                </Button>
-                <Text style={styles.label}>User name</Text>
-                <Text style={styles.info}>{data.name}</Text>
-                <Text style={styles.label}>Description</Text>
-                <TextInput
-                  mode='flat'
-                  activeUnderlineColor='#7C8C03'
-                  style={{ ...styles.info, width: '100%', marginBottom: 8 }}
-                  name='description'
-                  placeholder='Your description'
-                  onChangeText={handleChange('description')}
-                  onBlur={handleBlur('description')}
-                  value={values.description}
-                />
-                <Text style={styles.label}>Email</Text>
-                <Text style={styles.info}>{data.email}</Text>
-                <Text style={styles.label}>Phone Number</Text>
-                <Text style={{ ...styles.info, marginBottom: 8 }}>
-                  {data.phone}
-                </Text>
-                <Button
-                  onPress={handleSubmit}
-                  disabled={updatingPhoto}
-                  mode='contained'
-                  color='#C0D904'
-                  style={styles.submitButton}
-                >
-                  Update profile
-                </Button>
-                <Button
-                  onPress={() => console.log('Enviar a historyScreen')}
-                  mode='contained'
-                  color='#7C8C03'
-                  style={styles.submitButton}
-                >
-                  History
-                </Button>
-                <Button
-                  onPress={changePasswordHandler}
-                  color='#7C8C03'
-                  style={styles.textButton}
-                >
-                  Change your password
-                </Button>
-                <Button
-                  onPress={deleteAccountHandler}
-                  color='red'
-                  style={styles.textButton}
-                >
-                  Delete Account
-                </Button>
-              </>
-            )}
-          </Formik>
-        )}
-      </SafeAreaView>
-    </ScrollView>
+    <>
+      <Loading loading={loading} />
+      <ScrollView style={styles.scrollContainer}>
+        <SafeAreaView style={styles.container}>
+          {!loading && (
+            <Formik initialValues={data} onSubmit={handleSubmit}>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+                isValid,
+              }) => (
+                <>
+                  {image ? (
+                    <View style={styles.imageContainer}>
+                      <Image source={{ uri: image }} style={styles.image} />
+                    </View>
+                  ) : (
+                    <View style={styles.imageContainer}>
+                      <Icon
+                        name='user'
+                        color='grey'
+                        style={styles.image}
+                        size={72}
+                      />
+                    </View>
+                  )}
+                  <Button
+                    onPress={pickImage}
+                    color='#7C8C03'
+                    loading={updatingPhoto}
+                    style={{ fontSize: 16, fontWeight: 'bold' }}
+                  >
+                    Upload a Photo
+                  </Button>
+                  <Text style={styles.label}>User name</Text>
+                  <Text style={styles.info}>{data.name}</Text>
+                  <Text style={styles.label}>Description</Text>
+                  <TextInput
+                    mode='flat'
+                    activeUnderlineColor='#7C8C03'
+                    style={{ ...styles.info, width: '100%', marginBottom: 8 }}
+                    name='description'
+                    placeholder='Your description'
+                    onChangeText={handleChange('description')}
+                    onBlur={handleBlur('description')}
+                    value={values.description}
+                  />
+                  <Text style={styles.label}>Email</Text>
+                  <Text style={styles.info}>{data.email}</Text>
+                  <Text style={styles.label}>Phone Number</Text>
+                  <Text style={{ ...styles.info, marginBottom: 8 }}>
+                    {data.phone}
+                  </Text>
+                  <Button
+                    onPress={handleSubmit}
+                    disabled={updatingPhoto}
+                    mode='contained'
+                    color='#C0D904'
+                    style={styles.submitButton}
+                  >
+                    Update profile
+                  </Button>
+                  <Button
+                    onPress={() => console.log('Enviar a historyScreen')}
+                    mode='contained'
+                    color='#7C8C03'
+                    style={styles.submitButton}
+                  >
+                    History
+                  </Button>
+                  <Button
+                    onPress={changePasswordHandler}
+                    color='#7C8C03'
+                    style={styles.textButton}
+                  >
+                    Change your password
+                  </Button>
+                  <Button
+                    onPress={deleteAccountHandler}
+                    color='red'
+                    style={styles.textButton}
+                  >
+                    Delete Account
+                  </Button>
+                </>
+              )}
+            </Formik>
+          )}
+        </SafeAreaView>
+      </ScrollView>
+    </>
   );
 }

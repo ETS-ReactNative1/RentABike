@@ -21,8 +21,10 @@ import {
 } from 'firebase/firestore';
 import { firebaseConfig } from '../../../config/database/firebase';
 import { BikeCard } from './BikeCard';
+import Loading from '../Loading';
 
 export const RenterHome = () => {
+  const [loading, setLoading] = useState(false);
   const app = initializeApp(firebaseConfig);
   const db = getFirestore();
   const usersRef = collection(db, 'Bike');
@@ -30,6 +32,7 @@ export const RenterHome = () => {
   const [bikes, setBikes] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     const item = [];
     getDocs(q).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -38,17 +41,21 @@ export const RenterHome = () => {
         /*    item.push({ id: doc.id, name, phone, email }); */
       });
       setBikes(item);
+      setLoading(false);
     });
   }, []);
   return (
     <>
+      <Loading loading={loading} />
       <SafeAreaView>
         <FlatList
           data={bikes}
           numColumns={1}
           showsVerticalScrollIndicator={false}
           keyExtractor={(e) => String(e.id)}
-          renderItem={({ item }) => <BikeCard bike={item} userType={'renter'} />}
+          renderItem={({ item }) => (
+            <BikeCard bike={item} userType={'renter'} />
+          )}
           contentContainerStyle={styles.flatListContainer}
         />
       </SafeAreaView>

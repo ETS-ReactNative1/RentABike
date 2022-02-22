@@ -65,7 +65,7 @@ export function CreditCard(props) {
     }
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ padding: 26 }}>
       <Text
         style={{
           width: '100%',

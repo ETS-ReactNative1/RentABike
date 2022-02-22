@@ -6,6 +6,7 @@ import { firebaseConfig } from '../../../config/database/firebase';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { TextInput, Button } from 'react-native-paper';
+import Loading from '../Loading';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -81,201 +82,204 @@ export function Reserve(props) {
     }
   }, []);
   return (
-    <SafeAreaView>
-      {!loading && (
-        <View style={{ padding: 26 }}>
-          <View
-            style={{
-              width: '100%',
-              padding: 8,
-              borderWidth: 2,
-              height: 200,
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignContent: 'center',
-            }}
-          >
+    <View style={{ width: '100%', height: '100%' }}>
+      <Loading loading={loading} />
+      <SafeAreaView>
+        {!loading && (
+          <View style={{ padding: 26 }}>
             <View
               style={{
-                width: '45%',
-                height: 180,
+                width: '100%',
+                padding: 8,
+                borderWidth: 2,
+                height: 200,
                 display: 'flex',
-                alignItems: 'center',
+                flexDirection: 'row',
                 justifyContent: 'center',
-                borderRightWidth: 1,
-                paddingRight: 8,
+                alignItems: 'center',
+                alignContent: 'center',
               }}
             >
-              <Text style={{ fontSize: 24 }}>Pick Up</Text>
-              <Text style={{ fontSize: 52, fontWeight: 'bold' }}>
-                {toDay(JSON.stringify(pickUp))}
-              </Text>
-              <Text style={{ fontSize: 28 }}>
-                {toMonth(JSON.stringify(pickUp))}
-              </Text>
+              <View
+                style={{
+                  width: '45%',
+                  height: 180,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRightWidth: 1,
+                  paddingRight: 8,
+                }}
+              >
+                <Text style={{ fontSize: 24 }}>Pick Up</Text>
+                <Text style={{ fontSize: 52, fontWeight: 'bold' }}>
+                  {toDay(JSON.stringify(pickUp))}
+                </Text>
+                <Text style={{ fontSize: 28 }}>
+                  {toMonth(JSON.stringify(pickUp))}
+                </Text>
+              </View>
+              <View
+                style={{
+                  width: '45%',
+                  height: 180,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  paddingLeft: 8,
+                }}
+              >
+                <Text style={{ fontSize: 24 }}>Drop Off</Text>
+                <Text style={{ fontSize: 52, fontWeight: 'bold' }}>
+                  {toDay(JSON.stringify(dropOff))}
+                </Text>
+                <Text style={{ fontSize: 28 }}>
+                  {toMonth(JSON.stringify(dropOff))}
+                </Text>
+              </View>
             </View>
             <View
               style={{
-                width: '45%',
-                height: 180,
+                width: '100%',
+                padding: 8,
                 display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-around',
                 alignItems: 'center',
-                justifyContent: 'center',
-                paddingLeft: 8,
+                alignContent: 'center',
+                marginTop: 12,
               }}
             >
-              <Text style={{ fontSize: 24 }}>Drop Off</Text>
-              <Text style={{ fontSize: 52, fontWeight: 'bold' }}>
-                {toDay(JSON.stringify(dropOff))}
-              </Text>
-              <Text style={{ fontSize: 28 }}>
-                {toMonth(JSON.stringify(dropOff))}
-              </Text>
+              <Button
+                onPress={showDatepicker}
+                style={{
+                  width: '45%',
+                  height: 40,
+                  marginVertical: 10,
+                }}
+                mode='contained'
+                color='#7C8C03'
+              >
+                Pick a date
+              </Button>
+              <View
+                style={{
+                  width: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <TextInput
+                  label={'How much days'}
+                  placeholder='1'
+                  style={{
+                    width: '100%',
+                    height: 60,
+                    textAlign: 'center',
+                    backgroundColor: 'none',
+                  }}
+                  activeUnderlineColor='#7C8C03'
+                  keyboardType='numeric'
+                  onChangeText={(value) => {
+                    setDropOff(
+                      new Date(date.getTime() + value * 24 * 60 * 60 * 1000),
+                    );
+                    setDays(value);
+                  }}
+                />
+              </View>
             </View>
-          </View>
-          <View
-            style={{
-              width: '100%',
-              padding: 8,
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-              alignContent: 'center',
-              marginTop: 12,
-            }}
-          >
+            <View
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  width: '45%',
+                  textAlign: 'left',
+                }}
+              >
+                Price per day:
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  width: '45%',
+                  textAlign: 'right',
+                }}
+              >{`$${bikeData.dailyPrice}`}</Text>
+            </View>
+            <View
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  width: '45%',
+                  textAlign: 'left',
+                }}
+              >
+                Total price:
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  width: '45%',
+                  textAlign: 'right',
+                }}
+              >{`$${Number(bikeData.dailyPrice) * Number(days)}`}</Text>
+            </View>
+
+            <View>
+              {show && (
+                <DateTimePicker
+                  testID='dateTimePicker'
+                  value={date}
+                  mode={mode}
+                  is24Hour={true}
+                  display='default'
+                  onChange={onChange}
+                />
+              )}
+            </View>
             <Button
-              onPress={showDatepicker}
-              style={{
-                width: '45%',
-                height: 40,
-                marginVertical: 10,
-              }}
+              onPress={() =>
+                navigation.navigate('CreditCardScreen', {
+                  price: Number(bikeData.dailyPrice) * Number(days),
+                  bike: params.bike,
+                  bikeModel: bikeData.model,
+                  owner: params.owner,
+                  user: userId,
+                  days: Number(days),
+                  date: date.getTime() + 24 * 60 * 60 * 1000,
+                })
+              }
               mode='contained'
               color='#7C8C03'
+              style={{ marginVertical: 6 }}
             >
-              Pick a date
+              Confirm and pay
             </Button>
-            <View
-              style={{
-                width: '50%',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <TextInput
-                label={'How much days'}
-                placeholder='1'
-                style={{
-                  width: '100%',
-                  height: 60,
-                  textAlign: 'center',
-                  backgroundColor: 'none',
-                }}
-                activeUnderlineColor='#7C8C03'
-                keyboardType='numeric'
-                onChangeText={(value) => {
-                  setDropOff(
-                    new Date(date.getTime() + value * 24 * 60 * 60 * 1000),
-                  );
-                  setDays(value);
-                }}
-              />
-            </View>
+            <Button onPress={() => navigation.goBack()} color='#7C8C03'>
+              Cancel
+            </Button>
           </View>
-          <View
-            style={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: 'bold',
-                width: '45%',
-                textAlign: 'left',
-              }}
-            >
-              Price per day:
-            </Text>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: 'bold',
-                width: '45%',
-                textAlign: 'right',
-              }}
-            >{`$${bikeData.dailyPrice}`}</Text>
-          </View>
-          <View
-            style={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: 'bold',
-                width: '45%',
-                textAlign: 'left',
-              }}
-            >
-              Total price:
-            </Text>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: 'bold',
-                width: '45%',
-                textAlign: 'right',
-              }}
-            >{`$${Number(bikeData.dailyPrice) * Number(days)}`}</Text>
-          </View>
-
-          <View>
-            {show && (
-              <DateTimePicker
-                testID='dateTimePicker'
-                value={date}
-                mode={mode}
-                is24Hour={true}
-                display='default'
-                onChange={onChange}
-              />
-            )}
-          </View>
-          <Button
-            onPress={() =>
-              navigation.navigate('CreditCardScreen', {
-                price: Number(bikeData.dailyPrice) * Number(days),
-                bike: params.bike,
-                bikeModel: bikeData.model,
-                owner: params.owner,
-                user: userId,
-                days: Number(days),
-                date: date.getTime() + 24 * 60 * 60 * 1000,
-              })
-            }
-            mode='contained'
-            color='#7C8C03'
-            style={{ marginVertical: 6 }}
-          >
-            Confirm and pay
-          </Button>
-          <Button onPress={() => navigation.goBack()} color='#7C8C03'>
-            Cancel
-          </Button>
-        </View>
-      )}
-    </SafeAreaView>
+        )}
+      </SafeAreaView>
+    </View>
   );
 }

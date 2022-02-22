@@ -10,7 +10,7 @@ export default function Loading({ loading }) {
             height: '100%',
             position: 'absolute',
             top: 0,
-            backgroundColor: 'rgba(52, 52, 52, 0.8)',
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
             elevation: 1,
             display: 'flex',
             justifyContent: 'center',
