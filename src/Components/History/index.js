@@ -19,8 +19,10 @@ import {
   getDocs,
   doc,
   getDoc,
+  onSnapshot,
   query,
   where,
+  documentId,
 } from 'firebase/firestore';
 import { firebaseConfig } from '../../../config/database/firebase';
 import { BikeCard } from '../RenterHome/BikeCard';
@@ -37,54 +39,94 @@ export function History(props) {
   const [loading, setLoading] = useState(false);
   const db = getFirestore();
   const rentRef = collection(db, 'Rent');
+  const bikeRef = collection(db, 'Bike');
+  const ownerRef = collection(db, 'User');
   const q = query(rentRef, where('userId', '==', params.userId));
-  const [rentData, setRentData] = useState([]);
+  const [rentArray, setRentArray] = useState([]);
+  const [bikeArray, setBikeArray] = useState([]);
+  const [ownerArray, setOwnerArray] = useState([]);
+
+  const historyData = rentArray.map((re) => {
+    const ownerArr = ownerArray.find((own) => own.ownerId === re.ownerId);
+    const bikeArr = bikeArray.find((bik) => bik.bikeId === re.bikeId);
+    return { rent: { ...re }, owner: { ...ownerArr }, bike: { ...bikeArr } };
+  });
 
   useEffect(async () => {
     setLoading(true);
-    await getDocs(q).then((querySnapshot) => {
-      const item = [];
-      querySnapshot.forEach(async (rent) => {
-        try {
-          const bikeRef = doc(db, 'Bike', rent.data().bikeId);
-          const bikeSnap = await getDoc(bikeRef);
-          const bikeData = await bikeSnap.data();
-          const ownerRef = doc(db, 'User', rent.data().ownerId);
-          const ownerSnap = await getDoc(ownerRef);
-          const ownerData = await ownerSnap.data();
-          item.push({
-            rent: { id: rent.id, ...rent.data() },
-            bike: {
-              city: bikeData.city,
-              img: bikeData.img,
-              model: bikeData.model,
-            },
-            owner: { name: ownerData.name },
-          });
-          setRentData(item);
-        } catch (error) {
-          console.log('salió mal:C');
-          console.log(error);
-          setLoading(false);
-        }
+    //Info de las rentas
+    await onSnapshot(q, (querySnapshot) => {
+      setRentArray(
+        querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        })),
+      );
+    });
+    //
+
+    //array de bikeIds  // falta limitar a 10
+    const bikeIds = [];
+    const bikeSnap = await getDocs(q);
+    bikeSnap.forEach((element) => {
+      bikeIds.push(element.data().bikeId);
+    });
+    //
+    // documentos de bike
+    const bikeData = [];
+    const bikeDocs = await getDocs(
+      query(bikeRef, where(documentId(), 'in', bikeIds)),
+    );
+    bikeDocs.forEach((e) => {
+      bikeData.push({
+        bikeId: e.id,
+        img: e.data().img,
+        model: e.data().model,
+        dailyPrice: e.data().dailyPrice,
+        city: e.data().city,
+        ownerid: e.data().ownerid,
       });
     });
+    setBikeArray(bikeData);
+    //array de ownerIds  // falta limitar a 10
+    const ownerIds = [];
+    const ownerSnap = await getDocs(q);
+    ownerSnap.forEach((element) => {
+      ownerIds.push(element.data().ownerId);
+    });
+    //
+    // documentos de owner
+    const ownerData = [];
+    const ownerDocs = await getDocs(
+      query(ownerRef, where(documentId(), 'in', ownerIds)),
+    );
+    ownerDocs.forEach((e) => {
+      ownerData.push({
+        ownweId: e.id,
+        email: e.data().email,
+        name: e.data().name,
+        phoneNumber: e.data().phoneNumber,
+      });
+    });
+    setOwnerArray(ownerData);
     setLoading(false);
   }, []);
-  console.log('mi data bella :', rentData);
   return (
     <>
       <Loading loading={loading} />
       {!loading && (
         <SafeAreaView>
-          <FlatList
-            data={rentData}
-            numColumns={1}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(e) => String(e.rent.id)}
-            renderItem={({ item }) => <HistoryCard data={item} />}
-            contentContainerStyle={styles.flatListContainer}
-          />
+          {
+            <FlatList
+              data={historyData}
+              numColumns={1}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(e) => String(e.rent.id)}
+              renderItem={({ item }) => <HistoryCard data={item} />}
+              contentContainerStyle={styles.flatListContainer}
+            />
+          }
+          <Text>Hola</Text>
         </SafeAreaView>
       )}
     </>
