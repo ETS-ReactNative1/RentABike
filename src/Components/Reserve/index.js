@@ -271,10 +271,12 @@ export function Reserve(props) {
               onPress={() =>
                 navigation.navigate('CreditCardScreen', {
                   price: Number(bikeData.dailyPrice) * Number(days),
-                  bike: params.bike,
+                  bikeId: params.bike,
                   bikeModel: bikeData.model,
-                  owner: params.owner,
-                  user: userId,
+                  bikeCity:bikeData.city,
+                  bikeImg:bikeData.img,
+                  ownerId: params.owner,
+                  userId: userId,
                   days: Number(days),
                   date: date.getTime() + 24 * 60 * 60 * 1000,
                 })

@@ -10,7 +10,8 @@ import uuid from 'uuid';
 import { stylesForm } from './stylesForm';
 
 export function StepOne(props) {
-  const [updatingPhoto, setUpdatingPhoto] = useState(false);
+  const [updatingPhoto, setUpdatingPhoto] = useState(true);
+  const [loading, setLoading] = useState(false);
   const storage = getStorage();
   const imgRef = ref(storage, uuid.v4());
   const [image, setImage] = useState(props.data.img);
@@ -45,6 +46,7 @@ export function StepOne(props) {
   }
 
   const pickImage = async () => {
+    setLoading(true);
     try {
       setUpdatingPhoto(true);
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -58,6 +60,7 @@ export function StepOne(props) {
         setImage(result.uri);
         const uploadUrl = await uploadImageAsync(result.uri);
         setimgUri(uploadUrl);
+        setLoading(false);
         setUpdatingPhoto(false);
       }
     } catch (error) {
@@ -124,13 +127,13 @@ export function StepOne(props) {
                 onPress={pickImage}
                 mode='contained'
                 color='#B9BF04'
-                loading={updatingPhoto}
+                loading={loading}
               >
                 Upload a Photo
               </Button>
               <Button
                 onPress={handleSubmit}
-                disabled={(!isValid, !updatingPhoto, !props.data.img)}
+                disabled={(!isValid, updatingPhoto)}
                 mode='contained'
                 color='#7C8C03'
                 style={styles.submitButton}

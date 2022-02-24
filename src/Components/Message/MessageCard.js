@@ -5,6 +5,7 @@ import { colors } from '../../colors';
 
 export function MessageCard({ item }) {
   const navigation = useNavigation();
+  console.log('card=>', item.rent.rentId);
   return (
     <TouchableWithoutFeedback
       onPress={() =>

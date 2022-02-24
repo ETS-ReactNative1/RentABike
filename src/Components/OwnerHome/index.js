@@ -53,7 +53,9 @@ export const OwnerHome = () => {
   return (
     <>
       <Loading loading={loading} />
-      <SafeAreaView style={{ backgroundColor: colors.background }}>
+      <SafeAreaView
+        style={{ backgroundColor: colors.background, minHeight: '100%' }}
+      >
         <FlatList
           data={bikes}
           numColumns={1}

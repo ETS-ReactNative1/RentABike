@@ -26,6 +26,7 @@ export function Chat(props) {
   const navigation = useNavigation();
 
   const { rentId, ownerName, bikeModel } = props.navigation.route.params;
+  console.log("chat rentID :",rentId);
   const [messages, setMessages] = useState([]);
 
   /*   const onSignOut = () => {

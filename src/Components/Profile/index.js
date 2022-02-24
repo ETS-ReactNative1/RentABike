@@ -228,7 +228,7 @@ export default function Profile() {
                   <Text style={styles.info}>{data.email}</Text>
                   <Text style={styles.label}>Phone Number</Text>
                   <Text style={{ ...styles.info, marginBottom: 8 }}>
-                    {data.phone}
+                    {data.phoneNumber}
                   </Text>
                   <Button
                     onPress={handleSubmit}

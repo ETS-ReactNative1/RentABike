@@ -1,6 +1,6 @@
 import { View, Text, Alert } from 'react-native';
 import { Button } from 'react-native-paper';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { collection, addDoc, getFirestore } from 'firebase/firestore';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Loading from '../Loading';
@@ -21,9 +21,12 @@ export function CreditCard(props) {
     route: { params },
   } = props;
 
-  const [card, setCard] = useState(); // para luego guardar las tarjetas
+  const [userData, setUserData] = useState({});
+  const [ownerData, setOwnerData] = useState({});
   const [loading2, setLoading2] = useState(false);
   const { confirmPayment, loading } = useConfirmPayment();
+  const userRef = doc(db, 'User', params.userId);
+  const OwnerRef = doc(db, 'User', params.ownerId);
   const handlePayPress = async () => {
     setLoading2(true);
     try {
@@ -37,12 +40,19 @@ export function CreditCard(props) {
         }),
       });
       await addDoc(collection(db, 'Rent'), {
-        bikeId: params.bike,
-        ownerId: params.owner,
-        userId: params.user,
-        pickUp: JSON.stringify(new Date(params.date)),
         amount: params.price,
+        pickUp: JSON.stringify(new Date(params.date)),
         days: params.days,
+        bikeId: params.bikeId,
+        bikeModel: params.bikeModel,
+        bikeImg: params.bikeImg,
+        bikeCity: params.bikeCity,
+        ownerId: params.ownerId,
+        ownerName: ownerData.name,
+        ownerImg: ownerData.img,
+        userId: params.userId,
+        userName: userData.name,
+        userImg: userData.img,
       });
 
       const data = await response.json();
@@ -70,6 +80,22 @@ export function CreditCard(props) {
       console.log('error en el catch :', error);
     }
   };
+  useEffect(async () => {
+    setLoading2(true);
+    try {
+      const userSnap = await getDoc(userRef);
+      const userdata = userSnap.data();
+      setUserData(userdata);
+      const ownerSnap = await getDoc(OwnerRef);
+      const ownerdata = ownerSnap.data();
+      setOwnerData(ownerdata);
+      setLoading2(false);
+    } catch (e) {
+      console.error('Error adding document: ', e);
+      setLoading2(false);
+    }
+  }, []);
+
   return (
     <>
       <Loading loading={loading || loading2} />

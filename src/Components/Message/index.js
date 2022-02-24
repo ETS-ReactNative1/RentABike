@@ -52,65 +52,68 @@ export const Message = ({ navigation }) => {
     return { rent: { ...re }, owner: { ...ownerArr }, bike: { ...bikeArr } };
   });
 
-  useEffect(async () => {
+  useEffect(() => {
     setLoading(true);
-    //Info de las rentas
-    onSnapshot(q, (querySnapshot) => {
-      setRentArray(
-        querySnapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        })),
-      );
-    });
-    //
+    (async function () {
+      //Info de las rentas
+      onSnapshot(q, (querySnapshot) => {
+        setRentArray(
+          querySnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          })),
+        );
+      });
+      //
 
-    //array de bikeIds  // falta limitar a 10
-    const bikeIds = [];
-    const bikeSnap = await getDocs(q);
-    bikeSnap.forEach((element) => {
-      bikeIds.push(element.data().bikeId);
-    });
-    //
-    // documentos de bike
-    const bikeData = [];
-    const bikeDocs = await getDocs(
-      query(bikeRef, where(documentId(), 'in', bikeIds)),
-    );
-    bikeDocs.forEach((e) => {
-      bikeData.push({
-        bikeId: e.id,
-        img: e.data().img,
-        model: e.data().model,
-        dailyPrice: e.data().dailyPrice,
-        city: e.data().city,
-        ownerid: e.data().ownerid,
+      //array de bikeIds  // falta limitar a 10
+      const bikeIds = [];
+      const bikeSnap = await getDocs(q);
+      bikeSnap.forEach((element) => {
+        bikeIds.push(element.data().bikeId);
       });
-    });
-    setBikeArray(bikeData);
-    //array de ownerIds  // falta limitar a 10
-    const ownerIds = [];
-    const ownerSnap = await getDocs(q);
-    ownerSnap.forEach((element) => {
-      ownerIds.push(element.data().ownerId);
-    });
-    //
-    // documentos de owner
-    const ownerData = [];
-    const ownerDocs = await getDocs(
-      query(ownerRef, where(documentId(), 'in', ownerIds)),
-    );
-    ownerDocs.forEach((e) => {
-      ownerData.push({
-        ownerId: e.id,
-        email: e.data().email,
-        name: e.data().name,
-        phoneNumber: e.data().phoneNumber,
+      //
+      // documentos de bike
+      const bikeData = [];
+      const bikeDocs = await getDocs(
+        query(bikeRef, where(documentId(), 'in', bikeIds)),
+      );
+      bikeDocs.forEach((e) => {
+        bikeData.push({
+          bikeId: e.id,
+          img: e.data().img,
+          model: e.data().model,
+          dailyPrice: e.data().dailyPrice,
+          city: e.data().city,
+          ownerid: e.data().ownerid,
+        });
       });
-    });
-    setOwnerArray(ownerData);
+      setBikeArray(bikeData);
+      //array de ownerIds  // falta limitar a 10
+      const ownerIds = [];
+      const ownerSnap = await getDocs(q);
+      ownerSnap.forEach((element) => {
+        ownerIds.push(element.data().ownerId);
+      });
+      //
+      // documentos de owner
+      const ownerData = [];
+      const ownerDocs = await getDocs(
+        query(ownerRef, where(documentId(), 'in', ownerIds)),
+      );
+      ownerDocs.forEach((e) => {
+        ownerData.push({
+          ownerId: e.id,
+          email: e.data().email,
+          name: e.data().name,
+          phoneNumber: e.data().phoneNumber,
+        });
+      });
+      setOwnerArray(ownerData);
+    })();
     setLoading(false);
   }, []);
+  console.log(historyData);
   return (
     <>
       {!loading && (

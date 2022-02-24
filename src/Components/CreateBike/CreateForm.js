@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { StepOne } from './steps/StepOne';
 import { StepTwo } from './steps/StepTwo';
 import { StepThree } from './steps/StepThree';
-import { ScrollView, View } from 'react-native';
+import { Alert, ScrollView, View } from 'react-native';
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useNavigation } from '@react-navigation/native';
 import { firebaseConfig } from '../../../config/database/firebase';
 import {
   collection,
@@ -23,6 +24,7 @@ const auth = getAuth(app);
 const db = getFirestore();
 
 export function CreateForm(props) {
+  const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
   useEffect(async () => {
@@ -101,6 +103,17 @@ export function CreateForm(props) {
               ownerid: uid,
             });
           }
+          Alert.alert(
+            'Congratulations!',
+            'Your bike was added to our catalog',
+            [
+              {
+                text: 'OK',
+                onPress: () =>
+                  navigation.navigate('RentTabNavigation', { type: 'owner' }),
+              },
+            ],
+          );
         } catch (e) {
           console.error('Error adding document: ', e);
         }
