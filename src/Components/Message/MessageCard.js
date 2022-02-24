@@ -19,25 +19,13 @@ export function MessageCard({ item }) {
           backgroundColor: '#e6e6e6',
           borderColor: 'black',
           borderWidth: 1,
-          borderLeftWidth:2,
-          borderRightWidth:2,
-          borderLeftWidth:2,
-          padding: 26,
+          borderLeftWidth: 2,
+          borderRightWidth: 2,
+          borderLeftWidth: 2,
+          padding: 14,
+          /*  backgroundColor:"red" */
         }}
       >
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: '100%',
-          }}
-        >
-          <View style={{ width: 80 }}></View>
-          <Text style={{ fontWeight: 'bold', fontSize: 18, width: '65%' }}>
-            {item.owner.name}
-          </Text>
-        </View>
         <View
           style={{
             display: 'flex',
@@ -60,20 +48,16 @@ export function MessageCard({ item }) {
               justifyContent: 'space-around',
             }}
           >
+            <Text style={{ fontWeight: 'bold', fontSize: 18, width: '65%' }}>
+              {item.owner.name}
+            </Text>
             <Text
               style={{
                 fontWeight: '200',
                 fontSize: 16,
               }}
             >
-              (Bike Model)
-            </Text>
-            <Text style={{ fontSize: 16 }}>
-              {'blablbalb blbalbadsadasdasasd dlsakdaslkd'.substring(0, 18) +
-                '...'}{' '}
-            </Text>
-            <Text style={{ fontWeight: '100', fontSize: 16 }}>
-              1 minute ago
+              ({item.bike.model})
             </Text>
           </View>
         </View>

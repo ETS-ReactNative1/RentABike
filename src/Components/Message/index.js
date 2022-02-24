@@ -110,7 +110,6 @@ export const Message = ({ navigation }) => {
     setOwnerArray(ownerData);
     setLoading(false);
   }, []);
-  console.log(historyData);
   return (
     <>
       {!loading && (
