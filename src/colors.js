@@ -4,6 +4,7 @@ export const colors = {
   backgroundDarker: '#AEAEAE',
   background2: '#EEECEE',
   background: '#F7F9F9',
+  backgroundOpac: 'rgba(247, 249, 249, 0.6)',
   dark: '#0D0B0B',
   dark2: '#2A2A2C',
   6: '#2D24E7',

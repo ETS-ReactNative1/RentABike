@@ -45,30 +45,38 @@ const NavigationStack = () => {
       <Stack.Screen
         name='RentTabNavigation'
         component={RentTabNavigation}
-        options={header}
+        options={header(() => navigation.goBack())}
       />
-      <Stack.Screen name='BikeScreen' component={BikeScreen} options={header} />
+      <Stack.Screen
+        name='BikeScreen'
+        component={BikeScreen}
+        options={header(() => navigation.goBack())}
+      />
       <Stack.Screen
         name='ReserveScreen'
         component={ReserveScreen}
-        options={header}
+        options={header(() => navigation.goBack())}
       />
       <Stack.Screen
         name='CreateBikeScreen'
         component={CreateBikeScreen}
-        options={header}
+        options={header(() => navigation.goBack())}
       />
       <Stack.Screen
         name='HistoryScreen'
         component={HistoryScreen}
-        options={header}
+        options={header(() => navigation.goBack())}
       />
       <Stack.Screen
         name='CreditCardScreen'
         component={CreditCardScreen}
-        options={header}
+        options={header(() => navigation.goBack())}
       />
-      <Stack.Screen name='ChatScreen' component={ChatScreen} options={header} />
+      <Stack.Screen
+        name='ChatScreen'
+        component={ChatScreen}
+        options={header(() => navigation.goBack())}
+      />
     </Stack.Navigator>
   );
 };

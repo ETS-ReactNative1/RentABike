@@ -11,10 +11,11 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { styles } from './styles';
+import { colors } from '../../colors';
 
 export const BikeCard = ({ bike, userType }) => {
   const db = getFirestore();
-  const { model, dailyPrice, type, img } = bike;
+  const { model, dailyPrice, type, img, height, city } = bike;
   const navigation = useNavigation();
   const deleteHandler = async () => {
     Alert.alert('Are you sure?', 'This action cannot be reversed', [
@@ -46,7 +47,7 @@ export const BikeCard = ({ bike, userType }) => {
             <View style={styles.edit}>
               <Icon
                 name='pencil'
-                color='#465902'
+                color={colors.dark2}
                 size={32}
                 onPress={() =>
                   navigation.navigate('CreateBikeScreen', {
@@ -59,16 +60,18 @@ export const BikeCard = ({ bike, userType }) => {
             <View style={styles.delete}>
               <Icon
                 name='trash'
-                color='red'
+                color={colors.important}
                 size={32}
                 onPress={deleteHandler}
               />
             </View>
           </>
         ) : null}
-        <Card.Content>
-          <Title>{model}</Title>
-          <Paragraph>{`$${dailyPrice} - ${type}`}</Paragraph>
+        <Card.Content style={styles.cardContent}>
+          <Title style={styles.title}>{model}</Title>
+          <Paragraph style={styles.text}>{`$${dailyPrice} • ${type} • ${
+            height || "6'9''"
+          } • ${city}`}</Paragraph>
         </Card.Content>
       </Card>
     </TouchableWithoutFeedback>

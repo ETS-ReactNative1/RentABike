@@ -22,6 +22,7 @@ import {
 import { firebaseConfig } from '../../../config/database/firebase';
 import { BikeCard } from './BikeCard';
 import Loading from '../Loading';
+import { colors } from '../../colors';
 
 export const RenterHome = () => {
   const [loading, setLoading] = useState(false);
@@ -47,7 +48,7 @@ export const RenterHome = () => {
   return (
     <>
       <Loading loading={loading} />
-      <SafeAreaView>
+      <SafeAreaView style={{backgroundColor:colors.background}}>
         <FlatList
           data={bikes}
           numColumns={1}
