@@ -1,5 +1,6 @@
 import { View, Text, Image } from 'react-native';
 import React from 'react';
+import { colors } from '../../colors';
 
 export function HistoryCard({ data }) {
   const date = data.rent.pickUp
@@ -11,17 +12,25 @@ export function HistoryCard({ data }) {
   return (
     <View
       style={{
-        backgroundColor: '#e6e6e6',
+        backgroundColor: colors.background2,
         /*   width: '100%',
         height: '100%', */
         marginHorizontal: 10,
         marginBottom: 20,
         borderColor: 'black',
-        borderWidth: 1,
+
         padding: 26,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
       }}
     >
-      <Text style={{ fontWeight: 'bold', fontSize: 32 }}>
+      <Text style={{ fontWeight: 'bold', fontSize: 24 }}>
         {data.bike.model}
       </Text>
       <View
@@ -39,8 +48,13 @@ export function HistoryCard({ data }) {
         </View>
         <Image
           source={{ uri: data.bike.img }}
-          style={{ width: '35%', height: '100%', marginLeft:6 }}
-        ></Image>
+          style={{
+            width: 90,
+            height: 90,
+            marginLeft: 6,
+            borderRadius: 60,
+          }}
+        />
       </View>
     </View>
   );

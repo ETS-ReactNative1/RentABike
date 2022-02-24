@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from 'react-native-paper';
-import { styles } from './styles';
 import {
   StyleSheet,
   ScrollView,
@@ -14,12 +13,21 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import {
-
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  onSnapshot,
+  query,
+  where,
+  documentId,
 } from 'firebase/firestore';
 import { firebaseConfig } from '../../../config/database/firebase';
 import { BikeCard } from '../RenterHome/BikeCard';
 import Loading from '../Loading';
 import { HistoryCard } from '../HistoryCard';
+import { colors } from '../../colors';
 
 const app = initializeApp(firebaseConfig);
 
@@ -94,7 +102,7 @@ export function History(props) {
     );
     ownerDocs.forEach((e) => {
       ownerData.push({
-        ownweId: e.id,
+        ownerId: e.id,
         email: e.data().email,
         name: e.data().name,
         phoneNumber: e.data().phoneNumber,
@@ -107,7 +115,7 @@ export function History(props) {
     <>
       <Loading loading={loading} />
       {!loading && (
-        <SafeAreaView>
+        <SafeAreaView style={{backgroundColor:colors.background}}>
           {
             <FlatList
               data={historyData}
@@ -115,7 +123,7 @@ export function History(props) {
               showsVerticalScrollIndicator={false}
               keyExtractor={(e) => String(e.rent.id)}
               renderItem={({ item }) => <HistoryCard data={item} />}
-              contentContainerStyle={styles.flatListContainer}
+              contentContainerStyle={{ paddingHorizontal: 5 }}
             />
           }
           <Text>Hola</Text>
