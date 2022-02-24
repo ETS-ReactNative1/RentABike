@@ -1,9 +1,13 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../colors';
 export const styles = StyleSheet.create({
+  scrollContainer: {
+    backgroundColor: colors.background,
+  },
   container: {
     width: '100%',
     padding: 26,
-    backgroundColor: '#e6e6e6',
+    backgroundColor: colors.background,
     /* paddingHorizontal: 26, */
     display: 'flex',
     justifyContent: 'flex-start',
@@ -14,11 +18,11 @@ export const styles = StyleSheet.create({
     minHeight: 300,
     alignItems: 'center',
     backgroundColor: 'white',
-    backgroundColor: '#e6e6e6',
+    backgroundColor: colors.background,
     paddingBottom: 40,
   },
   title: {
-    color: '#7C8C03',
+    color: colors.dark2,
     fontSize: 42,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -26,7 +30,7 @@ export const styles = StyleSheet.create({
     marginTop: 40,
   },
   label: {
-    color: '#7C8C03',
+    color: colors.dark2,
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'left',

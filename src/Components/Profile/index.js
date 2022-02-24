@@ -25,6 +25,7 @@ import {
   doc,
   getDoc,
 } from 'firebase/firestore';
+import { colors } from '../../colors';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -204,7 +205,7 @@ export default function Profile() {
                   )}
                   <Button
                     onPress={pickImage}
-                    color='#7C8C03'
+                    color={colors.primary}
                     loading={updatingPhoto}
                     style={{ fontSize: 16, fontWeight: 'bold' }}
                   >
@@ -215,7 +216,7 @@ export default function Profile() {
                   <Text style={styles.label}>Description</Text>
                   <TextInput
                     mode='flat'
-                    activeUnderlineColor='#7C8C03'
+                    activeUnderlineColor={colors.primary}
                     style={{ ...styles.info, width: '100%', marginBottom: 8 }}
                     name='description'
                     placeholder='Your description'
@@ -233,7 +234,7 @@ export default function Profile() {
                     onPress={handleSubmit}
                     disabled={updatingPhoto}
                     mode='contained'
-                    color='#C0D904'
+                    color={colors.backgroundDarker}
                     style={styles.submitButton}
                   >
                     Update profile
@@ -245,21 +246,21 @@ export default function Profile() {
                       })
                     }
                     mode='contained'
-                    color='#7C8C03'
+                    color={colors.primary}
                     style={styles.submitButton}
                   >
                     History
                   </Button>
                   <Button
                     onPress={changePasswordHandler}
-                    color='#7C8C03'
+                    color={colors.important}
                     style={styles.textButton}
                   >
                     Change your password
                   </Button>
                   <Button
                     onPress={deleteAccountHandler}
-                    color='red'
+                    color={colors.important}
                     style={styles.textButton}
                   >
                     Delete Account
