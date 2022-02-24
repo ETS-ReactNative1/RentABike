@@ -25,6 +25,7 @@ import Chat from '../Chat';
 import { Button } from 'react-native-paper';
 import { firebaseConfig } from '../../../config/database/firebase';
 import { MessageCard } from './MessageCard';
+import { colors } from '../../colors';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -113,8 +114,11 @@ export const Message = ({ navigation }) => {
   return (
     <>
       {!loading && (
-        <SafeAreaView>
+        <SafeAreaView
+          style={{ backgroundColor: colors.background, paddingHorizontal: 8 }}
+        >
           <FlatList
+            style={{ margin: 0 }}
             data={historyData}
             numColumns={1}
             showsVerticalScrollIndicator={false}

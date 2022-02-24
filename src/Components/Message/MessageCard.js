@@ -1,6 +1,7 @@
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { colors } from '../../colors';
 
 export function MessageCard({ item }) {
   const navigation = useNavigation();
@@ -17,13 +18,22 @@ export function MessageCard({ item }) {
       <View
         style={{
           backgroundColor: '#e6e6e6',
-          borderColor: 'black',
-          borderWidth: 1,
-          borderLeftWidth: 2,
-          borderRightWidth: 2,
-          borderLeftWidth: 2,
-          padding: 14,
+          /*    borderWidth: 1, */
+          padding: 12,
+          borderTopEndRadius: 15,
+          borderTopStartRadius: 15,
+          borderBottomStartRadius: 15,
+          borderBottomEndRadius: 15,
+          marginBottom: 8,
           /*  backgroundColor:"red" */
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          elevation: 5,
         }}
       >
         <View
@@ -43,12 +53,11 @@ export function MessageCard({ item }) {
           ></Image>
           <View
             style={{
-              width: '65%',
               display: 'flex',
-              justifyContent: 'space-around',
+              justifyContent: 'center',
             }}
           >
-            <Text style={{ fontWeight: 'bold', fontSize: 18, width: '65%' }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
               {item.owner.name}
             </Text>
             <Text
