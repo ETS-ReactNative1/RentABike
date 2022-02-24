@@ -14,6 +14,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import Loading from '../Loading';
 import { styles } from './styles';
+import { colors } from '../../colors';
 
 export function Bike(props) {
   const {
@@ -66,11 +67,16 @@ export function Bike(props) {
   return (
     <>
       <Loading loading={loading} />
-      <ScrollView style={{ marginBottom: 10, paddingBottom: 10 }}>
+      <ScrollView
+        style={{
+          paddingBottom: 10,
+          backgroundColor: colors.background,
+        }}
+      >
         {!loading && (
           <SafeAreaView
             style={{
-              minHeight: '100%',
+              minHeight: '90%',
               flex: 1,
               alignItems: 'center',
               marginHorizontal: 24,
@@ -78,6 +84,14 @@ export function Bike(props) {
               paddingHorizontal: 16,
               paddingVertical: 16,
               backgroundColor: 'white',
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5,
             }}
           >
             <Image
@@ -131,16 +145,16 @@ export function Bike(props) {
               <List.Section style={{ width: '100%' }}>
                 <List.Accordion
                   title='Includes:'
-                  titleStyle={{ color: '#7C8C03', fontWeight: 'bold' }}
+                  titleStyle={{ color: colors.primary, fontWeight: 'bold' }}
                   left={(props) => (
-                    <List.Icon {...props} icon='bike' color='#7C8C03' />
+                    <List.Icon {...props} icon='bike' color={colors.primary} />
                   )}
                 >
                   <List.Item
                     title={
                       bike.helmets > 0 && (
                         <Text style={styles.itemFlex}>
-                          Helmets: {bike.helmets}
+                          • Helmets: {bike.helmets}
                         </Text>
                       )
                     }
@@ -149,7 +163,7 @@ export function Bike(props) {
                     title={
                       bike.elbowPads > 0 && (
                         <Text style={styles.itemFlex}>
-                          Elbow Pads: {bike.elbowPads}
+                          • Elbow Pads: {bike.elbowPads}
                         </Text>
                       )
                     }
@@ -158,7 +172,7 @@ export function Bike(props) {
                     title={
                       bike.kneePads > 0 && (
                         <Text style={styles.itemFlex}>
-                          Knee Pads: {bike.kneePads}
+                          • Knee Pads: {bike.kneePads}
                         </Text>
                       )
                     }
@@ -166,7 +180,7 @@ export function Bike(props) {
                   <List.Item
                     title={
                       bike.lock && (
-                        <Text style={styles.itemFlex}>Lock: yeah!</Text>
+                        <Text style={styles.itemFlex}>• Lock: yeah!</Text>
                       )
                     }
                   />
@@ -184,52 +198,41 @@ export function Bike(props) {
               <View
                 style={{
                   width: '100%',
-                  minHeight: 120,
                   flex: 1,
-                  flexDirection: 'row',
-                  alignItems: 'flex-start',
-                  alignContent: 'center',
+                  alignItems: 'center',
                   justifyContent: 'center',
-                  paddingBottom: 16,
                   padding: 4,
-                  borderWidth: 3,
-                  borderColor: '#7C8C03',
                 }}
               >
                 <View
                   style={{
-                    width: '50%',
-                    minHeight: 120,
                     flex: 1,
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
                 >
-                  <Text
-                    style={styles.itemCheckoutLabel}
-                  >{`$${bike.dailyPrice}`}</Text>
-                  <Text style={styles.itemCheckout}>{`Daily`}</Text>
+                  <Text style={styles.itemCheckoutLabel}>
+                    <Text style={styles.itemCheckout}>Take a ride for </Text>
+                    {`$${bike.dailyPrice}`}{' '}
+                    <Text style={styles.itemCheckout}>{`Daily`}</Text>
+                  </Text>
                 </View>
                 <View
                   style={{
-                    width: '50%',
-                    height: 120,
                     flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    marginRight: 16,
                   }}
+                ></View>
+                <Button
+                  mode='contained'
+                  color={colors.primary}
+                  style={styles.submitButton}
+                  onPress={handleSubmit}
                 >
-                  <Button
-                    mode='contained'
-                    color='#7C8C03'
-                    style={styles.submitButton}
-                    onPress={handleSubmit}
-                  >
-                    Reserve
-                  </Button>
-                </View>
+                  Reserve now!
+                </Button>
               </View>
             </View>
           </SafeAreaView>

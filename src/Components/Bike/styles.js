@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../colors';
 export const styles = StyleSheet.create({
   login: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#e6e6e6',
+    backgroundColor: colors.background,
   },
   loginContainer: {
     width: '100%',
@@ -12,31 +13,23 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 26,
     paddingTop: 10,
-    backgroundColor: '#e6e6e6',
+    backgroundColor: colors.background,
     paddingBottom: 40,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
-  title: {
-    color: '#7C8C03',
-    fontSize: 42,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
+  
   submitButton: {
     width: '100%',
     height: 40,
     marginVertical: 10,
     marginBottom: 20,
-    /* backgroundColor:"#465902", */
-  },
-  item: {
-    width: '100%',
-    minHeight: 30,
-    fontSize: 20,
-    fontWeight: 'bold',
-    borderColor: 'grey',
-    borderBottomWidth: 1,
-    paddingHorizontal: 8,
-    paddingVertical: 6,
   },
   label: {
     width: '100%',
@@ -65,13 +58,11 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   itemCheckoutLabel: {
-    width: '60%',
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
   },
   itemCheckout: {
-    width: '60%',
     fontSize: 18,
     /* fontWeight: 'bold', */
     textAlign: 'center',
