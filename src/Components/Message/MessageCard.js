@@ -17,7 +17,7 @@ export function MessageCard({ item }) {
     >
       <View
         style={{
-          backgroundColor: '#e6e6e6',
+          backgroundColor: colors.background2,
           /*    borderWidth: 1, */
           padding: 12,
           borderTopEndRadius: 15,
