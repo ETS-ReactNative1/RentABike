@@ -24,7 +24,7 @@ export const SingupForm = ({ navigation, setLoading }) => {
           password: '',
           confirmPassword: '',
         }}
-        onSubmit={(values) =>
+        onSubmit={(values, { resetForm }) => {
           useSingup(
             values.email,
             values.password,
@@ -32,8 +32,9 @@ export const SingupForm = ({ navigation, setLoading }) => {
             values.name,
             navigation,
             setLoading,
-          )
-        }
+          );
+          resetForm();
+        }}
       >
         {({
           handleChange,

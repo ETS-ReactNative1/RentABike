@@ -86,40 +86,29 @@ export function CreateForm(props) {
   };
   const submitHandler = async (newData) => {
     console.log('newData :', newData);
-    await onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        console.log('qué es user :', user);
-        const uid = user.uid;
-        try {
-          if (!props.params) {
-            await addDoc(collection(db, 'Bike'), {
-              ...newData,
-              available: true,
-              ownerid: uid,
-            });
-          } else if (props.params) {
-            await setDoc(doc(db, 'Bike', props.params.id), {
-              ...newData,
-              ownerid: uid,
-            });
-          }
-          Alert.alert(
-            'Congratulations!',
-            'Your bike was added to our catalog',
-            [
-              {
-                text: 'OK',
-                onPress: () =>
-                  navigation.navigate('RentTabNavigation', { type: 'owner' }),
-              },
-            ],
-          );
-        } catch (e) {
-          console.error('Error adding document: ', e);
-        }
-      } else {
+    const uid = auth.currentUser.uid;
+    try {
+      if (!props.params) {
+        await addDoc(collection(db, 'Bike'), {
+          ...newData,
+          available: true,
+          ownerid: uid,
+        });
+      } else if (props.params) {
+        await setDoc(doc(db, 'Bike', props.params.id), {
+          ...newData,
+          ownerid: uid,
+        });
       }
-    });
+      Alert.alert('Congratulations!', 'Your bike was added to our catalog', [
+        {
+          text: 'OK',
+          onPress: () => navigation.navigate('TypeOfUserScreen'),
+        },
+      ]);
+    } catch (e) {
+      console.error('Error adding document: ', e);
+    }
   };
   const steps = [
     <StepOne

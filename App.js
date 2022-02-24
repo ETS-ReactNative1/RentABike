@@ -10,29 +10,19 @@ import { StripeProvider } from '@stripe/stripe-react-native';
 
 import NavigationStack from './src/navigation/NavigationStack';
 import RentTabNavigation from './src/navigation/RentTabNavigation';
-import { publishableKey } from './config/secret'; // cambiar xddd
+import { publishableKey } from './config/secret';
+import { store } from './src/store';
+import { Provider } from 'react-redux';
 
 export default function App() {
-  /*   const [publishableKey, setPublishableKey] = useState('');
-  const fetchPublishableKey = async () => {
-    const key = await fetchKey(); // fetch key from your server here
-    setPublishableKey(key);
-  };
-  useEffect(() => {
-    fetchPublishableKey();
-  }, []); */
-  /*   useEffect(() => {
-    initStripe({
-      publishableKey: publishableKey,
-      merchantIdentifier: 'merchant.identifier',
-    });
-  }, []); */
   return (
-    <StripeProvider publishableKey={publishableKey}>
-      <NavigationContainer>
-        <NavigationStack />
-      </NavigationContainer>
-    </StripeProvider>
+    <Provider store={store}>
+      <StripeProvider publishableKey={publishableKey}>
+        <NavigationContainer>
+          <NavigationStack />
+        </NavigationContainer>
+      </StripeProvider>
+    </Provider>
   );
 }
 

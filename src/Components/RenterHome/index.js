@@ -23,17 +23,33 @@ import { firebaseConfig } from '../../../config/database/firebase';
 import { BikeCard } from './BikeCard';
 import Loading from '../Loading';
 import { colors } from '../../colors';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { fetchRentData } from '../../store/slices/rent';
+import { fetchUserData } from '../../store/slices/user';
 
 export const RenterHome = () => {
+  const { userData: dataPrueba, userId: idprueba } = useSelector(
+    (state) => state.user,
+  );
+
+  const dispatch = useDispatch();
+  /*   console.log('data prueba :', dataPrueba); */
+  console.log('idprueba :', idprueba);
+  console.log('dataPrueba :', dataPrueba);
   const [loading, setLoading] = useState(false);
   const app = initializeApp(firebaseConfig);
   const db = getFirestore();
   const usersRef = collection(db, 'Bike');
   const q = query(usersRef /* , where('email', '==', 'Juankto@gmail.com') */);
   const [bikes, setBikes] = useState([]);
-
   useEffect(() => {
     setLoading(true);
+    //
+    const fetchRent = dispatch(fetchRentData());
+    const fetchUser = dispatch(fetchUserData());
+
+    //
     const item = [];
     getDocs(q).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -44,11 +60,15 @@ export const RenterHome = () => {
       setBikes(item);
       setLoading(false);
     });
+    return () => {
+      fetchRent();
+      fetchUser();
+    };
   }, []);
   return (
     <>
       <Loading loading={loading} />
-      <SafeAreaView style={{backgroundColor:colors.background}}>
+      <SafeAreaView style={{ backgroundColor: colors.background }}>
         <FlatList
           data={bikes}
           numColumns={1}

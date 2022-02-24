@@ -11,6 +11,7 @@ import { styles } from './styles';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
+  signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
 } from 'firebase/auth';
@@ -26,19 +27,25 @@ import {
   getDoc,
 } from 'firebase/firestore';
 import { colors } from '../../colors';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchUserData, logOut } from '../../store/slices/user';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore();
 export default function Profile() {
+  const dispatch = useDispatch();
+  const { userId: idPrueba, userData: dataPrueba } = useSelector(
+    (state) => state.user,
+  );
+  console.log('idPrueba :', idPrueba);
+  console.log('dataPrueba :', dataPrueba);
   const navigation = useNavigation();
   const [updatingPhoto, setUpdatingPhoto] = useState(false);
   const storage = getStorage();
   const imgRef = ref(storage, uuid.v4());
   const [image, setImage] = useState('');
-  const [imageUrl, setImageUrl] = useState(
-    'https://images.pexels.com/photos/987571/pexels-photo-987571.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-  );
+  const [imageUrl, setImageUrl] = useState('');
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   useEffect(async () => {
@@ -50,7 +57,11 @@ export default function Profile() {
         alert('Permission denied!');
       }
     }
-    await onAuthStateChanged(auth, async (user) => {
+ /*    await dispatch(fetchUserData()); */
+    setData(dataPrueba);
+    setImage(dataPrueba.img);
+    setLoading(false);
+    /*     await onAuthStateChanged(auth, async (user) => {
       if (user) {
         const uid = user.uid;
         try {
@@ -67,7 +78,7 @@ export default function Profile() {
       } else {
         setLoading(false);
       }
-    });
+    }); */
   }, []);
   async function uploadImageAsync(uri) {
     const blob = await new Promise((resolve, reject) => {
@@ -164,7 +175,15 @@ export default function Profile() {
           },
           {
             text: 'OK',
-            onPress: async () => await console.log('Enviar correoxd'),
+            onPress: async () => {
+              deleteUser(auth.currentUser)
+                .then(() => {
+                  navigation.navigate('LoginScreen');
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            },
           },
         ],
       );
@@ -172,6 +191,15 @@ export default function Profile() {
       console.log(error);
     }
   };
+  const logoutHandler = async () =>
+    signOut(auth)
+      .then(() => {
+        dispatch(logOut());
+        navigation.navigate('LoginScreen');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   return (
     <>
       <Loading loading={loading} />
@@ -193,16 +221,7 @@ export default function Profile() {
                     <View style={styles.imageContainer}>
                       <Image source={{ uri: image }} style={styles.image} />
                     </View>
-                  ) : (
-                    <View style={styles.imageContainer}>
-                      <Icon
-                        name='user'
-                        color='grey'
-                        style={styles.image}
-                        size={72}
-                      />
-                    </View>
-                  )}
+                  ) : null}
                   <Button
                     onPress={pickImage}
                     color={colors.primary}
@@ -257,6 +276,13 @@ export default function Profile() {
                     style={styles.textButton}
                   >
                     Change your password
+                  </Button>
+                  <Button
+                    onPress={logoutHandler}
+                    color={colors.important}
+                    style={styles.textButton}
+                  >
+                    Logout
                   </Button>
                   <Button
                     onPress={deleteAccountHandler}

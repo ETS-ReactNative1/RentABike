@@ -26,22 +26,23 @@ import { Button } from 'react-native-paper';
 import { firebaseConfig } from '../../../config/database/firebase';
 import { MessageCard } from './MessageCard';
 import { colors } from '../../colors';
+import { useSelector } from 'react-redux';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore();
 
 export const Message = ({ navigation }) => {
+  const { rentData: dataPrueba } = useSelector((state) => state.rent);
   const [loading, setLoading] = useState(false);
   const rentRef = collection(db, 'Rent');
   const bikeRef = collection(db, 'Bike');
   const ownerRef = collection(db, 'User');
   const q = query(rentRef, where('userId', '==', auth.currentUser.uid));
-  const [rentArray, setRentArray] = useState([]);
   const [bikeArray, setBikeArray] = useState([]);
   const [ownerArray, setOwnerArray] = useState([]);
 
-  const historyData = rentArray.map((re) => {
+  const historyData = dataPrueba.map((re) => {
     const ownerArr = ownerArray.find((own) => own.ownerId === re.ownerId);
     const bikeArr = bikeArray.find((bik) => bik.bikeId === re.bikeId);
     /* console.log({
@@ -56,16 +57,16 @@ export const Message = ({ navigation }) => {
     setLoading(true);
     (async function () {
       //Info de las rentas
-      onSnapshot(q, (querySnapshot) => {
-        setRentArray(
-          querySnapshot.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          })),
-        );
-      });
+      // onSnapshot(q, (querySnapshot) => {
+      //   setRentArray(
+      //     querySnapshot.docs.map((doc) => ({
+      //       ...doc.data(),
+      //       id: doc.id,
+      //     })),
+      //   );
+      // });
       //
-
+      /* setRentArray(dataPrueba); */
       //array de bikeIds  // falta limitar a 10
       const bikeIds = [];
       const bikeSnap = await getDocs(q);

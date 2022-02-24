@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@react-navigation/native';
-import { Formik } from 'formik';
+import { Formik, resetForm } from 'formik';
 import { styles } from './styles';
 import { View, Text } from 'react-native';
 import { TextInput, HelperText, Button } from 'react-native-paper';
@@ -17,8 +17,9 @@ export const LoginForm = ({ navigation, setLoading }) => {
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
-        onSubmit={(values) => {
+        onSubmit={(values, { resetForm }) => {
           useLogin(values.email, values.password, navigation, setLoading);
+          resetForm();
         }}
       >
         {({
