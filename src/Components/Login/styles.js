@@ -1,18 +1,18 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../colors';
 export const styles = StyleSheet.create({
   login: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#e6e6e6',
+    backgroundColor: colors.background,
   },
   loginContainer: {
     width: '100%',
     minHeight: 400,
     alignItems: 'center',
-    backgroundColor: 'white',
     padding: 26,
     paddingTop: 10,
-    backgroundColor: '#e6e6e6',
+    backgroundColor: colors.background,
     paddingBottom: 40,
   },
   textInput: {
@@ -26,16 +26,16 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   errorText: {
-    marginBottom:14,
+    marginBottom: 14,
     fontSize: 10,
-    color: 'red',
+    color: colors.important,
   },
   cover: {
     width: '100%',
     height: 120,
   },
   title: {
-    color: '#7C8C03',
+    color: colors.dark2,
     fontSize: 42,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -43,12 +43,12 @@ export const styles = StyleSheet.create({
   submitButton: {
     marginVertical: 10,
     marginBottom: 20,
-    /* backgroundColor:"#465902", */
   },
   link: {
     alignSelf: 'flex-start',
-    color: '#7C8C03',
+    fontSize: 16,
+    color: colors.secundary,
     textAlign: 'left',
-    marginBottom: 4,
+    marginBottom: 6,
   },
 });

@@ -7,6 +7,7 @@ import { TextInput, HelperText, Button } from 'react-native-paper';
 import { useSingUpVal } from './hooks/useLoginVal';
 import { useLogin } from './hooks/useLogin';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { colors } from '../../colors';
 
 export const LoginForm = ({ navigation, setLoading }) => {
   const loginValidationSchema = useSingUpVal();
@@ -31,7 +32,7 @@ export const LoginForm = ({ navigation, setLoading }) => {
         }) => (
           <>
             <TextInput
-              activeUnderlineColor='#7C8C03'
+              activeUnderlineColor={colors.primary}
               name='email'
               placeholder='Email Address'
               style={styles.textInput}
@@ -46,7 +47,7 @@ export const LoginForm = ({ navigation, setLoading }) => {
               </HelperText>
             )}
             <TextInput
-              activeUnderlineColor='#7C8C03'
+              activeUnderlineColor={colors.primary}
               name='password'
               placeholder='Password'
               style={styles.textInput}
@@ -67,7 +68,7 @@ export const LoginForm = ({ navigation, setLoading }) => {
               onPress={handleSubmit}
               disabled={!isValid}
               mode='contained'
-              color='#7C8C03'
+              color={colors.primary}
               style={styles.submitButton}
             >
               Login

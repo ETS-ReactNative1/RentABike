@@ -5,6 +5,7 @@ import { RenterHomeScreen } from '../Screens/RenterHomeScreen';
 import { OwnerHomeScreen } from '../Screens/OwnerHomeScreen';
 import { ProfileScreen } from '../Screens/ProfileScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { colors } from '../colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,12 +16,19 @@ const RentTabNavigation = (props) => {
   } = props;
   console.log('params.id :', params.type);
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: { backgroundColor: colors.dark2, borderTopStartRadius: 20,borderTopEndRadius: 20, },
+        tabBarHideOnKeyboard: true,
+      }}
+    >
       <Tab.Screen
         name='RenterHomeScreen'
         component={params.type === 'owner' ? OwnerHomeScreen : RenterHomeScreen}
         options={{
-          tabBarActiveTintColor: '#7C8C03',
+          tabBarActiveTintColor: colors.background,
+          tabBarInactiveTintColor: colors.backgroundDarker,
+          /* tabBarHideOnKeyboard, */
           headerShown: false,
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
@@ -33,7 +41,9 @@ const RentTabNavigation = (props) => {
         component={MessageScreen}
         options={{
           headerShown: false,
-          tabBarActiveTintColor: '#7C8C03',
+          tabBarActiveTintColor: colors.background,
+          tabBarInactiveTintColor: colors.backgroundDarker,
+          /* tabBarHideOnKeyboard, */
           tabBarLabel: 'Messages',
           tabBarIcon: ({ color, size }) => (
             <Icon name='comments' color={color} size={size} />
@@ -45,7 +55,9 @@ const RentTabNavigation = (props) => {
         component={ProfileScreen}
         options={{
           headerShown: false,
-          tabBarActiveTintColor: '#7C8C03',
+          tabBarActiveTintColor: colors.background,
+          tabBarInactiveTintColor: colors.backgroundDarker,
+          /* tabBarHideOnKeyboard, */
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
             <Icon name='user' color={color} size={size} />

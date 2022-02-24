@@ -7,6 +7,7 @@ import { useSingUpVal } from './hooks/useSingUpVal';
 import { useSingup } from './hooks/useSingup';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput, HelperText, Button } from 'react-native-paper';
+import { colors } from '../../colors';
 
 export const SingupForm = ({ navigation, setLoading }) => {
   /*   const goToHome = () => navigation.navigate('TypeOfUserScreen'); */
@@ -45,7 +46,7 @@ export const SingupForm = ({ navigation, setLoading }) => {
         }) => (
           <>
             <TextInput
-              activeUnderlineColor='#7C8C03'
+              activeUnderlineColor={colors.primary}
               name='name'
               placeholder='Name'
               style={styles.textInput}
@@ -60,7 +61,7 @@ export const SingupForm = ({ navigation, setLoading }) => {
               </HelperText>
             )}
             <TextInput
-              activeUnderlineColor='#7C8C03'
+              activeUnderlineColor={colors.primary}
               name='email'
               placeholder='Email Address'
               style={styles.textInput}
@@ -75,7 +76,7 @@ export const SingupForm = ({ navigation, setLoading }) => {
               </HelperText>
             )}
             <TextInput
-              activeUnderlineColor='#7C8C03'
+              activeUnderlineColor={colors.primary}
               name='phone'
               placeholder='Phone number'
               style={styles.textInput}
@@ -90,7 +91,7 @@ export const SingupForm = ({ navigation, setLoading }) => {
               </HelperText>
             )}
             <TextInput
-              activeUnderlineColor='#7C8C03'
+              activeUnderlineColor={colors.primary}
               name='password'
               placeholder='Password'
               style={styles.textInput}
@@ -108,7 +109,7 @@ export const SingupForm = ({ navigation, setLoading }) => {
               </HelperText>
             )}
             <TextInput
-              activeUnderlineColor='#7C8C03'
+              activeUnderlineColor={colors.primary}
               name='confirmPassword'
               placeholder='Repeat your password'
               style={styles.textInput}
@@ -129,7 +130,7 @@ export const SingupForm = ({ navigation, setLoading }) => {
               onPress={handleSubmit}
               disabled={!isValid}
               mode='contained'
-              color='#7C8C03'
+              color={colors.primary}
               style={styles.submitButton}
             >
               Login

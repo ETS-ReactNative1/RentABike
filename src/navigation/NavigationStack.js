@@ -9,11 +9,12 @@ import { BikeScreen } from '../Screens/BikeScreen';
 import { CreateBikeScreen } from '../Screens/CreateBikeScreen';
 import CreditCardScreen from '../Screens/CreditCardScreen';
 import { Button } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+
 import { useNavigation } from '@react-navigation/native';
 import { ReserveScreen } from '../Screens/ReserveScreen';
 import { HistoryScreen } from '../Screens/HistoryScreen';
 import ChatScreen from '../Screens/ChatScreen';
+import { header } from './header';
 
 const Stack = createNativeStackNavigator();
 const NavigationStack = () => {
@@ -44,164 +45,30 @@ const NavigationStack = () => {
       <Stack.Screen
         name='RentTabNavigation'
         component={RentTabNavigation}
-        options={{
-          title: 'RentaBike',
-          headerStyle: {
-            backgroundColor: '#465902',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          headerLeft: () => (
-            <Icon
-              name='arrow-left'
-              color='#fff'
-              size={24}
-              style={{ marginLeft: 16, marginRight: 12 }}
-              onPress={() => navigation.goBack()}
-            />
-          ),
-        }}
+        options={header}
       />
-      <Stack.Screen
-        name='BikeScreen'
-        component={BikeScreen}
-        options={{
-          title: 'RentaBike',
-          headerStyle: {
-            backgroundColor: '#465902',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          headerLeft: () => (
-            <Icon
-              name='arrow-left'
-              color='#fff'
-              size={24}
-              style={{ marginLeft: 16, marginRight: 12 }}
-              onPress={() => navigation.goBack()}
-            />
-          ),
-        }}
-      />
+      <Stack.Screen name='BikeScreen' component={BikeScreen} options={header} />
       <Stack.Screen
         name='ReserveScreen'
         component={ReserveScreen}
-        options={{
-          title: 'RentaBike',
-          headerStyle: {
-            backgroundColor: '#465902',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          headerLeft: () => (
-            <Icon
-              name='arrow-left'
-              color='#fff'
-              size={24}
-              style={{ marginLeft: 16, marginRight: 12 }}
-              onPress={() => navigation.goBack()}
-            />
-          ),
-        }}
+        options={header}
       />
       <Stack.Screen
         name='CreateBikeScreen'
         component={CreateBikeScreen}
-        options={{
-          title: 'RentaBike',
-          headerStyle: {
-            backgroundColor: '#465902',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          headerLeft: () => (
-            <Icon
-              name='arrow-left'
-              color='#fff'
-              size={24}
-              style={{ marginLeft: 16, marginRight: 12 }}
-              onPress={() => navigation.goBack()}
-            />
-          ),
-        }}
+        options={header}
       />
       <Stack.Screen
         name='HistoryScreen'
         component={HistoryScreen}
-        options={{
-          title: 'RentaBike',
-          headerStyle: {
-            backgroundColor: '#465902',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          headerLeft: () => (
-            <Icon
-              name='arrow-left'
-              color='#fff'
-              size={24}
-              style={{ marginLeft: 16, marginRight: 12 }}
-              onPress={() => navigation.goBack()}
-            />
-          ),
-        }}
+        options={header}
       />
       <Stack.Screen
         name='CreditCardScreen'
         component={CreditCardScreen}
-        options={{
-          title: 'RentaBike',
-          headerStyle: {
-            backgroundColor: '#465902',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          headerLeft: () => (
-            <Icon
-              name='arrow-left'
-              color='#fff'
-              size={24}
-              style={{ marginLeft: 16, marginRight: 12 }}
-              onPress={() => navigation.goBack()}
-            />
-          ),
-        }}
+        options={header}
       />
-      <Stack.Screen
-        name='ChatScreen'
-        component={ChatScreen}
-        options={{
-          title: 'RentaBike',
-          headerStyle: {
-            backgroundColor: '#465902',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          headerLeft: () => (
-            <Icon
-              name='arrow-left'
-              color='#fff'
-              size={24}
-              style={{ marginLeft: 16, marginRight: 12 }}
-              onPress={() => navigation.goBack()}
-            />
-          ),
-        }}
-      />
+      <Stack.Screen name='ChatScreen' component={ChatScreen} options={header} />
     </Stack.Navigator>
   );
 };
