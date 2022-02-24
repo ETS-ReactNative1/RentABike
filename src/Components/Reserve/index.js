@@ -7,6 +7,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { TextInput, Button } from 'react-native-paper';
 import Loading from '../Loading';
+import { colors } from '../../colors';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -82,7 +83,13 @@ export function Reserve(props) {
     }
   }, []);
   return (
-    <View style={{ width: '100%', height: '100%' }}>
+    <View
+      style={{
+        width: '100%',
+        height: '100%',
+        backgroundColor: colors.background,
+      }}
+    >
       <Loading loading={loading} />
       <SafeAreaView>
         {!loading && (
@@ -158,7 +165,7 @@ export function Reserve(props) {
                   marginVertical: 10,
                 }}
                 mode='contained'
-                color='#7C8C03'
+                color={colors.backgroundDarker}
               >
                 Pick a date
               </Button>
@@ -178,7 +185,7 @@ export function Reserve(props) {
                     textAlign: 'center',
                     backgroundColor: 'none',
                   }}
-                  activeUnderlineColor='#7C8C03'
+                  activeUnderlineColor={colors.primary}
                   keyboardType='numeric'
                   onChangeText={(value) => {
                     setDropOff(
@@ -195,6 +202,8 @@ export function Reserve(props) {
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
+                paddingHorizontal: 4,
+                marginTop: 6,
               }}
             >
               <Text
@@ -222,6 +231,9 @@ export function Reserve(props) {
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
+                borderBottomWidth: 1,
+                padding: 4,
+                marginBottom: 6,
               }}
             >
               <Text
@@ -243,7 +255,6 @@ export function Reserve(props) {
                 }}
               >{`$${Number(bikeData.dailyPrice) * Number(days)}`}</Text>
             </View>
-
             <View>
               {show && (
                 <DateTimePicker
@@ -269,12 +280,15 @@ export function Reserve(props) {
                 })
               }
               mode='contained'
-              color='#7C8C03'
+              color={colors.primary}
               style={{ marginVertical: 6 }}
             >
               Confirm and pay
             </Button>
-            <Button onPress={() => navigation.goBack()} color='#7C8C03'>
+            <Button
+              onPress={() => navigation.goBack()}
+              color={colors.secundary}
+            >
               Cancel
             </Button>
           </View>
