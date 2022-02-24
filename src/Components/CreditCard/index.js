@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { collection, addDoc, getFirestore } from 'firebase/firestore';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Loading from '../Loading';
+import { colors } from '../../colors';
 import {
   CardField,
   CardForm,
@@ -78,7 +79,7 @@ export function CreditCard(props) {
             width: '100%',
             fontSize: 62,
             textAlign: 'center',
-            color: '#7C8C03',
+            color: colors.dark2,
             fontWeight: 'bold',
           }}
         >
@@ -92,7 +93,10 @@ export function CreditCard(props) {
             fontSize: 24,
             textAlign: 'center',
           }}
-        >{`${params.bikeModel} for $${params.price}`}</Text>
+        >
+          {`${params.bikeModel} for `}
+          <Text style={{ fontWeight: 'bold' }}>${params.price}</Text>
+        </Text>
 
         <CardForm
           onFormComplete={(cardDetails) => {
@@ -105,7 +109,7 @@ export function CreditCard(props) {
           title='Pay'
           onPress={handlePayPress}
           disabled={loading}
-          color={'#7C8C03'}
+          color={colors.primary}
           mode='contained'
         >
           Pay
