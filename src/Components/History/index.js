@@ -14,15 +14,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import {
-  getFirestore,
-  collection,
-  getDocs,
-  doc,
-  getDoc,
-  onSnapshot,
-  query,
-  where,
-  documentId,
+
 } from 'firebase/firestore';
 import { firebaseConfig } from '../../../config/database/firebase';
 import { BikeCard } from '../RenterHome/BikeCard';

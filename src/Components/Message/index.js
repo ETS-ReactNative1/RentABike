@@ -16,6 +16,7 @@ import {
   where,
   onSnapshot,
   getFirestore,
+  documentId,
 } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
@@ -31,78 +32,95 @@ const db = getFirestore();
 
 export const Message = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
-  const [myData, setMyData] = useState([]);
+  const rentRef = collection(db, 'Rent');
+  const bikeRef = collection(db, 'Bike');
+  const ownerRef = collection(db, 'User');
+  const q = query(rentRef, where('userId', '==', auth.currentUser.uid));
+  const [rentArray, setRentArray] = useState([]);
+  const [bikeArray, setBikeArray] = useState([]);
+  const [ownerArray, setOwnerArray] = useState([]);
 
-  useLayoutEffect(() => {
+  const historyData = rentArray.map((re) => {
+    const ownerArr = ownerArray.find((own) => own.ownerId === re.ownerId);
+    const bikeArr = bikeArray.find((bik) => bik.bikeId === re.bikeId);
+    /* console.log({
+      rent: { ...re },
+      owner: { ...ownerArr },
+      bike: { ...bikeArr },
+    }); */
+    return { rent: { ...re }, owner: { ...ownerArr }, bike: { ...bikeArr } };
+  });
+
+  useEffect(async () => {
     setLoading(true);
-    const collectionRef = collection(db, 'Rent');
-    const q = query(
-      collectionRef,
-      where('userId', '==', auth?.currentUser.uid),
-    );
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const newData = [];
-      querySnapshot.docs.forEach(async (rent) => {
-        try {
-          const rentInfo = {
-            _id: rent.id,
-            ownerId: rent.data().ownerId,
-            bikeId: rent.data().bikeId,
-            userId: rent.data().userId,
-            pickUp: rent.data().pickUp,
-            days: rent.data().days,
-            amount: rent.data().amount,
-          };
-          const bikeRef = doc(db, 'Bike', rentInfo.bikeId);
-          const bikeSnap = await getDoc(bikeRef);
-          const bikeData = bikeSnap.data();
-          const ownerRef = doc(db, 'User', rentInfo.ownerId);
-          const ownerSnap = await getDoc(ownerRef);
-          const ownerData = ownerSnap.data();
-          const bikeInfo = { img: bikeData.img, model: bikeData.model };
-          const ownerInfo = { name: ownerData.name, img: ownerData.img };
-          newData.push({
-            rent: { ...rentInfo },
-            bike: { ...bikeInfo },
-            owner: { ...ownerInfo },
-          });
-          
-        } catch (error) {
-          console.log('algo salió mal');
-          console.log(error);
-          setLoading(false);
-        }
-      });
-      setMyData(newData);
-
+    //Info de las rentas
+    onSnapshot(q, (querySnapshot) => {
+      setRentArray(
+        querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        })),
+      );
     });
-    /*  console.log('data desde dentro :', myData); */
-    return unsubscribe;
-  }, []);
+    //
 
-  console.log('data desde afueraxd :', myData);
+    //array de bikeIds  // falta limitar a 10
+    const bikeIds = [];
+    const bikeSnap = await getDocs(q);
+    bikeSnap.forEach((element) => {
+      bikeIds.push(element.data().bikeId);
+    });
+    //
+    // documentos de bike
+    const bikeData = [];
+    const bikeDocs = await getDocs(
+      query(bikeRef, where(documentId(), 'in', bikeIds)),
+    );
+    bikeDocs.forEach((e) => {
+      bikeData.push({
+        bikeId: e.id,
+        img: e.data().img,
+        model: e.data().model,
+        dailyPrice: e.data().dailyPrice,
+        city: e.data().city,
+        ownerid: e.data().ownerid,
+      });
+    });
+    setBikeArray(bikeData);
+    //array de ownerIds  // falta limitar a 10
+    const ownerIds = [];
+    const ownerSnap = await getDocs(q);
+    ownerSnap.forEach((element) => {
+      ownerIds.push(element.data().ownerId);
+    });
+    //
+    // documentos de owner
+    const ownerData = [];
+    const ownerDocs = await getDocs(
+      query(ownerRef, where(documentId(), 'in', ownerIds)),
+    );
+    ownerDocs.forEach((e) => {
+      ownerData.push({
+        ownerId: e.id,
+        email: e.data().email,
+        name: e.data().name,
+        phoneNumber: e.data().phoneNumber,
+      });
+    });
+    setOwnerArray(ownerData);
+    setLoading(false);
+  }, []);
+  console.log(historyData);
   return (
     <>
       {!loading && (
         <SafeAreaView>
-          <Text>hola</Text>
           <FlatList
-            data={myData}
+            data={historyData}
             numColumns={1}
             showsVerticalScrollIndicator={false}
-            keyExtractor={(e) => String(e.rent._id)}
-            renderItem={({ item }) => (
-              <MessageCard
-                onPress={() =>
-                  navigation.navigate('ChatScreen', {
-                    // agregar item.rentId, item.ownerName,etc
-                    rentId: item.rentId,
-                    ownerName: 'unknow',
-                    bikeModel: 'BMX 5780',
-                  })
-                }
-              />
-            )}
+            keyExtractor={(e) => String(e.rent.id)}
+            renderItem={({ item }) => <MessageCard item={item} />}
             contentContainerStyle={{ paddingHorizontal: 5 }}
           />
         </SafeAreaView>

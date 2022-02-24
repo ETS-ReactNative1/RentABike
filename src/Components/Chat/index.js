@@ -34,7 +34,7 @@ export function Chat(props) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: `${ownerName} (${bikeModel})`,
+      title: `${ownerName.split(" ")[0]} (${bikeModel})`,
     });
   }, [navigation]);
   useLayoutEffect(() => {
