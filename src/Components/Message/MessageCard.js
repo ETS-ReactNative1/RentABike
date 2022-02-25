@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../colors';
 
-export function MessageCard({ item }) {
+export function MessageCard({ item, owner }) {
   const navigation = useNavigation();
   console.log('card=>', item.rentId);
   return (
@@ -41,15 +41,15 @@ export function MessageCard({ item }) {
           style={{
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'space-between',
           }}
         >
           <Image
-            source={{ uri: item.bikeImg }}
+            source={{ uri: !owner ? item.bikeImg : item.userImg }}
             style={{
               width: 80,
               height: 80,
               borderRadius: 40,
+              marginRight: 18,
             }}
           ></Image>
           <View
@@ -59,7 +59,7 @@ export function MessageCard({ item }) {
             }}
           >
             <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
-              {item.ownerName}
+              {!owner ? item.ownerName : item.userName}
             </Text>
             <Text
               style={{

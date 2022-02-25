@@ -6,6 +6,7 @@ import { OwnerHomeScreen } from '../Screens/OwnerHomeScreen';
 import { ProfileScreen } from '../Screens/ProfileScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../colors';
+import OwnerMessagesScreen from '../Screens/OwnerMessagesScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +19,11 @@ const RentTabNavigation = (props) => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: { backgroundColor: colors.dark2, borderTopStartRadius: 20,borderTopEndRadius: 20, },
+        tabBarStyle: {
+          backgroundColor: colors.dark2,
+          borderTopStartRadius: 20,
+          borderTopEndRadius: 20,
+        },
         tabBarHideOnKeyboard: true,
       }}
     >
@@ -38,7 +43,9 @@ const RentTabNavigation = (props) => {
       />
       <Tab.Screen
         name='MessageScreen'
-        component={MessageScreen}
+        component={
+          params.type === 'owner' ? OwnerMessagesScreen : MessageScreen
+        }
         options={{
           headerShown: false,
           tabBarActiveTintColor: colors.background,

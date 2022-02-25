@@ -7,7 +7,7 @@ import { Button, FAB } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUserBikeData } from '../../store/slices/bike';
 import { styles } from './styles';
-import { fetchRentData } from '../../store/slices/rent';
+import { fetchRentData, fetchRentOwnerData } from '../../store/slices/rent';
 import { fetchUserData } from '../../store/slices/user';
 import {
   StyleSheet,
@@ -47,6 +47,7 @@ export const OwnerHome = () => {
   useEffect(() => {
     setLoading(true);
     const fetchRent = dispatch(fetchRentData());
+    const fetchRentOwner = dispatch(fetchRentOwnerData());
     const fetchUser = dispatch(fetchUserData());
     const fetchUserBikes = dispatch(fetchUserBikeData());
 
@@ -55,6 +56,7 @@ export const OwnerHome = () => {
 
     return () => {
       fetchRent();
+      fetchRentOwner();
       fetchUser();
       fetchUserBikes();
     };
