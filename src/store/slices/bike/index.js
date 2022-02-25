@@ -60,7 +60,7 @@ export const fetchUserBikeData = () => async (dispatch) => {
 export const fetchBikeData = () => async (dispatch) => {
   try {
     const bikeRef = collection(db, 'Bike');
-    const q = query(bikeRef);
+    const q = query(bikeRef, where('available', '==', true));
     onSnapshot(q, (querySnapshot) => {
       dispatch(
         setBikeData(

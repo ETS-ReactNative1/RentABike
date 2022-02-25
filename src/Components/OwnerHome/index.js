@@ -51,8 +51,8 @@ export const OwnerHome = () => {
     const fetchUser = dispatch(fetchUserData());
     const fetchUserBikes = dispatch(fetchUserBikeData());
 
-    setBikes(dataPrueba);
     setLoading(false);
+    setBikes(dataPrueba);
 
     return () => {
       fetchRent();

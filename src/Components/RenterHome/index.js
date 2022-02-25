@@ -47,17 +47,8 @@ export const RenterHome = () => {
     const fetchUser = dispatch(fetchUserData());
     const fetchBikes = dispatch(fetchBikeData());
 
-    //
-    const item = [];
-    getDocs(q).then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        /* const { name, phone, email } = doc.data(); */
-        item.push({ id: doc.id, ...doc.data() });
-        /*    item.push({ id: doc.id, name, phone, email }); */
-      });
-      setBikes(item);
-      setLoading(false);
-    });
+    setBikes(dataPrueba);
+    setLoading(false);
     return () => {
       fetchRent();
       fetchUser();

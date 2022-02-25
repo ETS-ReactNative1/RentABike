@@ -7,6 +7,7 @@ import {
   getFirestore,
   doc,
   getDoc,
+  setDoc,
 } from 'firebase/firestore';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Loading from '../Loading';
@@ -60,7 +61,9 @@ export function CreditCard(props) {
         userName: userData.name,
         userImg: userData.img,
       });
-
+      await setDoc(doc(db, 'Bike', params.bikeId), {
+        available: false,
+      });
       const data = await response.json();
       console.log('data :', data);
       const clientSecret = await data.paymentIntent;
@@ -75,8 +78,7 @@ export function CreditCard(props) {
         Alert.alert('Success', `Payment successful: ${paymentIntent.id}`, [
           {
             text: 'OK',
-            onPress: () =>
-              navigation.navigate('RentTabNavigation', { type: 'renter' }),
+            onPress: () => navigation.navigate('TypeOfUserScreen'),
           },
         ]);
       }
