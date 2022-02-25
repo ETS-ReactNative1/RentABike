@@ -58,5 +58,5 @@ export const useSingup = async (
     console.error('Error adding document: ', error);
   }
   console.log('sesión iniciado :', uid);
-  navigation.navigate('TypeOfUserScreen');
+  navigation.replace('OnboardingScreen');
 };

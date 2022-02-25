@@ -11,7 +11,7 @@ export const useLogin = async (email, password, navigation, setLoading) => {
     .then((userCredential) => {
       const user = userCredential.user;
       setLoading(false);
-      navigation.navigate('TypeOfUserScreen');
+      navigation.replace('TypeOfUserScreen');
     })
     .catch((error) => {
       const errorCode = error.code;
