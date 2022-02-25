@@ -15,12 +15,20 @@ import { ReserveScreen } from '../Screens/ReserveScreen';
 import { HistoryScreen } from '../Screens/HistoryScreen';
 import ChatScreen from '../Screens/ChatScreen';
 import { header } from './header';
+import { OnboardingScreen } from '../Screens/OnboardingScreen';
 
 const Stack = createNativeStackNavigator();
 const NavigationStack = () => {
   const navigation = useNavigation();
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name='OnboardingScreen'
+        component={OnboardingScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name='LoginScreen'
         component={LoginScreen}
