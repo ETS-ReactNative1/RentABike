@@ -27,16 +27,13 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchRentData } from '../../store/slices/rent';
 import { fetchUserData } from '../../store/slices/user';
+import { fetchBikeData } from '../../store/slices/bike';
 
 export const RenterHome = () => {
-  const { userData: dataPrueba, userId: idprueba } = useSelector(
-    (state) => state.user,
-  );
+  const { bikeData: dataPrueba } = useSelector((state) => state.bike);
 
   const dispatch = useDispatch();
-  /*   console.log('data prueba :', dataPrueba); */
-  console.log('idprueba :', idprueba);
-  console.log('dataPrueba :', dataPrueba);
+
   const [loading, setLoading] = useState(false);
   const app = initializeApp(firebaseConfig);
   const db = getFirestore();
@@ -48,6 +45,7 @@ export const RenterHome = () => {
     //
     const fetchRent = dispatch(fetchRentData());
     const fetchUser = dispatch(fetchUserData());
+    const fetchBikes = dispatch(fetchBikeData());
 
     //
     const item = [];
@@ -63,6 +61,7 @@ export const RenterHome = () => {
     return () => {
       fetchRent();
       fetchUser();
+      fetchBikes();
     };
   }, []);
   return (

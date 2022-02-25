@@ -15,7 +15,8 @@ import { colors } from '../../colors';
 
 export const BikeCard = ({ bike, userType }) => {
   const db = getFirestore();
-  const { model, dailyPrice, type, img, height, city } = bike;
+  const { model, dailyPrice, type, img, height, city, id } = bike;
+  /* console.log("este es el id=>",id); */
   const navigation = useNavigation();
   const deleteHandler = async () => {
     Alert.alert('Are you sure?', 'This action cannot be reversed', [
@@ -26,7 +27,7 @@ export const BikeCard = ({ bike, userType }) => {
       },
       {
         text: 'OK',
-        onPress: async () => await deleteDoc(doc(db, 'Bike', bike.id)),
+        onPress: async () => await deleteDoc(doc(db, 'Bike', id)),
       },
     ]);
   };
@@ -35,7 +36,7 @@ export const BikeCard = ({ bike, userType }) => {
       style={styles.container}
       onPress={() =>
         navigation.navigate('BikeScreen', {
-          id: bike.id,
+          id: id,
           owner: String(bike.ownerid),
         })
       }
@@ -51,7 +52,7 @@ export const BikeCard = ({ bike, userType }) => {
                 size={32}
                 onPress={() =>
                   navigation.navigate('CreateBikeScreen', {
-                    id: bike.id,
+                    id: id,
                     owner: String(bike.ownerid),
                   })
                 }

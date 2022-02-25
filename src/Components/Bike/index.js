@@ -21,6 +21,9 @@ export function Bike(props) {
     navigation,
     route: { params },
   } = props;
+  /*   console.log('ahora este es el id=>', params.id);
+  console.log('ahora este es el ownerId=>', params.owner); */
+  /*   console.log(params.id, params.owner); */
   const db = getFirestore();
   const [loading, setLoading] = useState(false);
   const bikeRef = doc(db, 'Bike', params.id);
@@ -29,7 +32,7 @@ export function Bike(props) {
   const [owner, setOwner] = useState({});
   const handleSubmit = () => {
     navigation.navigate('ReserveScreen', {
-      owner: owner.uid,
+      owner: params.owner,
       bike: params.id,
     });
   };
@@ -64,6 +67,7 @@ export function Bike(props) {
       setLoading(false);
     }
   }, []);
+  console.log('owner', owner);
   return (
     <>
       <Loading loading={loading} />

@@ -5,14 +5,14 @@ import { colors } from '../../colors';
 
 export function MessageCard({ item }) {
   const navigation = useNavigation();
-  console.log('card=>', item.rent.rentId);
+  console.log('card=>', item.rentId);
   return (
     <TouchableWithoutFeedback
       onPress={() =>
         navigation.navigate('ChatScreen', {
-          rentId: item.rent.rentId,
-          ownerName: item.owner.name,
-          bikeModel: item.bike.model,
+          rentId: item.rentId,
+          ownerName: item.ownerName,
+          bikeModel: item.bikeModel,
         })
       }
     >
@@ -45,7 +45,7 @@ export function MessageCard({ item }) {
           }}
         >
           <Image
-            source={{ uri: item.bike.img }}
+            source={{ uri: item.bikeImg }}
             style={{
               width: 80,
               height: 80,
@@ -59,7 +59,7 @@ export function MessageCard({ item }) {
             }}
           >
             <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
-              {item.owner.name}
+              {item.ownerName}
             </Text>
             <Text
               style={{
@@ -67,7 +67,7 @@ export function MessageCard({ item }) {
                 fontSize: 16,
               }}
             >
-              ({item.bike.model})
+              ({item.bikeModel})
             </Text>
           </View>
         </View>

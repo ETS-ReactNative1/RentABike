@@ -18,33 +18,55 @@ const db = getFirestore();
 
 const initialState = {
   /*  userId: auth.currentUser.uid, */
-  rentData: [],
+  bikeData: [],
+  userBikeData: [],
 };
 
-export const rentSlice = createSlice({
-  name: 'rent',
+export const bikeSlice = createSlice({
+  name: 'bike',
   initialState,
   reducers: {
-    setRentData: (state, action) => {
-      state.rentData = action.payload;
+    setBikeData: (state, action) => {
+      state.bikeData = action.payload;
+    },
+    setUserBikeData: (state, action) => {
+      state.userBikeData = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setRentData } = rentSlice.actions;
+export const { setBikeData, setUserBikeData } = bikeSlice.actions;
 
-export default rentSlice.reducer;
-export const fetchRentData = () => async (dispatch) => {
+export default bikeSlice.reducer;
+export const fetchUserBikeData = () => async (dispatch) => {
   try {
-    const rentRef = collection(db, 'Rent');
-    const q = query(rentRef, where('userId', '==', auth.currentUser.uid));
+    const bikeRef = collection(db, 'Bike');
+    const q = query(bikeRef, where('ownerid', '==', auth.currentUser.uid));
     onSnapshot(q, (querySnapshot) => {
       dispatch(
-        setRentData(
+        setUserBikeData(
           querySnapshot.docs.map((doc) => ({
             ...doc.data(),
-            rentId: doc.id,
+            id: doc.id,
+          })),
+        ),
+      );
+    });
+  } catch (e) {
+    console.error('Error adding document: ', e);
+  }
+};
+export const fetchBikeData = () => async (dispatch) => {
+  try {
+    const bikeRef = collection(db, 'Bike');
+    const q = query(bikeRef);
+    onSnapshot(q, (querySnapshot) => {
+      dispatch(
+        setBikeData(
+          querySnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
           })),
         ),
       );

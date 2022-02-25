@@ -1,7 +1,13 @@
 import { View, Text, Alert } from 'react-native';
 import { Button } from 'react-native-paper';
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, getFirestore } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  getFirestore,
+  doc,
+  getDoc,
+} from 'firebase/firestore';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Loading from '../Loading';
 import { colors } from '../../colors';
@@ -127,7 +133,6 @@ export function CreditCard(props) {
         <CardForm
           onFormComplete={(cardDetails) => {
             console.log('card details', cardDetails);
-            setCard(cardDetails);
           }}
           style={{ height: 270 }}
         />

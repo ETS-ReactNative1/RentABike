@@ -4,7 +4,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import { Button, FAB } from 'react-native-paper';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchUserBikeData } from '../../store/slices/bike';
 import { styles } from './styles';
+import { fetchRentData } from '../../store/slices/rent';
+import { fetchUserData } from '../../store/slices/user';
 import {
   StyleSheet,
   ScrollView,
@@ -31,6 +35,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 export const OwnerHome = () => {
+  const { userBikeData: dataPrueba } = useSelector((state) => state.bike);
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const db = getFirestore();
@@ -40,14 +46,18 @@ export const OwnerHome = () => {
 
   useEffect(() => {
     setLoading(true);
-    const item = [];
-    getDocs(q).then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        item.push({ id: doc.id, ...doc.data() });
-      });
-      setBikes(item);
-      setLoading(false);
-    });
+    const fetchRent = dispatch(fetchRentData());
+    const fetchUser = dispatch(fetchUserData());
+    const fetchUserBikes = dispatch(fetchUserBikeData());
+
+    setBikes(dataPrueba);
+    setLoading(false);
+
+    return () => {
+      fetchRent();
+      fetchUser();
+      fetchUserBikes();
+    };
   }, []);
 
   return (
@@ -57,10 +67,10 @@ export const OwnerHome = () => {
         style={{ backgroundColor: colors.background, minHeight: '100%' }}
       >
         <FlatList
-          data={bikes}
+          data={dataPrueba}
           numColumns={1}
           showsVerticalScrollIndicator={false}
-          keyExtractor={(e) => String(e.id)}
+          keyExtractor={(e) => String(e.bikeId)}
           renderItem={({ item }) => <BikeCard bike={item} userType={'owner'} />}
           contentContainerStyle={styles.flatListContainer}
         />

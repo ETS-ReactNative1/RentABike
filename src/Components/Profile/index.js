@@ -38,8 +38,7 @@ export default function Profile() {
   const { userId: idPrueba, userData: dataPrueba } = useSelector(
     (state) => state.user,
   );
-  console.log('idPrueba :', idPrueba);
-  console.log('dataPrueba :', dataPrueba);
+
   const navigation = useNavigation();
   const [updatingPhoto, setUpdatingPhoto] = useState(false);
   const storage = getStorage();

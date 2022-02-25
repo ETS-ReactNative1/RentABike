@@ -3,7 +3,7 @@ import React from 'react';
 import { colors } from '../../colors';
 
 export function HistoryCard({ data }) {
-  const date = data.rent.pickUp
+  const date = data.pickUp
     .split('"')[1]
     .split('T')[0]
     .split('-')
@@ -31,7 +31,7 @@ export function HistoryCard({ data }) {
       }}
     >
       <Text style={{ fontWeight: 'bold', fontSize: 24 }}>
-        {data.bike.model}
+        {data.bikeModel}
       </Text>
       <View
         style={{
@@ -41,13 +41,13 @@ export function HistoryCard({ data }) {
         }}
       >
         <View style={{ width: '65%' }}>
-          <Text style={{ fontSize: 16 }}>Owner: {data.owner.name}</Text>
-          <Text style={{ fontSize: 16 }}>Days: {data.rent.days}</Text>
-          <Text style={{ fontSize: 16 }}>Total Price: ${data.rent.days}</Text>
+          <Text style={{ fontSize: 16 }}>Owner: {data.ownerName}</Text>
+          <Text style={{ fontSize: 16 }}>Days: {data.days}</Text>
+          <Text style={{ fontSize: 16 }}>Total Price: ${data.amount}</Text>
           <Text style={{ fontSize: 16 }}>Pick up day: {date}</Text>
         </View>
         <Image
-          source={{ uri: data.bike.img }}
+          source={{ uri: data.bikeImg }}
           style={{
             width: 90,
             height: 90,
