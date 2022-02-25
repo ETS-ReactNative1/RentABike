@@ -7,6 +7,7 @@ import { Picker } from 'react-native-picker-picker-fix';
 import { Formik } from 'formik';
 import { useState } from 'react';
 import { stylesForm } from './stylesForm';
+import { colors } from '../../../colors';
 
 export function StepTwo(props) {
   const [city, setCity] = useState(props.data.city || 'Trujillo');
@@ -35,7 +36,7 @@ export function StepTwo(props) {
               <Text style={stylesForm.title}>Time to Rent your Bike</Text>
               <Text style={stylesForm.label}>What year is your bike?</Text>
               <TextInput
-                activeUnderlineColor='#7C8C03'
+                activeUnderlineColor={colors.primary}
                 name='year'
                 placeholder='2018'
                 style={stylesForm.textInput}
@@ -67,7 +68,7 @@ export function StepTwo(props) {
               </Picker>
               <Text style={stylesForm.label}>Wheel Size</Text>
               <TextInput
-                activeUnderlineColor='#7C8C03'
+                activeUnderlineColor={colors.primary}
                 name='height'
                 placeholder='180'
                 style={stylesForm.textInput}
@@ -80,7 +81,7 @@ export function StepTwo(props) {
               )}
               <Text style={stylesForm.label}>How much for a day?</Text>
               <TextInput
-                activeUnderlineColor='#7C8C03'
+                activeUnderlineColor={colors.primary}
                 name='dailyPrice'
                 placeholder='30'
                 style={stylesForm.textInput}
@@ -96,7 +97,7 @@ export function StepTwo(props) {
                 onPress={handleSubmit}
                 disabled={!isValid}
                 mode='contained'
-                color='#7C8C03'
+                color={colors.primary}
                 style={styles.submitButton}
               >
                 Siguiente

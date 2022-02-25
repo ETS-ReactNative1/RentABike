@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../../colors';
 export const stylesForm = StyleSheet.create({
   container: {
     width: '100%',
     minHeight: 650,
-    maxHeight:'100%',
-    backgroundColor: '#e6e6e6',
+    maxHeight: '100%',
+    backgroundColor: colors.background,
     paddingHorizontal: 26,
   },
   formContainer: {
@@ -12,11 +13,11 @@ export const stylesForm = StyleSheet.create({
     minHeight: 300,
     alignItems: 'center',
     backgroundColor: 'white',
-    backgroundColor: '#e6e6e6',
+    backgroundColor: colors.background,
     paddingBottom: 40,
   },
   title: {
-    color: '#7C8C03',
+    color: colors.dark2,
     fontSize: 42,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -24,7 +25,7 @@ export const stylesForm = StyleSheet.create({
     marginTop: 40,
   },
   label: {
-    color: '#7C8C03',
+    color: colors.dark2,
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'left',

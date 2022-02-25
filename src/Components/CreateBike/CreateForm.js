@@ -18,6 +18,7 @@ import {
   query,
   where,
 } from 'firebase/firestore';
+import { colors } from '../../colors';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -116,6 +117,7 @@ export function CreateForm(props) {
       next={handleNextStep}
       data={data}
       setData={setData}
+      edit={props.params ? true : false}
     />,
     <StepTwo
       key='StepTwo'
@@ -130,5 +132,9 @@ export function CreateForm(props) {
       data={data}
     />,
   ];
-  return <ScrollView>{!loading && steps[currentStep]}</ScrollView>;
+  return (
+    <ScrollView style={{ backgroundColor: colors.background }}>
+      {!loading && steps[currentStep]}
+    </ScrollView>
+  );
 }

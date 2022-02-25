@@ -35,6 +35,7 @@ export default {
       supportsTablet: true,
     },
     android: {
+      package: 'com.fabrizziodbc.rentabike',
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#FFFFFF',

@@ -8,6 +8,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { styles } from '../../Login/styles';
 import uuid from 'uuid';
 import { stylesForm } from './stylesForm';
+import { colors } from '../../../colors';
 
 export function StepOne(props) {
   const [updatingPhoto, setUpdatingPhoto] = useState(true);
@@ -94,7 +95,7 @@ export function StepOne(props) {
               <Text style={stylesForm.title}>Time to Rent your Bike</Text>
               <Text style={stylesForm.label}>What is your bike model?</Text>
               <TextInput
-                activeUnderlineColor='#7C8C03'
+                activeUnderlineColor={colors.primary}
                 name='model'
                 placeholder='Montra Helicon Disc'
                 style={stylesForm.textInput}
@@ -107,7 +108,7 @@ export function StepOne(props) {
               )}
               <Text style={stylesForm.label}>What kind of bike is it?</Text>
               <TextInput
-                activeUnderlineColor='#7C8C03'
+                activeUnderlineColor={colors.primary}
                 name='type'
                 placeholder='Muntain'
                 style={stylesForm.textInput}
@@ -126,16 +127,16 @@ export function StepOne(props) {
               <Button
                 onPress={pickImage}
                 mode='contained'
-                color='#B9BF04'
+                color={colors.backgroundDarker}
                 loading={loading}
               >
                 Upload a Photo
               </Button>
               <Button
                 onPress={handleSubmit}
-                disabled={(!isValid, updatingPhoto)}
+                disabled={!props.edit ? (!isValid, updatingPhoto) : (!isValid, loading)}
                 mode='contained'
-                color='#7C8C03'
+                color={colors.primary}
                 style={styles.submitButton}
               >
                 Siguiente

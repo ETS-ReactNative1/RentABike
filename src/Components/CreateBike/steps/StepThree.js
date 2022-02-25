@@ -7,6 +7,7 @@ import { Picker } from 'react-native-picker-picker-fix';
 import { Formik } from 'formik';
 import { useState } from 'react';
 import { stylesForm } from './stylesForm';
+import { colors } from '../../../colors';
 
 export function StepThree(props) {
   const [helmets, setHelmets] = useState(Number(props.data.helmets) || 'None');
@@ -97,10 +98,10 @@ export function StepThree(props) {
                 onPress={handleSubmit}
                 disabled={!isValid}
                 mode='contained'
-                color='#7C8C03'
+                color={colors.primary}
                 style={styles.submitButton}
               >
-                Send
+                Create!
               </Button>
             </>
           )}
