@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "908783640565",
+    "project_id": "rent-abike",
+    "storage_bucket": "rent-abike.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908783640565:android:3140e9a19af7aa53e2cabc",
+        "android_client_info": {
+          "package_name": "com.fabrizziodbc.rentabike"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908783640565-4o2kg95vs3dbqjvnkme0oggbscuq3721.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCyZtKtKE4E-x_bpPDL_ve-3If33usFR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "908783640565-4o2kg95vs3dbqjvnkme0oggbscuq3721.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
