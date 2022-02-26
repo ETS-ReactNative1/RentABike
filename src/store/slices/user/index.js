@@ -11,6 +11,7 @@ const db = getFirestore();
 const initialState = {
   userId: null,
   userData: [],
+  currentToken: '',
 };
 
 export const userSlice = createSlice({
@@ -21,6 +22,9 @@ export const userSlice = createSlice({
       state.userData = action.payload;
       state.userId = auth.currentUser.uid;
     },
+    setToken: (state, action) => {
+      state.currentToken = action.payload;
+    },
     logOut: (state, action) => {
       state.userData = [];
       state.userId = null;
@@ -29,7 +33,7 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setUserData, logOut } = userSlice.actions;
+export const { setUserData, setToken, logOut } = userSlice.actions;
 
 export default userSlice.reducer;
 export const fetchUserData = () => async (dispatch) => {

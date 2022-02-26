@@ -1,12 +1,11 @@
 import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Setting a timer for a long period of time']);
 import { StatusBar } from 'expo-status-bar';
-import Device from 'expo-device';
 import { isDevice } from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform, StyleSheet } from 'react-native';
+import { Platform } from 'react-native';
 /* import { initStripe } from '@stripe/stripe-react-native'; */
 import { StripeProvider } from '@stripe/stripe-react-native';
 
@@ -97,11 +96,3 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
