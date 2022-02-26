@@ -11,6 +11,7 @@ import {
   query,
   where,
   updateDoc,
+  getDocs,
 } from 'firebase/firestore';
 import { registerForPushNotifications } from './registerForPushNotifications';
 
@@ -21,28 +22,22 @@ const db = getFirestore();
 export const setDeviceToken = async (userId) => {
   try {
     const token = await registerForPushNotifications();
-    console.log('token desde login util :', token);
+    await updateDoc(doc(db, 'User', userId), {
+      deviceToken: token,
+    });
     const userRef = collection(db, 'User');
     const q = query(userRef, where('deviceToken', '==', token));
-    onSnapshot(q, async (querySnapshot) => {
-      const tokenUser = await querySnapshot.docs.map((doc) => {
-        return {
-          ...doc.data(),
-          id: doc.id,
-        };
-      });
-      await tokenUser.forEach(async (e) => {
-        if (e.id !== userId) {
-          await updateDoc(doc(db, 'User', e.id), {
-            deviceToken: '',
-          });
-        }
-      });
-      await updateDoc(doc(db, 'User', userId), {
-        deviceToken: token,
-      });
-      console.log('token actualizado!');
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (user) => {
+      if (user.id !== userId) {
+        console.log('user.id :', user.id);
+        await updateDoc(doc(db, 'User', user.id), {
+          deviceToken: '',
+        });
+      }
     });
+    console.log('token actualizado!');
   } catch (e) {
     console.error('Error adding document: ', e);
   }
