@@ -23,13 +23,6 @@ const NavigationStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name='OnboardingScreen'
-        component={OnboardingScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
         name='LoginScreen'
         component={LoginScreen}
         options={{
@@ -84,6 +77,13 @@ const NavigationStack = () => {
         name='ChatScreen'
         component={ChatScreen}
         options={header(() => navigation.goBack())}
+      />
+      <Stack.Screen
+        name='OnboardingScreen'
+        component={OnboardingScreen}
+        options={{
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );

@@ -118,7 +118,7 @@ export default function Profile() {
     }
   };
   const handleSubmit = async (values) => {
-    await setDoc(doc(db, 'User', data.uid), { ...values, img: imageUrl });
+    await setDoc(doc(db, 'User', idPrueba), { ...values, img: imageUrl });
     console.log('enviar datos a firestore');
   };
   const changePasswordHandler = async () => {
@@ -260,7 +260,7 @@ export default function Profile() {
                   <Button
                     onPress={() =>
                       navigation.navigate('HistoryScreen', {
-                        userId: data.uid,
+                        userId: idPrueba,
                       })
                     }
                     mode='contained'

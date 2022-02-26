@@ -18,6 +18,7 @@ const RentTabNavigation = (props) => {
   console.log('params.id :', params.type);
   return (
     <Tab.Navigator
+      initialRouteName='RenterHomeScreen'
       screenOptions={{
         tabBarStyle: {
           backgroundColor: colors.dark2,
