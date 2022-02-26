@@ -12,15 +12,16 @@ import {
   where,
   updateDoc,
 } from 'firebase/firestore';
+import { registerForPushNotifications } from './registerForPushNotifications';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore();
 
-const token = 'holi';
-
 export const setDeviceToken = async (userId) => {
   try {
+    const token = await registerForPushNotifications();
+    console.log('token desde login util :', token);
     const userRef = collection(db, 'User');
     const q = query(userRef, where('deviceToken', '==', token));
     onSnapshot(q, async (querySnapshot) => {
@@ -35,10 +36,10 @@ export const setDeviceToken = async (userId) => {
           await updateDoc(doc(db, 'User', e.id), {
             deviceToken: '',
           });
-          await updateDoc(doc(db, 'User', userId), {
-            deviceToken: token,
-          });
         }
+      });
+      await updateDoc(doc(db, 'User', userId), {
+        deviceToken: token,
       });
       console.log('token actualizado!');
     });
