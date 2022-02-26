@@ -2,6 +2,7 @@ import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Setting a timer for a long period of time']);
 import { StatusBar } from 'expo-status-bar';
 import Device from 'expo-device';
+import { isDevice } from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useState, useEffect, useRef } from 'react';
@@ -53,7 +54,7 @@ export default function App() {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
-
+  console.log('your token :', expoPushToken);
   return (
     <Provider store={store}>
       <StripeProvider publishableKey={publishableKey}>
@@ -67,7 +68,7 @@ export default function App() {
 
 async function registerForPushNotificationsAsync() {
   let token;
-  if (Device.isDevice) {
+  if (isDevice) {
     const { status: existingStatus } =
       await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
