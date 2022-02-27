@@ -29,6 +29,11 @@ const prefix = Linking.createURL('/');
 export default function App() {
   const linking = {
     prefixes: [prefix],
+    config: {
+      screens: {
+        messages: 'MessageScreen',
+      },
+    },
   };
   const lastNotificationResponse = Notifications.useLastNotificationResponse();
   const [expoPushToken, setExpoPushToken] = useState('');

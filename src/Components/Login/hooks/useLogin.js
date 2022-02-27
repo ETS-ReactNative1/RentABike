@@ -18,8 +18,7 @@ export const useLogin = async (email, password, navigation, setLoading) => {
     console.log(user.uid);
     await setDeviceToken(user.uid);
     setLoading(false);
-    navigation.replace('OnboardingScreen');
-    /* navigation.replace('TypeOfUserScreen'); */
+    navigation.replace('TypeOfUserScreen');
   } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
