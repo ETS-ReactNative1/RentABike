@@ -33,6 +33,7 @@ export function Bike(props) {
   const handleSubmit = () => {
     navigation.navigate('ReserveScreen', {
       owner: params.owner,
+      ownerPushToken: owner.deviceToken,
       bike: params.id,
     });
   };

@@ -8,6 +8,7 @@ import {
   doc,
   getDoc,
   setDoc,
+  updateDoc,
 } from 'firebase/firestore';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Loading from '../Loading';
@@ -20,14 +21,17 @@ import {
 } from '@stripe/stripe-react-native';
 
 const db = getFirestore();
-const testUri =
+const paymentUri =
   'https://us-central1-rent-abike.cloudfunctions.net/createPaymentIntent';
+const notificationUri =
+  'https://us-central1-rent-abike.cloudfunctions.net/sendPushNotification';
 export function CreditCard(props) {
   const {
     navigation,
     route: { params },
   } = props;
-
+  const deviceToken = params.ownerPushToken;
+  console.log('deviceToken :', deviceToken);
   const [userData, setUserData] = useState({});
   const [ownerData, setOwnerData] = useState({});
   const [loading2, setLoading2] = useState(false);
@@ -37,7 +41,7 @@ export function CreditCard(props) {
   const handlePayPress = async () => {
     setLoading2(true);
     try {
-      const response = await fetch(testUri, {
+      const response = await fetch(paymentUri, {
         method: 'POST',
         header: {
           'Content-Type': 'application/json',
@@ -61,9 +65,20 @@ export function CreditCard(props) {
         userName: userData.name,
         userImg: userData.img,
       });
-      await setDoc(doc(db, 'Bike', params.bikeId), {
+      await updateDoc(doc(db, 'Bike', params.bikeId), {
         available: false,
       });
+      const sendNotification = await fetch(notificationUri, {
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pushToken: deviceToken,
+          message: `${userData.name} rented your bike, send him a message to coordinate the collection. `,
+        }),
+      });
+      console.log(sendNotification.json());
       const data = await response.json();
       console.log('data :', data);
       const clientSecret = await data.paymentIntent;
