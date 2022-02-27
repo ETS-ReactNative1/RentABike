@@ -1,6 +1,7 @@
 import 'dotenv/config';
 export default {
   expo: {
+    scheme: 'rentabike',
     name: 'rentabikejs',
     slug: 'rentabikejs',
     version: '1.0.0',

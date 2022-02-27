@@ -5,7 +5,8 @@ import { isDevice } from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useState, useEffect, useRef } from 'react';
-import { Platform } from 'react-native';
+/* import { Platform, Linking } from 'react-native'; */
+import * as Linking from 'expo-linking';
 /* import { initStripe } from '@stripe/stripe-react-native'; */
 import { StripeProvider } from '@stripe/stripe-react-native';
 import { registerForPushNotifications } from './src/utils/registerForPushNotifications';
@@ -23,8 +24,13 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
+const prefix = Linking.createURL('/');
 
 export default function App() {
+  const linking = {
+    prefixes: [prefix],
+  };
+  const lastNotificationResponse = Notifications.useLastNotificationResponse();
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
@@ -54,10 +60,22 @@ export default function App() {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
+  useEffect(() => {
+    if (
+      lastNotificationResponse &&
+      lastNotificationResponse.notification.request.content.data.url &&
+      lastNotificationResponse.actionIdentifier ===
+        Notifications.DEFAULT_ACTION_IDENTIFIER
+    ) {
+      Linking.openURL(
+        lastNotificationResponse.notification.request.content.data.url,
+      );
+    }
+  }, [lastNotificationResponse]);
   return (
     <Provider store={store}>
       <StripeProvider publishableKey={publishableKey}>
-        <NavigationContainer>
+        <NavigationContainer linking={linking}>
           <NavigationStack />
         </NavigationContainer>
       </StripeProvider>
