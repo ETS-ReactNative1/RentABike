@@ -27,7 +27,8 @@ export function Chat(props) {
   console.log(props.navigation.route.params);
   const navigation = useNavigation();
 
-  const { rentId, ownerName, bikeModel } = props.navigation.route.params;
+  const { rentId, ownerName, bikeModel, ownerDeviceToken } =
+    props.navigation.route.params;
   console.log('mis params :', rentId, ownerName, ownerDeviceToken, bikeModel);
   const [messages, setMessages] = useState([]);
   const notificationUri =
