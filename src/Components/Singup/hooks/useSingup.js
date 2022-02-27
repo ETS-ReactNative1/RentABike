@@ -52,7 +52,7 @@ export const useSingup = async (
       email,
       phoneNumber,
       img: 'https://firebasestorage.googleapis.com/v0/b/rent-abike.appspot.com/o/cd579617-31a7-42f8-b3b7-4ff46463ae0f?alt=media&token=572d7dbc-2cd6-4999-8ced-b4f32b44029d',
-      token,
+      deviceToken: token,
     });
     await setDeviceToken(uid);
     setLoading(false);
