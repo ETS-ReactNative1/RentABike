@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import { colors } from './src/colors';
 export default {
   expo: {
     scheme: 'rentabike',
@@ -32,7 +31,6 @@ export default {
         'expo-notifications',
         {
           icon: './assets/adaptive-icon.png',
-          color: colors.background2,
         },
       ],
     ],
