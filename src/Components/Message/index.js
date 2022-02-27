@@ -27,28 +27,31 @@ import { firebaseConfig } from '../../../config/database/firebase';
 import { MessageCard } from './MessageCard';
 import { colors } from '../../colors';
 import { useSelector, useDispatch } from 'react-redux';
+import { fetchRentData } from '../../store/slices/rent';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore();
 
 export const Message = ({ navigation }) => {
+  const dispatch = useDispatch();
   const { rentData: dataPrueba } = useSelector((state) => state.rent);
   const [loading, setLoading] = useState(false);
   const rentRef = collection(db, 'Rent');
   const bikeRef = collection(db, 'Bike');
   const ownerRef = collection(db, 'User');
   const q = query(rentRef, where('userId', '==', auth.currentUser.uid));
-  const [bikeArray, setBikeArray] = useState([]);
-  const [ownerArray, setOwnerArray] = useState([]);
 
- 
   const [historyData, setHistoryData] = useState([]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setLoading(true);
+    const fetchRent = dispatch(fetchRentData());
     setHistoryData(dataPrueba);
     setLoading(false);
+    return () => {
+      fetchRent();
+    };
   }, []);
   console.log(historyData);
   return (

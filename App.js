@@ -28,10 +28,14 @@ const prefix = Linking.createURL('/');
 
 export default function App() {
   const linking = {
-    prefixes: [prefix],
+    prefixes: [prefix, 'rentabike://'],
     config: {
       screens: {
-        messages: 'MessageScreen',
+        RentTabNavigation: {
+          screens: {
+            MessageScreen: 'messages',
+          },
+        },
       },
     },
   };
@@ -72,6 +76,10 @@ export default function App() {
       lastNotificationResponse.actionIdentifier ===
         Notifications.DEFAULT_ACTION_IDENTIFIER
     ) {
+      console.log(
+        'Enviar a :',
+        lastNotificationResponse.notification.request.content.data.url,
+      );
       Linking.openURL(
         lastNotificationResponse.notification.request.content.data.url,
       );
