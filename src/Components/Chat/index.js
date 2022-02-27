@@ -28,9 +28,10 @@ export function Chat(props) {
   const navigation = useNavigation();
 
   const { rentId, ownerName, bikeModel } = props.navigation.route.params;
-  console.log('mis params :', rentId, ownerName, bikeModel);
+  console.log('mis params :', rentId, ownerName, ownerDeviceToken, bikeModel);
   const [messages, setMessages] = useState([]);
-
+  const notificationUri =
+    'https://us-central1-rent-abike.cloudfunctions.net/sendPushNotification';
   useLayoutEffect(() => {
     navigation.setOptions({
       title: `${ownerName.split(' ')[0]} (${bikeModel})`,
@@ -54,7 +55,7 @@ export function Chat(props) {
     return unsubscribe;
   }, []);
 
-  const onSend = useCallback((messages = []) => {
+  const onSend = useCallback(async (messages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages),
     );
@@ -67,6 +68,17 @@ export function Chat(props) {
       text,
       user,
     });
+    const sendNotification = await fetch(notificationUri, {
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        pushToken: deviceToken,
+        message: `New message from: ${userData.name}.`,
+      }),
+    });
+    console.log(sendNotification.json());
   }, []);
 
   return (
@@ -83,14 +95,9 @@ export function Chat(props) {
         borderRadius: 20,
       }}
       user={{
-        _id: auth?.currentUser?.email, //user.id , luego usar redux para el id
-        avatar: userData.img, // user.img
+        _id: auth?.currentUser?.email,
+        avatar: userData.img,
       }}
     />
-    // <>
-    //   {messages.map(message => (
-    //     <Text key={message._id}>{message.text}</Text>
-    //   ))}
-    // </>
   );
 }

@@ -42,16 +42,7 @@ export const Message = ({ navigation }) => {
   const [bikeArray, setBikeArray] = useState([]);
   const [ownerArray, setOwnerArray] = useState([]);
 
-  // const historyData = dataPrueba.map((re) => {
-  //   const ownerArr = ownerArray.find((own) => own.ownerId === re.ownerId);
-  //   const bikeArr = bikeArray.find((bik) => bik.bikeId === re.bikeId);
-  //   /* console.log({
-  //     rent: { ...re },
-  //     owner: { ...ownerArr },
-  //     bike: { ...bikeArr },
-  //   }); */
-  //   return { rent: { ...re }, owner: { ...ownerArr }, bike: { ...bikeArr } };
-  // });
+ 
   const [historyData, setHistoryData] = useState([]);
 
   useEffect(() => {
@@ -84,14 +75,3 @@ export const Message = ({ navigation }) => {
     </>
   );
 };
-
-// querySnapshot.docs
-//           .map((doc) => ({
-//             _id: doc.id,
-//             ownerId: doc.data().ownerId,
-//             bikeId: doc.data().bikeId,
-//             userId: doc.data().userId,
-//             pickUp: doc.data().pickUp,
-//             days: doc.data().days,
-//             amount: doc.data().amount,
-//           }))

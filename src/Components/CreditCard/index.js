@@ -59,6 +59,7 @@ export function CreditCard(props) {
         bikeImg: params.bikeImg,
         bikeCity: params.bikeCity,
         ownerId: params.ownerId,
+        ownerDeviceToken: deviceToken,
         ownerName: ownerData.name,
         ownerImg: ownerData.img,
         userId: params.userId,

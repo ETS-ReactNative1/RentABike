@@ -12,6 +12,7 @@ export function MessageCard({ item, owner }) {
         navigation.navigate('ChatScreen', {
           rentId: item.rentId,
           ownerName: item.ownerName,
+          ownerDeviceToken: item.ownerDeviceToken,
           bikeModel: item.bikeModel,
         })
       }
