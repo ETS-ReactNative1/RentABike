@@ -33,7 +33,7 @@ export default function App() {
       screens: {
         RentTabNavigation: {
           screens: {
-            MessageScreen: 'messages',
+            OwnerMessagesScreen: 'messages',
           },
         },
       },
