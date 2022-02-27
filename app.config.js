@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { colors } from './src/colors';
 export default {
   expo: {
     scheme: 'rentabike',
@@ -25,6 +26,13 @@ export default {
         '@stripe/stripe-react-native',
         {
           enableGooglePay: true,
+        },
+      ],
+      [
+        'expo-notifications',
+        {
+          icon: './assets/adaptive-icon.png',
+          color: colors.background2,
         },
       ],
     ],
