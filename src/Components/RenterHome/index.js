@@ -38,7 +38,7 @@ export const RenterHome = () => {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore();
   const usersRef = collection(db, 'Bike');
-  const q = query(usersRef /* , where('email', '==', 'Juankto@gmail.com') */);
+  const q = query(usersRef);
   const [bikes, setBikes] = useState([]);
   useEffect(() => {
     setLoading(true);
@@ -50,9 +50,9 @@ export const RenterHome = () => {
     setBikes(dataPrueba);
     setLoading(false);
     return () => {
+      fetchBikes();
       fetchRent();
       fetchUser();
-      fetchBikes();
     };
   }, []);
   return (

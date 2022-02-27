@@ -12,7 +12,6 @@ export default {
       resizeMode: 'contain',
       backgroundColor: '#ffffff',
     },
-
     plugins: [
       [
         'expo-image-picker',

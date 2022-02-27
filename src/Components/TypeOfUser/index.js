@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Text } from 'react-native';
 import { Card, Button, Title } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './styles';
+import { useDispatch } from 'react-redux';
+import { fetchBikeData, fetchUserBikeData } from '../../store/slices/bike';
+import Loading from '../Loading';
 
 export const TypeOfUser = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  useLayoutEffect(() => {
+    setLoading(true);
+    const fetchBikes = dispatch(fetchBikeData());
+    const fetchUserBikes = dispatch(fetchUserBikeData());
+    setLoading(false);
+    return () => {
+      fetchBikes();
+      fetchUserBikes();
+    };
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
+      <Loading loading={loading} />
       <Text style={styles.title}>Login as:</Text>
       <Card
         style={styles.card}
