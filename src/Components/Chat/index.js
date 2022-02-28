@@ -38,6 +38,7 @@ export function Chat(props) {
       title: `${ownerName.split(' ')[0]} (${bikeModel})`,
     });
   }, [navigation]);
+
   useLayoutEffect(() => {
     const collectionRef = collection(db, `Rent/${rentId}/Chat`); // en vez de "chats", "Rent/:id/Chat"
     const q = query(collectionRef, orderBy('createdAt', 'desc'));
@@ -69,17 +70,17 @@ export function Chat(props) {
       text,
       user,
     });
-    const sendNotification = await fetch(notificationUri, {
+
+    await fetch(notificationUri, {
       method: 'POST',
       header: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        pushToken: deviceToken,
+        pushToken: ownerDeviceToken,
         message: `New message from: ${userData.name}.`,
       }),
     });
-    console.log(sendNotification.json());
   }, []);
 
   return (

@@ -45,7 +45,11 @@ const RentTabNavigation = (props) => {
       <Tab.Screen
         name='MessageScreen'
         component={
-          params.type === 'renter' ? MessageScreen : OwnerMessagesScreen
+          !params.type
+            ? OwnerMessagesScreen
+            : params.type === 'owner'
+            ? OwnerMessagesScreen
+            : MessageScreen
         }
         options={{
           headerShown: false,
