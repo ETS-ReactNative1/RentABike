@@ -177,7 +177,7 @@ export function Reserve(props) {
                 }}
               >
                 <TextInput
-                  label={'How much days'}
+                  label={'How many days'}
                   placeholder='1'
                   style={{
                     width: '100%',

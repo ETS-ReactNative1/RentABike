@@ -76,7 +76,7 @@ export function CreditCard(props) {
         },
         body: JSON.stringify({
           pushToken: deviceToken,
-          message: `${userData.name} rented your bike, send him a message to coordinate the collection. `,
+          message: `${userData.name} rented your bike, send him a message to coordinate the pick up location.`,
         }),
       });
       console.log(sendNotification.json());

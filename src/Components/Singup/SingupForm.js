@@ -134,7 +134,7 @@ export const SingupForm = ({ navigation, setLoading }) => {
               color={colors.primary}
               style={styles.submitButton}
             >
-              Login
+              Sing up
             </Button>
           </>
         )}

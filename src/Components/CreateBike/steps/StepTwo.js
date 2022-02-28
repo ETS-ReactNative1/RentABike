@@ -70,7 +70,7 @@ export function StepTwo(props) {
               <TextInput
                 activeUnderlineColor={colors.primary}
                 name='height'
-                placeholder='180'
+                placeholder="6'9''"
                 style={stylesForm.textInput}
                 onChangeText={handleChange('height')}
                 onBlur={handleBlur('height')}
